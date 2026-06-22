@@ -7,12 +7,10 @@
 <meta name="description" content="astra-meta: KOBİ ve e-ticaret markalarına reklamla müşteri getiren, AI otomasyonla yöneten bütünsel büyüme ortağı.">
 
 <!-- ════════════════════════════════════════════════════════════════
-     DÜZENLENECEK ALANLAR:
-     1. WhatsApp: "905XXXXXXXXX" yazan yeri kendi numaranla değiştir (90 ile başla, boşluksuz)
-     2. FORM (Web3Forms): web3forms.com'dan aydin@astra-meta.com ile ücretsiz Access Key al,
-        aşağıda BURAYA_WEB3FORMS_ANAHTARI yazan yere yapıştır. Mesajlar mailine düşer.
-     3. DİL: Site TR/EN. Türkiye dışından girenler otomatik İngilizce görür (IP ülkesine göre).
-        Üstteki TR/EN düğmesiyle elle değiştirilebilir; seçim hatırlanır.
+     astra-meta — tek dosya statik site (HTML + CSS + JS)
+     • Dil: TR/EN. Türkiye dışından girenler otomatik İngilizce (IP'ye göre);
+       üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır.
+     • Form: Web3Forms ile çalışır; mesajlar railetisimai1@gmail.com'a düşer.
      ════════════════════════════════════════════════════════════════ -->
 
 <meta property="og:title" content="astra-meta — Getir. Yönet. Büyü.">
@@ -394,8 +392,7 @@
       <h2 data-i18n="cta.h2">İşini büyütmeye hazır mısın?</h2>
       <p data-i18n="cta.p">15 dakikada ne yapabileceğimizi konuşalım. İlk görüşme ücretsiz.</p>
       <div class="cta-row">
-        <a id="waLink" class="btn btn-primary" href="https://wa.me/905XXXXXXXXX?text=Merhaba%2C%20astra-meta%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener" data-i18n="cta.wa">WhatsApp'tan yaz</a>
-        <a class="btn btn-ghost" href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
+        <a class="btn btn-primary" href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
       </div>
     </div>
   </div>
@@ -521,7 +518,6 @@
     const md=document.querySelector('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
     const mt=document.getElementById('marqueeTrack');
     if(mt&&d.marquee){mt.innerHTML='';d.marquee.concat(d.marquee).forEach(t=>{const s=document.createElement('span');s.textContent=t;mt.appendChild(s);});}
-    const wa=document.getElementById('waLink');if(wa&&d["wa.text"])wa.href='https://wa.me/905XXXXXXXXX?text='+encodeURIComponent(d["wa.text"]);
     const tg=document.getElementById('langToggle');if(tg)tg.textContent=lang==='tr'?'EN':'TR';
     currentLang=lang;
     if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}

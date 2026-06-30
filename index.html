@@ -132,6 +132,23 @@
   .bento .ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
     background:rgba(237,58,162,.14);border:1px solid rgba(237,58,162,.3);margin-bottom:18px;font-size:20px}
 
+  .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .price-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:38px 30px;display:flex;flex-direction:column;position:relative}
+  .price-card.featured{border-color:rgba(237,58,162,.5);background:linear-gradient(160deg,rgba(237,58,162,.10),rgba(80,171,197,.04));box-shadow:0 24px 70px rgba(237,58,162,.16)}
+  .price-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(100deg,var(--accent),var(--accent-2));color:#08080c;font-size:12px;font-weight:700;padding:6px 15px;border-radius:99px;letter-spacing:.03em;white-space:nowrap}
+  .price-name{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--accent)}
+  .price-amount{font-family:'Space Grotesk',sans-serif;font-size:46px;font-weight:700;margin:12px 0 6px;display:flex;align-items:baseline;gap:7px}
+  .price-amount .per{font-size:15px;font-weight:500;color:var(--muted)}
+  .price-desc{color:var(--muted);font-size:14.5px;margin-bottom:26px;min-height:40px}
+  .price-card ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:30px;flex:1}
+  .price-card li{display:flex;gap:11px;font-size:14.5px;color:var(--text);line-height:1.45}
+  .price-card li::before{content:"✓";color:var(--accent);font-weight:700;flex:none}
+  .price-cta{display:block;text-align:center;font-weight:600;font-size:15px;padding:15px;border-radius:99px;transition:.2s}
+  .price-cta.ghost{border:1px solid var(--line-2);color:var(--text)}
+  .price-cta.ghost:hover{border-color:var(--accent);background:rgba(237,58,162,.08)}
+  .price-cta.solid{background:linear-gradient(100deg,var(--accent),var(--accent-2));color:#08080c}
+  .price-cta.solid:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(237,58,162,.45)}
+
   .diff{background:linear-gradient(160deg,var(--surface),var(--bg));border:1px solid var(--line);
     border-radius:26px;padding:clamp(40px,6vw,72px);text-align:center}
   .diff .quote{font-family:'Space Grotesk',sans-serif;font-size:clamp(25px,4vw,40px);font-weight:600;line-height:1.22;max-width:820px;margin:0 auto 22px;letter-spacing:-.02em}
@@ -178,6 +195,7 @@
     .svc{grid-template-columns:1fr}
     .bento{grid-template-columns:1fr}
     .bento .b.wide{grid-column:span 1}
+    .pricing{grid-template-columns:1fr}
     .tell{grid-template-columns:1fr;gap:32px}
     .row2{grid-template-columns:1fr}
   }
@@ -198,6 +216,7 @@
     <div class="nav-links">
       <a href="#hizmetler" data-i18n="nav.services">Hizmetler</a>
       <a href="#neden" data-i18n="nav.why">Neden biz</a>
+      <a href="#paketler" data-i18n="nav.pricing">Paketler</a>
       <a href="#isinden-bahset" data-i18n="nav.contact">İletişim</a>
     </div>
     <div class="nav-right">
@@ -321,6 +340,64 @@
     <div class="diff reveal">
       <div class="quote" data-i18n-html="diff.quote">“Size kurduğumuz sistemleri <span class="grad">önce kendi işimizde</span> çalıştırıyoruz.”</div>
       <p data-i18n="diff.p">Anlattığımız her şeyi sahada denedik. Bu yüzden vaadimiz cesur ama gerçekçi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING / PAKETLER -->
+<section id="paketler">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker" data-i18n="price.kicker">Paketler</div>
+      <h2 data-i18n="price.h2">Sana uygun paketi seç</h2>
+      <p data-i18n="price.p">Net fiyat, net kapsam. Her pakette 'getir' ve 'yönet' bir arada.</p>
+    </div>
+    <div class="pricing">
+      <!-- Başlangıç -->
+      <div class="price-card reveal">
+        <div class="price-name" data-i18n="price.t1name">Başlangıç</div>
+        <div class="price-amount">$500<span class="per" data-i18n="price.per">/ay</span></div>
+        <div class="price-desc" data-i18n="price.t1desc">Yeni başlayan işletmeler için ilk adım.</div>
+        <ul>
+          <li data-i18n="price.t1f1">Tek platform reklam yönetimi (Meta veya Google)</li>
+          <li data-i18n="price.t1f2">Ayda 1 kampanya kurulumu ve optimizasyonu</li>
+          <li data-i18n="price.t1f3">Lead toplama formu + otomatik yanıt</li>
+          <li data-i18n="price.t1f4">Aylık performans raporu</li>
+          <li data-i18n="price.t1f5">E-posta desteği</li>
+        </ul>
+        <a class="price-cta ghost" href="mailto:aydin@astra-meta.com?subject=astra-meta%20-%20Baslangic%20paketi" data-i18n="price.cta">Başla →</a>
+      </div>
+      <!-- Büyüme (öne çıkan) -->
+      <div class="price-card featured reveal">
+        <div class="price-badge" data-i18n="price.popular">EN POPÜLER</div>
+        <div class="price-name" data-i18n="price.t2name">Büyüme</div>
+        <div class="price-amount">$2,000<span class="per" data-i18n="price.per">/ay</span></div>
+        <div class="price-desc" data-i18n="price.t2desc">Düzenli satış ve ölçeklenme isteyenler için.</div>
+        <ul>
+          <li data-i18n="price.t2f1">Meta + Google reklam yönetimi</li>
+          <li data-i18n="price.t2f2">Sınırsız kampanya + kreatif optimizasyonu</li>
+          <li data-i18n="price.t2f3">WhatsApp &amp; DM otomasyonu</li>
+          <li data-i18n="price.t2f4">Lead takip + CRM entegrasyonu</li>
+          <li data-i18n="price.t2f5">Haftalık raporlama + canlı gösterge paneli</li>
+          <li data-i18n="price.t2f6">Öncelikli destek</li>
+        </ul>
+        <a class="price-cta solid" href="mailto:aydin@astra-meta.com?subject=astra-meta%20-%20Buyume%20paketi" data-i18n="price.cta">Başla →</a>
+      </div>
+      <!-- Ölçek -->
+      <div class="price-card reveal">
+        <div class="price-name" data-i18n="price.t3name">Ölçek</div>
+        <div class="price-amount">$5,000<span class="per" data-i18n="price.per">/ay</span></div>
+        <div class="price-desc" data-i18n="price.t3desc">Ciddi ölçekte büyüyen markalar için.</div>
+        <ul>
+          <li data-i18n="price.t3f1">Çok kanallı reklam (Meta, Google, TikTok)</li>
+          <li data-i18n="price.t3f2">Markaya özel AI otomasyon sistemleri</li>
+          <li data-i18n="price.t3f3">Tam funnel kurulumu + A/B testleri</li>
+          <li data-i18n="price.t3f4">Özel CRM + raporlama otomasyonu</li>
+          <li data-i18n="price.t3f5">Aylık strateji görüşmeleri</li>
+          <li data-i18n="price.t3f6">Özel hesap yöneticisi</li>
+        </ul>
+        <a class="price-cta ghost" href="mailto:aydin@astra-meta.com?subject=astra-meta%20-%20Olcek%20paketi" data-i18n="price.cta">Başla →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -465,6 +542,14 @@
       "form.error":"Bir sorun oldu. Lütfen tekrar dene veya aydin@astra-meta.com'a yaz.",
       "cta.h2":"İşini büyütmeye hazır mısın?","cta.p":"15 dakikada ne yapabileceğimizi konuşalım. İlk görüşme ücretsiz.","cta.wa":"WhatsApp'tan yaz",
       "wa.text":"Merhaba, astra-meta hakkında bilgi almak istiyorum.",
+      "nav.pricing":"Paketler",
+      "price.kicker":"Paketler","price.h2":"Sana uygun paketi seç","price.p":"Net fiyat, net kapsam. Her pakette 'getir' ve 'yönet' bir arada.","price.per":"/ay","price.popular":"EN POPÜLER","price.cta":"Başla →",
+      "price.t1name":"Başlangıç","price.t1desc":"Yeni başlayan işletmeler için ilk adım.",
+      "price.t1f1":"Tek platform reklam yönetimi (Meta veya Google)","price.t1f2":"Ayda 1 kampanya kurulumu ve optimizasyonu","price.t1f3":"Lead toplama formu + otomatik yanıt","price.t1f4":"Aylık performans raporu","price.t1f5":"E-posta desteği",
+      "price.t2name":"Büyüme","price.t2desc":"Düzenli satış ve ölçeklenme isteyenler için.",
+      "price.t2f1":"Meta + Google reklam yönetimi","price.t2f2":"Sınırsız kampanya + kreatif optimizasyonu","price.t2f3":"WhatsApp & DM otomasyonu","price.t2f4":"Lead takip + CRM entegrasyonu","price.t2f5":"Haftalık raporlama + canlı gösterge paneli","price.t2f6":"Öncelikli destek",
+      "price.t3name":"Ölçek","price.t3desc":"Ciddi ölçekte büyüyen markalar için.",
+      "price.t3f1":"Çok kanallı reklam (Meta, Google, TikTok)","price.t3f2":"Markaya özel AI otomasyon sistemleri","price.t3f3":"Tam funnel kurulumu + A/B testleri","price.t3f4":"Özel CRM + raporlama otomasyonu","price.t3f5":"Aylık strateji görüşmeleri","price.t3f6":"Özel hesap yöneticisi",
       "footer.email":"E-posta","footer.copy":"© 2026 astra-meta · Getir. Yönet. Büyü."
     },
     en:{
@@ -507,6 +592,14 @@
       "form.error":"Something went wrong. Please try again or email aydin@astra-meta.com.",
       "cta.h2":"Ready to grow your business?","cta.p":"Let's spend 15 minutes on what we can do for you. First consultation is free.","cta.wa":"Message on WhatsApp",
       "wa.text":"Hi, I'd like to learn more about astra-meta.",
+      "nav.pricing":"Pricing",
+      "price.kicker":"Pricing","price.h2":"Choose the plan that fits","price.p":"Clear price, clear scope. Every plan combines 'acquire' and 'automate'.","price.per":"/mo","price.popular":"MOST POPULAR","price.cta":"Get started →",
+      "price.t1name":"Starter","price.t1desc":"The first step for businesses just starting out.",
+      "price.t1f1":"Single-platform ad management (Meta or Google)","price.t1f2":"1 campaign setup & optimization per month","price.t1f3":"Lead capture form + auto-reply","price.t1f4":"Monthly performance report","price.t1f5":"Email support",
+      "price.t2name":"Growth","price.t2desc":"For those who want steady sales and scale.",
+      "price.t2f1":"Meta + Google ad management","price.t2f2":"Unlimited campaigns + creative optimization","price.t2f3":"WhatsApp & DM automation","price.t2f4":"Lead tracking + CRM integration","price.t2f5":"Weekly reporting + live dashboard","price.t2f6":"Priority support",
+      "price.t3name":"Scale","price.t3desc":"For established brands scaling seriously.",
+      "price.t3f1":"Multi-channel ads (Meta, Google, TikTok)","price.t3f2":"Custom AI automation systems","price.t3f3":"Full funnel setup + A/B testing","price.t3f4":"Custom CRM + reporting automation","price.t3f5":"Monthly strategy calls","price.t3f6":"Dedicated account manager",
       "footer.email":"Email","footer.copy":"© 2026 astra-meta · Acquire. Automate. Grow."
     }
   };

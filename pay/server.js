@@ -33,6 +33,14 @@ const SUPPORT_MAX = 25000;
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+// Shows the customer which provider will take the payment.
+const methodBlock = `<label>Payment method</label>
+<div class="method">
+  <span class="radio" aria-hidden="true"></span>
+  <span class="method-logo"><img src="${SITE_URL}/bankful-logo.svg" alt="Bankful" width="94" height="18"></span>
+  <span class="method-text"><strong>Bankful</strong><small>Secure crypto payment</small></span>
+</div>`;
+
 // Amounts arrive from a user-controlled query string, so bound and normalise
 // before they reach the signed request.
 function normaliseAmount(raw) {
@@ -72,6 +80,15 @@ function page(title, inner) {
   .total{display:flex;justify-content:space-between;background:#141314;border-radius:10px;padding:14px;margin-top:20px;font-weight:700}
   a{color:var(--blue)}
   .note{font-size:.75rem;color:#8a888b;margin-top:16px;text-align:center}
+  .method{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:#141314;
+    border:1px solid var(--blue);box-shadow:0 0 0 3px rgba(80,171,197,.12);margin-top:6px}
+  .radio{flex:none;width:16px;height:16px;border-radius:50%;border:2px solid var(--blue);position:relative}
+  .radio::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--blue)}
+  .method-logo{flex:none;background:#fff;border-radius:7px;padding:6px 9px;display:flex;align-items:center}
+  .method-logo img{display:block;height:18px;width:auto}
+  .method-text{display:flex;flex-direction:column;line-height:1.3}
+  .method-text strong{font-size:.9rem}
+  .method-text small{font-size:.72rem;color:#b5b3b6}
 </style></head><body><div class="card">${inner}</div></body></html>`;
 }
 
@@ -92,9 +109,10 @@ function supportPage() {
   <input name="amount" id="amountInput" type="number" min="${SUPPORT_MIN}" max="${SUPPORT_MAX}" step="0.01" placeholder="0.00" required>
   <label>What is this payment for? <span style="opacity:.6">(optional)</span></label>
   <input name="note" maxlength="60" placeholder="e.g. Project deposit / Invoice #123">
+  ${methodBlock}
   <button type="submit">Continue →</button>
 </form>
-<p class="note">Payments are processed on our provider's secure page.<br>
+<p class="note">Payments are processed on Bankful's secure page.<br>
 <a href="${SITE_URL}">← astra-meta.com</a></p>
 <style>
   .amt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 6px}
@@ -153,10 +171,11 @@ function checkoutForm(pkgKey, pkg) {
       <option value="CH">Switzerland</option><option value="BE">Belgium</option>
     </select></div>
   </div>
-  <div class="total"><span>Total</span><span>$${Number(pkg.amount).toLocaleString("en-US")}.00 USD</span></div>
+  ${methodBlock}
+  <div class="total"><span>Total</span><span>$${Number(pkg.amount).toLocaleString("en-US")} USD</span></div>
   <button type="submit">Continue to secure payment →</button>
 </form>
-<p class="note">You'll be redirected to our payment provider's secure page.<br>
+<p class="note">You'll be redirected to Bankful's secure page to complete payment.<br>
 <a href="${SITE_URL}">← Back to astra-meta.com</a></p>`
   );
 }

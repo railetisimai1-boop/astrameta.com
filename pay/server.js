@@ -37,8 +37,8 @@ const esc = (s) =>
 const methodBlock = `<label>Payment method</label>
 <div class="method">
   <span class="radio" aria-hidden="true"></span>
-  <span class="method-logo"><img src="${SITE_URL}/bankful-logo.svg" alt="Bankful" width="94" height="18"></span>
-  <span class="method-text"><strong>Bankful</strong><small>Secure crypto payment</small></span>
+  <span class="method-logo"><img src="${SITE_URL}/bankful-logo.svg" alt="Bankful" width="104" height="20"></span>
+  <span class="method-text">Secure crypto payment</span>
 </div>`;
 
 // Amounts arrive from a user-controlled query string, so bound and normalise
@@ -84,11 +84,9 @@ function page(title, inner) {
     border:1px solid var(--blue);box-shadow:0 0 0 3px rgba(80,171,197,.12);margin-top:6px}
   .radio{flex:none;width:16px;height:16px;border-radius:50%;border:2px solid var(--blue);position:relative}
   .radio::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--blue)}
-  .method-logo{flex:none;background:#fff;border-radius:7px;padding:6px 9px;display:flex;align-items:center}
-  .method-logo img{display:block;height:18px;width:auto}
-  .method-text{display:flex;flex-direction:column;line-height:1.3}
-  .method-text strong{font-size:.9rem}
-  .method-text small{font-size:.72rem;color:#b5b3b6}
+  .method-logo{flex:none;display:flex;align-items:center}
+  .method-logo img{display:block;height:20px;width:auto}
+  .method-text{margin-left:auto;font-size:.78rem;color:#b5b3b6}
 </style></head><body><div class="card">${inner}</div></body></html>`;
 }
 

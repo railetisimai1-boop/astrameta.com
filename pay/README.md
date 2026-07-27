@@ -6,6 +6,11 @@ lives ONLY in env vars here — never in the static site.
 
 ## Endpoints
 - `GET /checkout?package=consultation|starter|growth|scale|vip` — branded checkout form
+- `GET /support` (alias `/donate`) — unlisted flexible-amount page: preset buttons,
+  custom amount ($1–$25,000, validated server-side) and an optional note that becomes
+  the Bankful cart name. Deliberately not linked from the site or any menu; share the
+  URL directly. `noindex` is set on every page here.
+- `GET /checkout?package=custom&amount=X&note=Y` — checkout form for a flexible amount
 - `POST /checkout` — signs request, calls Bankful, 302 → hosted payment page
 - `GET /payment/success|failed|cancel|pending` — result pages Bankful redirects back to
 - `POST /payment/callback` — Bankful server-to-server webhook (logged to stdout)

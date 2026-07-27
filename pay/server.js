@@ -25,8 +25,21 @@ const PACKAGES = {
   vip: { name: "VIP Full Package", amount: "10000" },
 };
 
+// Unlisted flexible-amount page (/support). Not linked from the site or menus.
+const SUPPORT_PRESETS = [20, 50, 100, 200, 500, 1000];
+const SUPPORT_MIN = 1;
+const SUPPORT_MAX = 25000;
+
 const esc = (s) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+// Amounts arrive from a user-controlled query string, so bound and normalise
+// before they reach the signed request.
+function normaliseAmount(raw) {
+  const n = Number.parseFloat(String(raw ?? "").replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(n) || n < SUPPORT_MIN || n > SUPPORT_MAX) return null;
+  return String(Math.round(n * 100) / 100);
+}
 
 function sign(body) {
   const payloadString = Object.keys(body)
@@ -62,8 +75,52 @@ function page(title, inner) {
 </style></head><body><div class="card">${inner}</div></body></html>`;
 }
 
+function supportPage() {
+  const sandboxBadge = IS_SANDBOX ? `<span class="badge">TEST MODE — no real charge</span><br>` : "";
+  const presets = SUPPORT_PRESETS.map(
+    (a) => `<button type="button" class="amt" data-amount="${a}">$${a.toLocaleString("en-US")}</button>`
+  ).join("");
+  return page(
+    "Make a payment",
+    `${sandboxBadge}
+<h1>Astra <span class="accent">Meta</span> — Make a payment</h1>
+<p class="sub">Pay any amount for agreed work, a deposit or an invoice. Choose an amount below.</p>
+<form method="GET" action="/checkout" id="supportForm">
+  <input type="hidden" name="package" value="custom">
+  <div class="amt-grid">${presets}</div>
+  <label>Or enter another amount (USD)</label>
+  <input name="amount" id="amountInput" type="number" min="${SUPPORT_MIN}" max="${SUPPORT_MAX}" step="0.01" placeholder="0.00" required>
+  <label>What is this payment for? <span style="opacity:.6">(optional)</span></label>
+  <input name="note" maxlength="60" placeholder="e.g. Project deposit / Invoice #123">
+  <button type="submit">Continue →</button>
+</form>
+<p class="note">Payments are processed on our provider's secure page.<br>
+<a href="${SITE_URL}">← astra-meta.com</a></p>
+<style>
+  .amt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 6px}
+  .amt{margin:0;padding:12px 0;background:#141314;border:1px solid #4a494b;border-radius:10px;color:#fff;font-weight:600;font-size:.95rem;cursor:pointer}
+  .amt:hover{border-color:var(--pink)}
+  .amt.sel{background:linear-gradient(90deg,var(--pink),var(--blue));border-color:transparent}
+</style>
+<script>
+  document.querySelectorAll('.amt').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.amt').forEach(function(x){x.classList.remove('sel')});
+      b.classList.add('sel');
+      document.getElementById('amountInput').value = b.dataset.amount;
+    });
+  });
+</script>`
+  );
+}
+
 function checkoutForm(pkgKey, pkg) {
   const sandboxBadge = IS_SANDBOX ? `<span class="badge">TEST MODE — no real charge</span><br>` : "";
+  const customFields =
+    pkgKey === "custom"
+      ? `<input type="hidden" name="amount" value="${esc(pkg.amount)}">
+  <input type="hidden" name="note" value="${esc(pkg.note || "")}">`
+      : "";
   return page(
     `Checkout — ${pkg.name}`,
     `${sandboxBadge}
@@ -71,6 +128,7 @@ function checkoutForm(pkgKey, pkg) {
 <p class="sub">${esc(pkg.name)} · one-time payment</p>
 <form method="POST" action="/checkout">
   <input type="hidden" name="package" value="${esc(pkgKey)}">
+  ${customFields}
   <div class="row">
     <div><label>First name</label><input name="fname" required maxlength="50" autocomplete="given-name"></div>
     <div><label>Last name</label><input name="lname" required maxlength="50" autocomplete="family-name"></div>
@@ -115,8 +173,7 @@ function resultPage(kind) {
 <p class="note"><a href="${SITE_URL}">← Back to astra-meta.com</a></p>`);
 }
 
-async function createHostedPayment(pkgKey, f) {
-  const pkg = PACKAGES[pkgKey];
+async function createHostedPayment(pkgKey, pkg, f) {
   const body = {
     req_username: BANKFUL_USERNAME,
     transaction_type: "CAPTURE",
@@ -132,7 +189,7 @@ async function createHostedPayment(pkgKey, f) {
     bill_addr_zip: f.zip,
     bill_addr_country: f.country,
     xtl_order_id: `ASTRA-${pkgKey.toUpperCase()}-${Date.now()}`,
-    cart_name: "Hosted-Page",
+    cart_name: pkg.note ? String(pkg.note).slice(0, 60) : "Hosted-Page",
     url_cancel: `${PUBLIC_BASE_URL}/payment/cancel`,
     url_complete: `${PUBLIC_BASE_URL}/payment/success`,
     url_failed: `${PUBLIC_BASE_URL}/payment/failed`,
@@ -180,9 +237,19 @@ const server = http.createServer(async (req, res) => {
   try {
     if (req.method === "GET" && url.pathname === "/health") return send(200, "ok", "text/plain");
 
+    if (req.method === "GET" && (url.pathname === "/support" || url.pathname === "/donate")) {
+      return send(200, supportPage());
+    }
+
     if (req.method === "GET" && url.pathname === "/checkout") {
       const pkgKey = url.searchParams.get("package");
-      const pkg = PACKAGES[pkgKey];
+      let pkg = PACKAGES[pkgKey];
+      if (pkgKey === "custom") {
+        const amount = normaliseAmount(url.searchParams.get("amount"));
+        if (!amount)
+          return send(400, page("Invalid amount", `<h1>Enter a valid amount</h1><p class="sub" style="margin-top:12px">Amounts must be between $${SUPPORT_MIN} and $${SUPPORT_MAX.toLocaleString("en-US")}.</p><p class="note"><a href="/support">← Back</a></p>`));
+        pkg = { name: "Custom payment", amount, note: (url.searchParams.get("note") || "").slice(0, 60) };
+      }
       if (!pkg) return send(404, page("Not found", `<h1>Unknown package</h1><p class="note"><a href="${SITE_URL}">← Back</a></p>`));
       return send(200, checkoutForm(pkgKey, pkg));
     }
@@ -190,11 +257,15 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && url.pathname === "/checkout") {
       const raw = await readBody(req);
       const f = Object.fromEntries(new URLSearchParams(raw));
-      const pkg = PACKAGES[f.package];
+      let pkg = PACKAGES[f.package];
+      if (f.package === "custom") {
+        const amount = normaliseAmount(f.amount);
+        if (amount) pkg = { name: "Custom payment", amount, note: (f.note || "").slice(0, 60) };
+      }
       const required = ["fname", "lname", "email", "phone", "addr", "city", "state", "zip", "country"];
       if (!pkg || required.some((k) => !f[k] || !String(f[k]).trim()))
         return send(400, page("Invalid request", `<h1>Missing information</h1><p class="note"><a href="javascript:history.back()">← Go back</a></p>`));
-      const redirectUrl = await createHostedPayment(f.package, f);
+      const redirectUrl = await createHostedPayment(f.package, pkg, f);
       res.writeHead(302, { Location: redirectUrl });
       return res.end();
     }

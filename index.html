@@ -8,11 +8,12 @@
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta — tek dosya statik site (HTML + CSS + JS)
-     Konsept: YÖRÜNGE. Getir (çekim) + Yönet (yörünge) = Büyü (takımyıldız).
+     Konsept: Getir + Yönet = Büyü. 01 Model bolumunde kaydirmaya bagli SVG
+     sistem grafigi uc asamada kuruluyor; basliklar duz Turkce (metafor yok).
      • Dil: TR/EN. Türkiye'den girenler Türkçe (IP'ye göre), diğerleri İngilizce;
        sağ üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır (localStorage).
      • Form: Web3Forms; mesajlar railetisimai1@gmail.com'a düşer.
-     • Bölümler: Hero → 01 Model (kaydırmalı yörünge hikâyesi) → 02 Hizmetler →
+     • Bölümler: Hero → 01 Model (kaydırmalı sistem hikâyesi) → 02 Hizmetler →
        03 Kanıt → 04 Süreç → 05 Uyum → 06 İletişim → Final → Footer
      • Eski site yedeği: git tag "yedek-2026-09-16-eski-site" / branch "eski-site-2026-09-16"
      ════════════════════════════════════════════════════════════════ -->
@@ -194,7 +195,7 @@
   .step{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:10vh 0;opacity:.22;transition:opacity .6s}
   .step.on{opacity:1}
   .step .k{margin-bottom:22px}
-  .step h3{font-size:clamp(46px,7vw,112px);letter-spacing:-.04em;margin-bottom:22px}
+  .step h3{font-size:clamp(34px,4.9vw,76px);letter-spacing:-.035em;margin-bottom:22px;max-width:14ch}
   .step p{font-size:clamp(17px,1.45vw,20px);color:var(--muted);max-width:480px}
   .step:nth-child(1) .k{color:var(--pink)}
   .step:nth-child(2) .k{color:var(--cyan)}
@@ -450,17 +451,17 @@
       <div class="steps">
         <article class="step">
           <span class="mono k" data-i18n="st1.k">01 · Acquire</span>
-          <h3 class="split" data-i18n="st1.h">Gravity.</h3>
+          <h3 class="split" data-i18n="st1.h">Customers come in.</h3>
           <p data-i18n="st1.p">Meta and Google ads, built on audience, creative and budget strategy, pull the right customers toward your business. Not traffic. Buyers.</p>
         </article>
         <article class="step">
           <span class="mono k" data-i18n="st2.k">02 · Automate</span>
-          <h3 class="split" data-i18n="st2.h">Orbit.</h3>
+          <h3 class="split" data-i18n="st2.h">The system takes over.</h3>
           <p data-i18n="st2.p">Every lead gets answered, followed up, tagged and reported — automatically. The work that used to eat your evenings now runs on its own.</p>
         </article>
         <article class="step">
           <span class="mono k" data-i18n="st3.k">= Grow</span>
-          <h3 class="split" data-i18n="st3.h">Constellation.</h3>
+          <h3 class="split" data-i18n="st3.h">You grow.</h3>
           <p data-i18n="st3.p">More sales, less manual work. The system keeps turning while you grow the business, not the to-do list.</p>
         </article>
       </div>
@@ -697,9 +698,9 @@ const I18N={
     "marquee":["Meta Reklamları","Google Ads","AI Otomasyon","WhatsApp & DM Otomasyonu","Lead Yönetimi","E-ticaret Büyüme","Net Raporlama"],
     "ch1.num":"01 — Model","ch1.tag":"Getir + Yönet = Büyü",
     "ch1.intro":"Çoğu işletmede birbirine hiç değmeyen iki makine çalışır: biri müşteri getirir, diğeri gelenlere yetişmeye çalışır. Biz tek bir sistem kurarız — <em>ve o sistem döner.</em>",
-    "st1.k":"01 · Getir","st1.h":"Çekim.","st1.p":"Hedef kitle, kreatif ve bütçe stratejisi üzerine kurulu Meta ve Google reklamları doğru müşteriyi işine çeker. Trafik değil, alıcı.",
-    "st2.k":"02 · Yönet","st2.h":"Yörünge.","st2.p":"Gelen her talep otomatik yanıtlanır, takip edilir, etiketlenir ve raporlanır. Akşamlarını yiyen iş artık kendi kendine döner.",
-    "st3.k":"= Büyü","st3.h":"Takımyıldız.","st3.p":"Daha çok satış, daha az elle iş. Sen yapılacaklar listesini değil işini büyütürken sistem dönmeye devam eder.",
+    "st1.k":"01 · Getir","st1.h":"Müşteri gelir.","st1.p":"Hedef kitle, kreatif ve bütçe stratejisi üzerine kurulu Meta ve Google reklamları doğru müşteriyi işine çeker. Trafik değil, alıcı.",
+    "st2.k":"02 · Yönet","st2.h":"Sistem devralır.","st2.p":"Gelen her talep otomatik yanıtlanır, takip edilir, etiketlenir ve raporlanır. Akşamlarını yiyen iş artık kendi kendine döner.",
+    "st3.k":"= Büyü","st3.h":"Sen büyürsün.","st3.p":"Daha çok satış, daha az elle iş. Sen yapılacaklar listesini değil işini büyütürken sistem dönmeye devam eder.",
     "ch2.num":"02 — Hizmetler","ch2.tag":"İki motor, tek akış",
     "ch2.h2":"İki motor. Tek akış.",
     "ch2.p":"Çoğu ajans ya sadece reklam verir ya sadece yazılım kurar. Biz ikisini uçtan uca bağlarız — getirdiğimiz müşteri, sistemin ilgilendiği müşteridir.",
@@ -764,9 +765,9 @@ const I18N={
     "marquee":["Meta Ads","Google Ads","AI Automation","WhatsApp & DM Automation","Lead Management","E-commerce Growth","Clear Reporting"],
     "ch1.num":"01 — The model","ch1.tag":"Acquire + Automate = Grow",
     "ch1.intro":"Most businesses run two machines that never meet: one that brings people in, and one that tries to keep up with them. We build one system — <em>and it turns.</em>",
-    "st1.k":"01 · Acquire","st1.h":"Gravity.","st1.p":"Meta and Google ads, built on audience, creative and budget strategy, pull the right customers toward your business. Not traffic. Buyers.",
-    "st2.k":"02 · Automate","st2.h":"Orbit.","st2.p":"Every lead gets answered, followed up, tagged and reported — automatically. The work that used to eat your evenings now runs on its own.",
-    "st3.k":"= Grow","st3.h":"Constellation.","st3.p":"More sales, less manual work. The system keeps turning while you grow the business, not the to-do list.",
+    "st1.k":"01 · Acquire","st1.h":"Customers come in.","st1.p":"Meta and Google ads, built on audience, creative and budget strategy, pull the right customers toward your business. Not traffic. Buyers.",
+    "st2.k":"02 · Automate","st2.h":"The system takes over.","st2.p":"Every lead gets answered, followed up, tagged and reported — automatically. The work that used to eat your evenings now runs on its own.",
+    "st3.k":"= Grow","st3.h":"You grow.","st3.p":"More sales, less manual work. The system keeps turning while you grow the business, not the to-do list.",
     "ch2.num":"02 — Services","ch2.tag":"Two engines, one flow",
     "ch2.h2":"Two engines. One flow.",
     "ch2.p":"Most agencies only run ads or only build software. We connect both, end to end — so the customer we bring in is the customer the system takes care of.",

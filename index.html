@@ -254,6 +254,7 @@
       <a href="#isinden-bahset" data-i18n="nav.contact">Contact</a>
     </div>
     <div class="nav-right">
+      <button id="langToggle" class="lang-toggle" aria-label="Language / Dil">TR</button>
             <a class="nav-cta" href="#isinden-bahset" data-i18n="nav.cta">Free consultation</a>
     </div>
   </div>
@@ -573,6 +574,58 @@
 
   /* ── i18n: TR / EN ── */
   const I18N={
+    tr:{
+      "meta.title":"astra-meta — Getir. Yönet. Büyü.",
+      "meta.desc":"astra-meta: KOBİ ve e-ticaret markalarına reklamla müşteri getiren, AI otomasyonla yöneten bütünsel büyüme ortağı.",
+      "nav.services":"Hizmetler","nav.why":"Neden biz","nav.contact":"İletişim","nav.cta":"Ücretsiz görüşme","nav.pricing":"Paketler",
+      "hero.eyebrow":"KOBİ & e-ticaret için büyüme ortağı",
+      "hero.h1":"Getir. <span class=\"grad\">Yönet.</span> Büyü.",
+      "hero.lead":"Reklamla müşteriyi <b>getiririz</b>, sonra o müşteriyi <b>yönetme yükünü sırtından alırız</b> — AI otomasyonla. Tek elden, tek ekip; sen işine odaklan.",
+      "hero.cta1":"İşinden bahset →","hero.cta2":"Nasıl çalışıyor?",
+      "marquee":["Meta Reklamları","Google Ads","AI Otomasyon","E-ticaret Büyüme","Lead Yönetimi","WhatsApp Otomasyonu","Raporlama"],
+      "m1.num":"01 — GETİR","m1.h3":"Reklam & Danışmanlık","m1.p":"Meta ve Google reklamlarıyla doğru müşteriyi işine getiririz.",
+      "m2.num":"02 — YÖNET","m2.h3":"AI Otomasyon","m2.p":"Lead takibi, mesajlaşma ve raporlamayı AI ile otomatikleştiririz.",
+      "m3.num":"SONUÇ","m3.h3":"Büyü","m3.p":"Daha çok satış, daha az elle iş. Sistem dönsün — sen büyü.",
+      "svc.kicker":"Hizmetler","svc.h2":"İki motor, tek akış","svc.p":"Çoğu ajans ya sadece reklam verir ya sadece yazılım kurar. Biz ikisini tek elden bağlarız.",
+      "svc1.tag":"Getir","svc1.h3":"Reklam & Büyüme Danışmanlığı",
+      "svc1.li1":"Meta (Instagram/Facebook) & Google reklam yönetimi","svc1.li2":"E-ticaret dönüşüm ve satış optimizasyonu","svc1.li3":"Hedef kitle, kreatif ve bütçe stratejisi","svc1.li4":"Net raporlama: harcanan para → gelen satış",
+      "svc2.tag":"Yönet","svc2.h3":"AI Otomasyon",
+      "svc2.li1":"Lead takibi ve otomatik yanıt sistemleri","svc2.li2":"DM, WhatsApp ve mesaj otomasyonu","svc2.li3":"Otomatik raporlama ve gösterge panelleri","svc2.li4":"Tekrar eden iş akışlarının otomasyonu",
+      "why.kicker":"Neden astra-meta","why.h2":"Fark, uygulayıcı olmamızda",
+      "why.b1h":"Önce kendi işimizde test ederiz","why.b1p":"Kendi e-ticaret markalarımızı yönetiyoruz. Sana kurduğumuz reklam ve otomasyon sistemlerini, gerçek parayla ve gerçek müşteriyle biz de kullanıyoruz. Teori değil, saha.",
+      "why.b2h":"Tek elden","why.b2p":"Reklam ajansı + yazılımcı + danışman koşturmaya gerek yok. Hepsi tek ekipte.",
+      "why.b3h":"Net rakam","why.b3p":"Boş ajans jargonu yok. Her ay ne harcandı, ne kazandırdı — açık.",
+      "why.b4h":"Kur, çalışsın","why.b4p":"Otomasyonu bir kez kurarız; tekrar eden işler kendi kendine döner. Vaktini takip etmeye değil, büyümeye ayırırsın.",
+      "diff.quote":"“Size kurduğumuz sistemleri <span class=\"grad\">önce kendi işimizde</span> çalıştırıyoruz.”",
+      "diff.p":"Anlattığımız her şeyi sahada denedik. Bu yüzden vaadimiz cesur ama gerçekçi.",
+      "tell.kicker":"İşinden bahset","tell.h2":"Bize işini anlat",
+      "tell.p1":"Birkaç cümle yeterli: ne sattığını, şu an nerede takıldığını ve nereye gitmek istediğini yaz.",
+      "tell.p2":"En kısa sürede sana özel, net bir <b style=\"color:var(--text)\">\"getir-yönet\"</b> planıyla döneriz. İlk görüşme tamamen ücretsiz, hiçbir taahhüt yok.",
+      "tell.micro":"Genelde 24 saat içinde dönüş yapıyoruz.",
+      "form.name":"Ad / İşletme","form.namePh":"Adın veya markan",
+      "form.contact":"E-posta veya telefon","form.contactPh":"Sana nasıl ulaşalım?",
+      "form.biz":"Ne satıyorsun?","form.bizPh":"Ör. el yapımı takı, mobilya, online kurs...",
+      "form.msg":"İşini birkaç cümleyle anlat","form.msgPh":"Şu an en çok nerede takılıyorsun? Hedefin ne? (örn: reklam veriyorum ama satışa dönmüyor / gelen mesajlara yetişemiyorum...)",
+      "form.budget":"Aylık reklam bütçen (opsiyonel)",
+      "form.b0":"Belirtmek istemiyorum","form.b1":"Henüz reklam vermiyorum","form.b2":"Düşük — yeni başlıyorum","form.b3":"Orta — düzenli reklam veriyorum","form.b4":"Yüksek — ciddi ölçekteyim",
+      "form.submit":"Talebimi gönder →","form.note":"Bilgilerin sadece sana dönüş yapmak için kullanılır.",
+      "form.sending":"Gönderiliyor...","form.sent":"Gönderildi ✓",
+      "form.success":"✓ Teşekkürler! Mesajın bize ulaştı, en kısa sürede dönüş yapacağız.",
+      "form.error":"Bir sorun oldu. Lütfen tekrar dene veya aydin@astra-meta.com'a yaz.",
+      "cta.h2":"İşini büyütmeye hazır mısın?","cta.p":"15 dakikada ne yapabileceğimizi konuşalım. İlk görüşme ücretsiz.","cta.wa":"WhatsApp'tan yaz",
+      "wa.text":"Merhaba, astra-meta hakkında bilgi almak istiyorum.",
+      "price.kicker":"Paketler","price.h2":"Sana uygun paketi seç","price.p":"Net fiyat, net kapsam. Tek seferlik kurulum projeleri — abonelik yok.","price.popular":"EN POPÜLER","price.cta":"Başla →",
+      "price.t1name":"Başlangıç","price.t1desc":"Yeni başlayan işletmeler için ilk adım.",
+      "price.t1f1":"Reklam hesabı kurulumu ve yapılandırması (Meta veya Google)","price.t1f2":"1 kampanya kurulumu; hedefleme & kreatif brief ile","price.t1f3":"Lead toplama formu + otomatik yanıt kurulumu","price.t1f4":"Dönüşüm takibi & piksel kurulumu","price.t1f5":"Devir rehberi + 14 gün e-posta desteği",
+      "price.t2name":"Büyüme","price.t2desc":"Düzenli satış ve ölçeklenme isteyenler için.",
+      "price.t2f1":"Meta + Google reklam hesabı kurulumu & kampanya inşası","price.t2f2":"Çoklu kampanya + test için kreatif varyasyonları","price.t2f3":"WhatsApp & DM otomasyonu kurulumu","price.t2f4":"Lead takip + CRM entegrasyonu","price.t2f5":"Raporlama paneli kurulumu","price.t2f6":"Lansman sonrası 30 gün destek",
+      "price.t3name":"Ölçek","price.t3desc":"Ciddi ölçekte büyüyen markalar için.",
+      "price.t3f1":"Çok kanallı reklam kurulumu (Meta, Google, TikTok)","price.t3f2":"İş akışına özel AI otomasyon sistemi","price.t3f3":"Tam funnel kurulumu + A/B test altyapısı","price.t3f4":"Özel CRM + otomatik raporlama kurulumu","price.t3f5":"Strateji yol haritası oturumu","price.t3f6":"Lansman sonrası 60 gün destek & optimizasyon",
+      "io.label":"TEK SEFERLİK","io.h3":"Görüşme & Problem Analizi Toplantısı","io.p":"Nereden başlayacağından emin değil misin? İşini birlikte masaya yatırırız — nerede tıkandığını ve hangi fırsatların olduğunu netleştirir, sana özel bir yol haritasıyla çıkarsın.","io.cta":"Randevu al →",
+      "vip.badge":"VIP · TAM HİZMET","vip.h3":"Her şey kurulur, senin için çalıştırılır","vip.p":"Eksiksiz paket: işinin ihtiyacı olan tüm reklam ve otomasyon sistemlerini kurar, sonra tüm makineyi senin için yönetir, takip eder ve optimize ederiz. 90 gün tam uygulamalı yönetim dahil — sen işine odaklan, motoru biz çalıştıralım.","vip.label":"TAM PAKET","vip.cta":"Bize ulaş →",
+      "vip.f1":"Ölçek paketindeki her şey, eksiksiz uygulanır","vip.f2":"Tüm reklam + otomasyon sistemlerinin uçtan uca kurulumu","vip.f3":"90 gün uygulamalı yönetim, takip & optimizasyon","vip.f4":"İş akışının tamamında markaya özel AI otomasyonları","vip.f5":"Özel hesap yöneticisi + öncelikli doğrudan hat","vip.f6":"Düzenli strateji değerlendirmeleri & performans raporlaması",
+      "footer.email":"E-posta","footer.copy":"© 2026 astra-meta LLC · Getir. Yönet. Büyü."
+    },
     en:{
       "meta.title":"astra-meta — Acquire. Automate. Grow.",
       "meta.desc":"astra-meta: a full-stack growth partner that brings customers to SMBs and e-commerce brands with ads and manages them with AI automation.",
@@ -644,7 +697,21 @@
     if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
   }
 
-  applyLang('en',false);
+  /* Dil tespiti: kayitli tercih > IP ulkesi (TR -> Turkce) > tarayici dili */
+  (function initLang(){
+    let saved=null;try{saved=localStorage.getItem('astra_lang');}catch(e){}
+    if(saved){applyLang(saved,false);return;}
+    const nl=(navigator.language||'en').toLowerCase();
+    applyLang(nl.startsWith('tr')?'tr':'en',false);
+    fetch('https://ipapi.co/country/').then(function(r){return r.ok?r.text():Promise.reject();}).then(function(c){
+      const cc=(c||'').trim().toUpperCase();
+      let stillAuto=true;try{stillAuto=!localStorage.getItem('astra_lang');}catch(e){}
+      if(cc.length===2&&stillAuto)applyLang(cc==='TR'?'tr':'en',false);
+    }).catch(function(){});
+  })();
+
+  const langBtn=document.getElementById('langToggle');
+  if(langBtn)langBtn.addEventListener('click',function(){applyLang(currentLang==='tr'?'en':'tr',true);});
 
   /* ── Web3Forms submit (sayfada kalır, mesaj gösterir) ── */
   const form=document.getElementById('leadForm');

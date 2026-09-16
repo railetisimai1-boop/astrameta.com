@@ -4,576 +4,1001 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>astra-meta — Acquire. Automate. Grow.</title>
-<meta name="description" content="astra-meta: a full-stack growth partner that brings customers to SMBs and e-commerce brands with ads and manages them with AI automation.">
+<meta name="description" content="astra-meta brings customers to SMBs and e-commerce brands with ads, then manages them with AI automation. One team, one system that keeps turning.">
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta — tek dosya statik site (HTML + CSS + JS)
-     • Dil: TR/EN. Türkiye dışından girenler otomatik İngilizce (IP'ye göre);
-       üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır.
-     • Form: Web3Forms ile çalışır; mesajlar railetisimai1@gmail.com'a düşer.
+     Konsept: YÖRÜNGE. Getir (çekim) + Yönet (yörünge) = Büyü (takımyıldız).
+     • Dil: TR/EN. Türkiye'den girenler Türkçe (IP'ye göre), diğerleri İngilizce;
+       sağ üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır (localStorage).
+     • Form: Web3Forms; mesajlar railetisimai1@gmail.com'a düşer.
+     • Bölümler: Hero → 01 Model (kaydırmalı yörünge hikâyesi) → 02 Hizmetler →
+       03 Kanıt → 04 Süreç → 05 Uyum → 06 İletişim → Final → Footer
+     • Eski site yedeği: git tag "yedek-2026-09-16-eski-site" / branch "eski-site-2026-09-16"
      ════════════════════════════════════════════════════════════════ -->
 
 <meta property="og:title" content="astra-meta — Acquire. Automate. Grow.">
-<meta property="og:description" content="We acquire customers with ads and manage them with AI. Full-stack growth partner for SMBs & e-commerce.">
+<meta property="og:description" content="We bring customers with ads and manage them with AI automation. One team, one system that keeps turning. For SMBs & e-commerce.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://astra-meta.com">
+<meta property="og:image" content="https://astra-meta.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#08080c">
-<meta property="og:image" content="https://astra-meta.com/logo.jpg">
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
+<link rel="canonical" href="https://astra-meta.com/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"astra-meta LLC","url":"https://astra-meta.com","logo":"https://astra-meta.com/logo.jpg","email":"aydin@astra-meta.com","address":{"@type":"PostalAddress","streetAddress":"312 W 2nd St, #5735","addressLocality":"Casper","addressRegion":"WY","postalCode":"82601","addressCountry":"US"},"sameAs":["https://instagram.com/astrametamedia"]}
+</script>
 
 <style>
   :root{
-    --bg:#08080c;
-    --surface:#101019;
-    --surface-2:#16161f;
-    --line:rgba(255,255,255,.08);
-    --line-2:rgba(255,255,255,.14);
-    --text:#f1f2f7;
-    --muted:#9293a6;
-    --accent:#ed3aa2;
-    --accent-2:#4fc3de;
-    --max:1140px;
+    --bg:#08080c;--surface:#0f0f17;--surface-2:#14141d;
+    --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.15);--line-3:rgba(255,255,255,.3);
+    --text:#f3f3f8;--muted:#9a9bae;--dim:#6e6f82;
+    --pink:#ed3aa2;--cyan:#4fc3de;
+    --grad:linear-gradient(100deg,#ed3aa2,#4fc3de);
+    --wrap:1360px;--gx:clamp(20px,4.5vw,64px);
+    --ease:cubic-bezier(.2,.7,.2,1);--ease-out:cubic-bezier(.16,1,.3,1);
+    --fd:'Space Grotesk','Inter',system-ui,sans-serif;
+    --fb:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --fm:'Space Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --nav-h:72px;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--text);
-    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
-  h1,h2,h3,.brand,.display{font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:-.025em;line-height:1.05}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  html,body{overflow-x:clip}
+  @supports not (overflow-x:clip){html,body{overflow-x:hidden}}
+  body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--pink);color:#08080c}
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-  .grad{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .accent{color:var(--accent)}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  ul,ol{list-style:none}
+  img,svg{display:block;max-width:100%}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:2px}
+  .skip{position:absolute;left:16px;top:-80px;z-index:300;background:var(--text);color:var(--bg);padding:12px 18px;font-weight:600;border-radius:3px}
+  .skip:focus{top:16px}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gx)}
+  .mono{font-family:var(--fm);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);line-height:1.5}
+  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1,h2,h3{font-family:var(--fd);font-weight:700;letter-spacing:-.035em;line-height:.95}
+  .h2{font-size:clamp(40px,6.2vw,96px)}
 
+  /* ── Atmosphere ── */
   .glow{position:fixed;inset:0;z-index:-2;pointer-events:none;
-    background:
-      radial-gradient(700px 460px at 78% -8%,rgba(237,58,162,.20),transparent 70%),
-      radial-gradient(560px 460px at 6% 6%,rgba(80,171,197,.10),transparent 72%);}
-  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    background:radial-gradient(900px 620px at 84% -12%,rgba(237,58,162,.15),transparent 70%),
+               radial-gradient(720px 540px at -4% 8%,rgba(79,195,222,.09),transparent 70%)}
+  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
-    background:rgba(8,8,12,.65);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
-  .brand{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
-  .logo-img{height:40px;width:auto;display:block}
-  .brand .star{width:10px;height:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-    border-radius:2px;transform:rotate(45deg);box-shadow:0 0 14px rgba(237,58,162,.9)}
-  .nav-links{display:flex;gap:30px;font-size:14.5px;color:var(--muted)}
+  /* ── Nav ── */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);border-bottom:1px solid transparent;
+    transition:transform .5s var(--ease),background .4s,border-color .4s}
+  .nav.solid{background:rgba(8,8,12,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+  .nav.hide{transform:translateY(-100%)}
+  .nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;min-height:44px}
+  .brand img{height:36px;width:auto}
+  .nav-links{display:flex;gap:34px}
+  .nav-links a{font-size:14px;color:var(--muted);position:relative;padding:10px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:1px;background:var(--text);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out)}
   .nav-links a:hover{color:var(--text)}
-  .nav-right{display:flex;align-items:center;gap:12px}
-  .lang-toggle{background:transparent;border:1px solid var(--line-2);color:var(--text);
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;padding:7px 13px;border-radius:99px;
-    cursor:pointer;transition:.2s;letter-spacing:.04em}
-  .lang-toggle:hover{border-color:var(--accent);color:var(--accent)}
-  .nav-cta{font-size:14px;font-weight:600;padding:9px 18px;border:1px solid var(--line-2);
-    border-radius:99px;transition:.2s}
-  .nav-cta:hover{border-color:var(--accent);background:rgba(237,58,162,.12)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .ring{width:18px;height:18px;transform:rotate(-90deg);margin-right:8px;flex:none}
+  .ring circle{fill:none;stroke-width:2}
+  .ring .rp{stroke-dasharray:50.27;stroke-dashoffset:50.27}
+  .lang{font-family:var(--fm);font-size:12px;letter-spacing:.12em;padding:0 13px;min-height:44px;min-width:44px;border:1px solid var(--line-2);border-radius:3px;color:var(--text);transition:border-color .25s,color .25s}
+  .lang:hover{border-color:var(--pink);color:var(--pink)}
+  .nav-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-size:14px;font-weight:600;border:1px solid var(--line-2);border-radius:3px;transition:border-color .25s,background .25s}
+  .nav-cta:hover{border-color:var(--pink);background:rgba(237,58,162,.1)}
+  .burger{display:none;width:44px;height:44px;position:relative;margin-right:-8px}
+  .burger span{position:absolute;left:11px;right:11px;height:1.5px;background:var(--text);transition:transform .35s var(--ease),top .35s var(--ease)}
+  .burger span:first-child{top:17px}.burger span:last-child{top:26px}
+  .burger[aria-expanded="true"] span:first-child{top:21px;transform:rotate(45deg)}
+  .burger[aria-expanded="true"] span:last-child{top:21px;transform:rotate(-45deg)}
 
-  header{padding:110px 0 64px;text-align:center;position:relative}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);
-    border:1px solid var(--line-2);border-radius:99px;padding:7px 16px;margin-bottom:30px}
-  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#36e08a;box-shadow:0 0 10px #36e08a}
-  h1{font-size:clamp(44px,8vw,88px);font-weight:700;margin-bottom:24px}
-  .lead{font-size:clamp(17px,2.3vw,22px);color:var(--muted);max-width:660px;margin:0 auto 38px}
-  .lead b{color:var(--text);font-weight:600}
-  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  .btn{font-weight:600;font-size:16px;padding:15px 32px;border-radius:99px;transition:.22s;display:inline-flex;align-items:center;gap:9px;cursor:pointer;border:none}
-  .btn-primary{background:linear-gradient(100deg,var(--accent),var(--accent-2));color:#08080c;
-    box-shadow:0 10px 34px rgba(237,58,162,.38)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 46px rgba(237,58,162,.55)}
-  .btn-ghost{border:1px solid var(--line-2);color:var(--text);background:transparent}
-  .btn-ghost:hover{border-color:var(--accent)}
+  .menu{position:fixed;inset:0;z-index:90;background:var(--bg);padding:calc(var(--nav-h) + 20px) var(--gx) 36px;
+    display:flex;flex-direction:column;justify-content:space-between;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+  .menu.open{opacity:1;visibility:visible}
+  .menu-links a{display:flex;align-items:baseline;gap:18px;font-family:var(--fd);font-weight:700;font-size:clamp(32px,8.5vw,46px);letter-spacing:-.03em;
+    padding:12px 0;border-bottom:1px solid var(--line);transform:translateY(16px);opacity:0;transition:transform .55s var(--ease-out),opacity .55s}
+  .menu-links a .mono{font-size:11px;min-width:24px}
+  .menu.open .menu-links a{transform:none;opacity:1}
+  .menu.open .menu-links a:nth-child(2){transition-delay:.05s}.menu.open .menu-links a:nth-child(3){transition-delay:.1s}
+  .menu.open .menu-links a:nth-child(4){transition-delay:.15s}.menu.open .menu-links a:nth-child(5){transition-delay:.2s}
+  .menu-foot{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+  .menu-foot a{font-size:16px;color:var(--muted);padding:6px 0}
 
-  .marquee{margin-top:64px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    padding:18px 0;overflow:hidden;white-space:nowrap;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-  .marquee-track{display:inline-flex;gap:48px;animation:scroll 26s linear infinite;will-change:transform}
-  .marquee span{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:48px}
-  .marquee span::after{content:"✦";color:var(--accent);font-size:12px}
-  @keyframes scroll{to{transform:translateX(-50%)}}
+  /* ── Buttons ── */
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;
+    font-weight:600;font-size:15px;border-radius:3px;white-space:nowrap;
+    transition:transform .3s var(--ease-out),box-shadow .3s,border-color .3s,background .3s,color .3s}
+  .btn-primary{background:var(--grad);color:#08080c;box-shadow:0 10px 30px -10px rgba(237,58,162,.5)}
+  .btn-primary:hover{box-shadow:0 18px 44px -12px rgba(237,58,162,.7)}
+  .btn-primary:active{transform:scale(.98)}
+  .btn-ghost{border:1px solid var(--line-2);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--text)}
+  .btn .arr{display:inline-block;transition:transform .3s var(--ease-out)}
+  .btn:hover .arr{transform:translateX(4px)}
 
-  .model{padding:56px 0 24px}
-  .model-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch}
-  .mcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px 28px;text-align:left}
-  .mcard.result{background:linear-gradient(160deg,rgba(237,58,162,.16),rgba(80,171,197,.06));border-color:rgba(237,58,162,.38)}
-  .mcard .num{font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:600;color:var(--accent);letter-spacing:.05em}
-  .mcard h3{font-size:25px;margin:10px 0 11px}
-  .mcard p{font-size:14.5px;color:var(--muted)}
-  .op{display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--muted);font-family:'Space Grotesk',sans-serif;font-weight:500}
+  /* ── Reveal system ── */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease-out)}
+  .rv.in{opacity:1;transform:none}
+  .split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+  .split .wi{display:inline-block;transform:translateY(112%);transition:transform .95s var(--ease-out)}
+  .split.in .wi{transform:none}
 
-  section{padding:72px 0}
-  .sec-head{text-align:center;margin-bottom:52px}
-  .sec-head .kicker{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-  .sec-head h2{font-size:clamp(30px,4.4vw,46px)}
-  .sec-head p{color:var(--muted);max-width:580px;margin:16px auto 0;font-size:17px}
+  /* ── Hero ── */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:calc(var(--nav-h) + 28px);overflow:clip}
+  .hero-orbit{position:absolute;top:50%;right:-10vw;width:min(92vw,112vh);aspect-ratio:1;--py:0px;--rot:0deg;
+    transform:translateY(calc(-52% + var(--py))) rotate(var(--rot));pointer-events:none;will-change:transform}
+  .hero-orbit svg{width:100%;height:100%;overflow:visible}
+  .hero-grid{position:relative;z-index:1;width:100%}
+  .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--line);
+    opacity:0;transition:opacity 1s .1s}
+  .fonts-in .hero-meta{opacity:1}
+  .hero-title{font-size:clamp(62px,11vw,168px);line-height:.9;letter-spacing:-.045em;margin-top:clamp(20px,4vw,48px)}
+  .hero-title .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+  .hero-title .li{display:inline-block;transform:translateY(112%);transition:transform 1.1s var(--ease-out)}
+  .hero-title .line:nth-child(2) .li{transition-delay:.1s}
+  .hero-title .line:nth-child(3) .li{transition-delay:.2s}
+  .hero-title .line:nth-child(3){padding-left:.9em}
+  .fonts-in .hero-title .li{transform:none}
+  .hero-row{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;align-items:end;margin-top:clamp(24px,3vw,44px)}
+  .hero-lead{font-size:clamp(17px,1.5vw,21px);color:var(--muted);max-width:560px;opacity:0;transform:translateY(16px);transition:opacity .9s .4s,transform .9s .4s var(--ease-out)}
+  .hero-lead b{color:var(--text);font-weight:500}
+  .fonts-in .hero-lead{opacity:1;transform:none}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;opacity:0;transform:translateY(16px);transition:opacity .9s .55s,transform .9s .55s var(--ease-out)}
+  .fonts-in .hero-cta{opacity:1;transform:none}
+  .hero-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:clamp(28px,4.5vw,64px);padding-bottom:24px;opacity:0;transition:opacity 1s .8s}
+  .fonts-in .hero-foot{opacity:1}
+  .scroll-cue{display:inline-flex;align-items:center;gap:12px}
+  .scroll-cue i{display:block;width:1px;height:38px;background:var(--line-3);position:relative;overflow:hidden}
+  .scroll-cue i::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:var(--pink);animation:cue 2.2s var(--ease) infinite}
+  @keyframes cue{0%{top:-100%}60%{top:100%}100%{top:100%}}
 
-  .svc{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .svc-card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:36px;transition:.25s}
-  .svc-card:hover{border-color:rgba(237,58,162,.4);transform:translateY(-3px)}
-  .svc-card .tag{font-size:12.5px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.07em}
-  .svc-card h3{font-size:27px;margin:11px 0 18px}
-  .svc-card ul{list-style:none;display:flex;flex-direction:column;gap:12px}
-  .svc-card li{display:flex;gap:12px;font-size:15.5px;color:var(--muted)}
-  .svc-card li::before{content:"";flex:none;width:7px;height:7px;margin-top:9px;border-radius:2px;
-    background:linear-gradient(135deg,var(--accent),var(--accent-2));transform:rotate(45deg)}
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;overflow:hidden;white-space:nowrap;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+  .marquee-track{display:inline-flex;animation:mq 48s linear infinite;will-change:transform}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee span{font-family:var(--fm);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;padding-right:44px}
+  .marquee span::after{content:"✦";color:var(--pink);font-size:10px;margin-left:44px}
+  @keyframes mq{to{transform:translateX(-50%)}}
 
-  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .bento .b{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px}
-  .bento .b.wide{grid-column:span 2}
-  .bento .b h3{font-size:21px;margin-bottom:10px}
-  .bento .b p{color:var(--muted);font-size:15px}
-  .bento .ic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-    background:rgba(237,58,162,.14);border:1px solid rgba(237,58,162,.3);margin-bottom:18px;font-size:20px}
+  /* ── Chapters ── */
+  .chapter{padding:clamp(96px,13vw,190px) 0;position:relative}
+  .ch-head{display:flex;align-items:center;gap:22px;margin-bottom:clamp(44px,7vw,96px)}
+  .ch-head .ch-line{flex:1;height:1px;background:var(--line-2);transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease-out)}
+  .ch-head.in .ch-line{transform:scaleX(1)}
+  .ch-head .mono{white-space:nowrap}
+  .ch-head .mono:first-child{color:var(--text)}
 
+  /* 01 Model */
+  .model-intro{font-family:var(--fd);font-weight:500;font-size:clamp(26px,3.6vw,52px);line-height:1.12;letter-spacing:-.025em;max-width:1080px}
+  .model-intro em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .story{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,64px);margin-top:clamp(56px,8vw,120px);align-items:start}
+  .stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .stage svg{width:min(100%,86vh);aspect-ratio:1;overflow:visible}
+  .stage-meta{position:absolute;left:0;bottom:clamp(20px,4vw,48px);display:flex;align-items:center;gap:16px}
+  .stage-meta .bar{width:80px;height:1px;background:var(--line-2);position:relative;overflow:hidden}
+  .stage-meta .bar i{position:absolute;inset:0;background:var(--grad);transform:scaleX(0);transform-origin:left}
+  .steps{display:flex;flex-direction:column}
+  .step{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:10vh 0;opacity:.22;transition:opacity .6s}
+  .step.on{opacity:1}
+  .step .k{margin-bottom:22px}
+  .step h3{font-size:clamp(46px,7vw,112px);letter-spacing:-.04em;margin-bottom:22px}
+  .step p{font-size:clamp(17px,1.45vw,20px);color:var(--muted);max-width:480px}
+  .step:nth-child(1) .k{color:var(--pink)}
+  .step:nth-child(2) .k{color:var(--cyan)}
+  .step:nth-child(3) .k{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  .diff{background:linear-gradient(160deg,var(--surface),var(--bg));border:1px solid var(--line);
-    border-radius:26px;padding:clamp(40px,6vw,72px);text-align:center}
-  .diff .quote{font-family:'Space Grotesk',sans-serif;font-size:clamp(25px,4vw,40px);font-weight:600;line-height:1.22;max-width:820px;margin:0 auto 22px;letter-spacing:-.02em}
-  .diff p{color:var(--muted);max-width:580px;margin:0 auto;font-size:17px}
+  /* 02 Services */
+  .svc-top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(56px,8vw,120px)}
+  .svc-top p{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:480px;justify-self:end}
+  .engines{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);position:relative}
+  .engine-b{padding-top:clamp(0px,10vw,160px)}
+  .engine-head{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:end;margin-bottom:34px}
+  .engine-num{font-family:var(--fd);font-weight:700;font-size:clamp(88px,13vw,196px);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px var(--line-3)}
+  .engine-a .engine-num{-webkit-text-stroke-color:rgba(237,58,162,.75)}
+  .engine-b .engine-num{-webkit-text-stroke-color:rgba(79,195,222,.75)}
+  .engine-head h3{font-size:clamp(22px,2.3vw,32px);letter-spacing:-.02em;margin-top:8px}
+  .engine-a .engine-head .mono{color:var(--pink)}
+  .engine-b .engine-head .mono{color:var(--cyan)}
+  .rows li{display:grid;grid-template-columns:34px 1fr;gap:6px 18px;padding:22px 0;border-top:1px solid var(--line);position:relative}
+  .rows li:last-child{border-bottom:1px solid var(--line)}
+  .rows li::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-out)}
+  .engine-b .rows li::before{background:var(--cyan)}
+  .rows li:hover::before{transform:scaleX(1)}
+  .rows .ri{font-family:var(--fm);font-size:12px;color:var(--dim);padding-top:5px}
+  .rows .rt{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,23px);letter-spacing:-.015em;line-height:1.2;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .rows .rt .arr{opacity:0;transform:translateX(-8px);transition:.4s var(--ease-out);color:var(--pink);font-weight:400;flex:none}
+  .engine-b .rows .rt .arr{color:var(--cyan)}
+  .rows li:hover .rt .arr{opacity:1;transform:none}
+  .rows .rn{grid-column:2;font-size:11px}
+  .flow-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-50%)}
+  .flow-line i{position:absolute;inset:0;background:linear-gradient(180deg,var(--pink),var(--cyan));transform:scaleY(0);transform-origin:top}
 
-  .tell{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
-  .tell-copy .kicker{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-  .tell-copy h2{font-size:clamp(30px,4vw,44px);margin-bottom:18px}
-  .tell-copy p{color:var(--muted);font-size:17px;margin-bottom:16px}
-  .tell-copy .micro{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:9px;margin-top:24px}
-  .tell-copy .micro::before{content:"✦";color:var(--accent)}
-  form{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:34px}
-  .field{margin-bottom:18px}
-  .field label{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
-  .field input,.field textarea,.field select{width:100%;background:var(--bg);border:1px solid var(--line-2);
-    border-radius:12px;padding:13px 15px;color:var(--text);font-family:inherit;font-size:15px;transition:.2s}
-  .field textarea{resize:vertical;min-height:110px}
-  .field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(237,58,162,.18)}
-  .field input::placeholder,.field textarea::placeholder{color:#5d5e70}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  form .btn-primary{width:100%;justify-content:center;margin-top:6px}
+  /* 03 Proof */
+  .quote{font-family:var(--fd);font-weight:500;font-size:clamp(30px,4.6vw,68px);line-height:1.04;letter-spacing:-.035em;max-width:1160px}
+  .quote em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .proof-p{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:620px;margin:32px 0 clamp(56px,8vw,110px)}
+  .proof-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,6vw,96px);align-items:start}
+  .log{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .log-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid var(--line)}
+  .log-head .mono:first-child{color:var(--text)}
+  .log-lines{padding:14px 0 18px;font-family:var(--fm);font-size:13px;line-height:1.55}
+  .log-lines li{display:grid;grid-template-columns:82px 1fr auto;gap:18px;padding:9px 20px;opacity:0;transform:translateX(-8px);transition:opacity .5s,transform .5s var(--ease-out)}
+  .log.in li{opacity:1;transform:none}
+  .log-lines .t{color:var(--dim)}
+  .log-lines .e{color:var(--text)}
+  .log-lines .r{color:var(--muted);white-space:nowrap}
+  .log-lines .r.pink{color:var(--pink)}
+  .log-lines .r.cyan{color:var(--cyan)}
+  .log-lines li:last-child .e::after{content:"";display:inline-block;width:7px;height:14px;background:var(--cyan);vertical-align:-2px;margin-left:8px;animation:blink 1s steps(2) infinite}
+  @keyframes blink{to{opacity:0}}
+  .principles li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:26px 0;border-top:1px solid var(--line)}
+  .principles li:last-child{border-bottom:1px solid var(--line)}
+  .principles .mono{padding-top:6px;color:var(--pink)}
+  .principles h3{font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;margin-bottom:10px}
+  .principles p{color:var(--muted);font-size:16px}
+
+  /* 04 Process */
+  .process .h2{margin-bottom:clamp(40px,6vw,80px)}
+  .plist{position:relative;border-top:1px solid var(--line)}
+  .plist::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+  .pline{position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--pink),var(--cyan));transform:scaleY(0);transform-origin:top}
+  .pstep{display:grid;grid-template-columns:110px 190px 1fr;gap:24px;padding:clamp(28px,4vw,48px) 0 clamp(28px,4vw,48px) clamp(24px,4vw,56px);border-bottom:1px solid var(--line)}
+  .pstep .pn{font-family:var(--fd);font-weight:700;font-size:clamp(40px,5vw,72px);line-height:.85;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px var(--line-3)}
+  .pstep .pw{padding-top:10px;color:var(--muted)}
+  .pstep h3{font-size:clamp(24px,2.8vw,40px);letter-spacing:-.025em;margin-bottom:12px}
+  .pstep p{color:var(--muted);max-width:560px}
+
+  /* 05 Fit */
+  .fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px)}
+  .fit h2{font-size:clamp(28px,3.6vw,52px);letter-spacing:-.03em;margin-bottom:28px}
+  .fit li{display:grid;grid-template-columns:26px 1fr;gap:14px;padding:18px 0;border-top:1px solid var(--line);font-size:clamp(16px,1.35vw,19px);line-height:1.45}
+  .fit li:last-child{border-bottom:1px solid var(--line)}
+  .fit li i{font-style:normal;color:var(--pink);font-size:12px;padding-top:6px}
+  .fit-no h2,.fit-no li{color:var(--muted)}
+  .fit-no li i{color:var(--dim)}
+
+  /* 06 Contact */
+  .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,7vw,120px);align-items:start}
+  .contact-copy h2{font-size:clamp(38px,5.2vw,80px);margin-bottom:28px}
+  .contact-copy p{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:460px;margin-bottom:16px}
+  .contact-copy b{color:var(--text);font-weight:500}
+  .contact-meta{display:flex;flex-direction:column;gap:10px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+  .contact-meta a{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.01em;color:var(--text);transition:color .25s}
+  .contact-meta a:hover{color:var(--pink)}
+  .form{display:grid;gap:6px}
+  .field{position:relative;padding:14px 0 4px}
+  .field label{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+  .field input,.field textarea,.field select{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line-2);border-radius:0;padding:12px 0 14px;
+    color:var(--text);font-family:var(--fb);font-size:17px;line-height:1.4;transition:border-color .3s;-webkit-appearance:none;appearance:none}
+  .field textarea{resize:vertical;min-height:120px}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M2 5l5 5 5-5' fill='none' stroke='%239a9bae' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center;padding-right:28px;cursor:pointer}
+  .field select option{background:var(--surface);color:var(--text)}
+  .field input::placeholder,.field textarea::placeholder{color:#55566a}
+  .field::after{content:"";position:absolute;left:0;bottom:4px;width:100%;height:1px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease-out)}
+  .field:focus-within::after{transform:scaleX(1)}
+  .field input:focus,.field textarea:focus,.field select:focus{outline:none}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+  .form .btn{margin-top:22px;justify-self:start;min-width:240px}
   .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
-  .form-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:14px}
+  .form-note{font-size:13px;color:var(--dim);margin-top:8px}
 
-  .cta-band{text-align:center;background:linear-gradient(120deg,rgba(237,58,162,.18),rgba(80,171,197,.08));
-    border:1px solid rgba(237,58,162,.32);border-radius:30px;padding:clamp(44px,7vw,80px)}
-  .cta-band h2{font-size:clamp(32px,5vw,52px);margin-bottom:16px}
-  .cta-band p{color:var(--muted);font-size:18px;margin-bottom:34px}
+  /* Finale */
+  .finale{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:clip;padding:120px 0}
+  .finale-orbit{position:absolute;left:50%;top:50%;width:min(140vw,130vh);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;opacity:.75}
+  .finale-orbit svg{width:100%;height:100%;overflow:visible}
+  .finale-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:30px}
+  .finale h2{font-size:clamp(44px,8vw,132px);letter-spacing:-.045em}
+  .finale-cta{display:flex;flex-direction:column;align-items:center;gap:22px}
+  .btn-link{font-family:var(--fd);font-weight:500;font-size:clamp(18px,2vw,26px);color:var(--muted);border-bottom:1px solid var(--line-3);padding-bottom:4px;transition:color .3s,border-color .3s}
+  .btn-link:hover{color:var(--text);border-color:var(--text)}
 
-  footer{border-top:1px solid var(--line);padding:46px 0;color:var(--muted);font-size:14px}
-  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
-  .fbrand{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text);font-size:18px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-  .faddr{font-family:'Inter',sans-serif;font-weight:400;font-size:13px;color:var(--muted);line-height:1.6;font-style:normal}
-  .fsocial{display:flex;gap:22px}
-  .fsocial a:hover{color:var(--accent)}
-  .flegal{flex-basis:100%;display:flex;gap:22px;flex-wrap:wrap;justify-content:center;padding-top:22px;
-    border-top:1px solid var(--line);font-size:13.5px}
-  .flegal a:hover{color:var(--accent)}
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:56px 0 34px;color:var(--muted);font-size:14px}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+  .fbrand img{height:32px;width:auto;margin-bottom:18px}
+  .faddr{font-style:normal;line-height:1.7;font-size:13.5px}
+  .fcol .mono{margin-bottom:12px;display:block}
+  .fcol a,.fcol button{display:block;padding:6px 0;transition:color .25s;text-align:left}
+  .fcol a:hover,.fcol button:hover{color:var(--text)}
+  .fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
+  .totop{display:inline-flex;align-items:center;gap:8px;color:var(--muted);min-height:44px}
+  .totop:hover{color:var(--text)}
 
-  .reveal{opacity:0;transform:translateY(26px);transition:.75s cubic-bezier(.2,.7,.2,1)}
-  .reveal.in{opacity:1;transform:none}
-
-  @media(max-width:900px){
-    .nav-links{display:none}
-    .model-grid{grid-template-columns:1fr;gap:14px}
-    .op{transform:rotate(90deg);padding:2px 0}
-    .svc{grid-template-columns:1fr}
-    .bento{grid-template-columns:1fr}
-    .bento .b.wide{grid-column:span 1}
-    .tell{grid-template-columns:1fr;gap:32px}
-    .row2{grid-template-columns:1fr}
+  /* ── Responsive ── */
+  @media(max-width:1024px){
+    .story{grid-template-columns:1fr;gap:0}
+    .stage{top:0;height:46vh;height:46svh;padding-top:var(--nav-h);background:var(--bg);z-index:2}
+    .stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,var(--bg))}
+    .stage svg{width:auto;height:100%}
+    .stage-meta{bottom:14px}
+    .step{min-height:0;padding:12vh 0}
+    .step p{max-width:560px}
+    .engines{grid-template-columns:1fr;gap:64px}
+    .engine-b{padding-top:0}
+    .flow-line{display:none}
+    .proof-grid,.fit-grid,.contact-grid,.svc-top{grid-template-columns:1fr}
+    .svc-top p{justify-self:start}
+    .fgrid{grid-template-columns:1fr 1fr}
   }
-  @media (prefers-reduced-motion:reduce){
-    .reveal{opacity:1;transform:none;transition:none}
-    .marquee-track{animation:none}
+  @media(max-width:820px){
+    :root{--nav-h:64px}
+    .nav-links,.nav .ring,.nav-cta{display:none}
+    .burger{display:block}
+    .brand img{height:30px}
+    .hero-orbit{right:-44vw;top:40%;width:150vw;opacity:.55}
+    .hero-row{grid-template-columns:1fr;gap:28px}
+    .hero-cta{justify-content:flex-start}
+    .hero-cta .btn{flex:1 1 auto}
+    .hero-title .line:nth-child(3){padding-left:.5em}
+    .hero-foot{margin-top:48px}
+    .pstep{grid-template-columns:1fr;gap:8px;padding-left:22px}
+    .pstep .pw{padding-top:0}
+    .row2{grid-template-columns:1fr}
+    .log-lines li{grid-template-columns:70px 1fr;gap:4px 14px}
+    .log-lines .r{grid-column:2;white-space:normal}
+    .fgrid{grid-template-columns:1fr}
+    .ch-head .mono:last-child{display:none}
+    .form .btn{width:100%}
+    .engine-head{grid-template-columns:1fr;gap:10px}
+  }
+  @media(max-width:480px){
+    .hero-meta span:last-child{display:none}
+    .hero-foot span:last-child{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
+    .rv,.split .wi,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.ch-head .ch-line,.log-lines li,.menu-links a{transition:none!important;opacity:1!important;transform:none!important}
+    .marquee-track,.scroll-cue i::after,.log-lines li:last-child .e::after{animation:none!important}
+    .nav{transition:none}
   }
 </style>
+<noscript><style>.rv,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.log-lines li,.step{opacity:1;transform:none}.ch-head .ch-line{transform:none}.stage-meta{display:none}</style></noscript>
 </head>
 <body>
-<div class="glow"></div>
-<div class="grain"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="glow" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<nav>
+<!-- ── NAV ── -->
+<nav class="nav" id="nav" aria-label="Main">
   <div class="wrap">
-    <a class="brand" href="#top"><img src="logo.png" alt="astra-meta" class="logo-img"></a>
+    <a class="brand" href="#top" aria-label="astra-meta — home"><img src="logo-nav.webp" alt="astra-meta" width="219" height="96"></a>
     <div class="nav-links">
+      <a href="#model" data-i18n="nav.model">Model</a>
       <a href="#hizmetler" data-i18n="nav.services">Services</a>
-      <a href="#neden" data-i18n="nav.why">Why us</a>
+      <a href="#neden" data-i18n="nav.proof">Proof</a>
+      <a href="#surec" data-i18n="nav.process">Process</a>
       <a href="#isinden-bahset" data-i18n="nav.contact">Contact</a>
     </div>
     <div class="nav-right">
-      <button id="langToggle" class="lang-toggle" aria-label="Language / Dil">TR</button>
-            <a class="nav-cta" href="#isinden-bahset" data-i18n="nav.cta">Free consultation</a>
+      <svg class="ring" viewBox="0 0 24 24" aria-hidden="true">
+        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ed3aa2"/><stop offset="1" stop-color="#4fc3de"/></linearGradient></defs>
+        <circle cx="12" cy="12" r="8" stroke="rgba(255,255,255,.15)"/>
+        <circle class="rp" id="ringP" cx="12" cy="12" r="8" stroke="url(#ringGrad)" stroke-linecap="round"/>
+      </svg>
+      <button class="lang" type="button" aria-label="Language / Dil">TR</button>
+      <a class="nav-cta" href="#isinden-bahset" data-i18n="nav.cta">Let's talk</a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     </div>
   </div>
 </nav>
 
-<header id="top">
-  <div class="wrap">
-    <span class="eyebrow reveal"><span class="dot"></span> <span data-i18n="hero.eyebrow">Growth partner for SMBs &amp; e-commerce</span></span>
-    <h1 class="reveal" data-i18n-html="hero.h1">Acquire. <span class="grad">Automate.</span> Grow.</h1>
-    <p class="lead reveal" data-i18n-html="hero.lead">We <b>acquire</b> customers with ads, then take the <b>burden of managing them off your shoulders</b> with AI automation. One team, end to end — you focus on your business.</p>
-    <div class="cta-row reveal">
-      <a class="btn btn-primary" href="#isinden-bahset" data-i18n="hero.cta1">Tell us about your business →</a>
-      <a class="btn btn-ghost" href="#model" data-i18n="hero.cta2">How it works</a>
-    </div>
-  </div>
-  <div class="marquee reveal">
-    <div class="marquee-track" id="marqueeTrack">
-      <span>Meta Reklamları</span><span>Google Ads</span><span>AI Otomasyon</span><span>E-ticaret Büyüme</span><span>Lead Yönetimi</span><span>WhatsApp Otomasyonu</span><span>Raporlama</span>
-      <span>Meta Reklamları</span><span>Google Ads</span><span>AI Otomasyon</span><span>E-ticaret Büyüme</span><span>Lead Yönetimi</span><span>WhatsApp Otomasyonu</span><span>Raporlama</span>
-    </div>
-  </div>
-</header>
-
-<!-- MODEL -->
-<div class="model" id="model">
-  <div class="wrap">
-    <div class="model-grid">
-      <div class="mcard reveal">
-        <span class="num" data-i18n="m1.num">01 — GETİR</span>
-        <h3 data-i18n="m1.h3">Reklam &amp; Danışmanlık</h3>
-        <p data-i18n="m1.p">Meta ve Google reklamlarıyla doğru müşteriyi işine getiririz.</p>
-      </div>
-      <div class="op reveal">+</div>
-      <div class="mcard reveal">
-        <span class="num" data-i18n="m2.num">02 — YÖNET</span>
-        <h3 data-i18n="m2.h3">AI Otomasyon</h3>
-        <p data-i18n="m2.p">Gelen talebi takip, mesaj ve raporlamayı AI ile otomatikleştiririz.</p>
-      </div>
-      <div class="op reveal">=</div>
-      <div class="mcard result reveal">
-        <span class="num" data-i18n="m3.num">SONUÇ</span>
-        <h3 data-i18n="m3.h3">Büyü</h3>
-        <p data-i18n="m3.p">Daha çok satış, daha az elle iş. Sistem dönsün, sen büyü.</p>
-      </div>
-    </div>
+<div class="menu" id="menu">
+  <nav class="menu-links" aria-label="Mobile">
+    <a href="#model"><span class="mono">01</span><span data-i18n="nav.model">Model</span></a>
+    <a href="#hizmetler"><span class="mono">02</span><span data-i18n="nav.services">Services</span></a>
+    <a href="#neden"><span class="mono">03</span><span data-i18n="nav.proof">Proof</span></a>
+    <a href="#surec"><span class="mono">04</span><span data-i18n="nav.process">Process</span></a>
+    <a href="#isinden-bahset"><span class="mono">06</span><span data-i18n="nav.contact">Contact</span></a>
+  </nav>
+  <div class="menu-foot">
+    <button class="lang" type="button" aria-label="Language / Dil">TR</button>
+    <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
   </div>
 </div>
 
-<!-- SERVICES -->
-<section id="hizmetler">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker" data-i18n="svc.kicker">Hizmetler</div>
-      <h2 data-i18n="svc.h2">İki motor, tek akış</h2>
-      <p data-i18n="svc.p">Çoğu ajans ya sadece reklam verir ya sadece yazılım kurar. Biz ikisini tek elden bağlarız.</p>
+<main id="main">
+<!-- ── HERO ── -->
+<header id="top" class="hero">
+  <div class="hero-orbit" id="heroOrbit" aria-hidden="true"><svg id="orbitHero"></svg></div>
+  <div class="wrap hero-grid">
+    <div class="hero-meta mono">
+      <span data-i18n="hero.k1">Growth systems for SMBs &amp; e-commerce</span>
+      <span data-i18n="hero.k2">Ads + AI automation · One team</span>
     </div>
-    <div class="svc">
-      <div class="svc-card reveal">
-        <span class="tag" data-i18n="svc1.tag">Getir</span>
-        <h3 data-i18n="svc1.h3">Reklam &amp; Büyüme Danışmanlığı</h3>
-        <ul>
-          <li data-i18n="svc1.li1">Meta (Instagram/Facebook) &amp; Google reklam yönetimi</li>
-          <li data-i18n="svc1.li2">E-ticaret dönüşüm ve satış optimizasyonu</li>
-          <li data-i18n="svc1.li3">Hedef kitle, kreatif ve bütçe stratejisi</li>
-          <li data-i18n="svc1.li4">Net raporlama: harcanan para → gelen satış</li>
+    <h1 class="hero-title" data-i18n-html="hero.h1"><span class="line"><span class="li">Acquire.</span></span><span class="line grad"><span class="li">Automate.</span></span><span class="line"><span class="li">Grow.</span></span></h1>
+    <div class="hero-row">
+      <p class="hero-lead" data-i18n-html="hero.lead">We bring customers to your business with ads, then take the weight of <b>managing them</b> off your shoulders with AI automation. One team, end to end. <b>You focus on the business.</b></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary magnet" href="#isinden-bahset"><span data-i18n="hero.cta1">Tell us about your business</span><span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#model" data-i18n="hero.cta2">See how it turns</a>
+      </div>
+    </div>
+    <div class="hero-foot mono">
+      <span class="scroll-cue"><span data-i18n="hero.scroll">Scroll</span><i></i></span>
+      <span data-i18n="hero.loc">Casper, WY · Working worldwide</span>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+</header>
+
+<!-- ── 01 MODEL ── -->
+<section id="model" class="chapter model">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="ch1.num">01 — The model</span><span class="ch-line"></span><span class="mono" data-i18n="ch1.tag">Acquire + Automate = Grow</span></div>
+    <p class="model-intro rv" data-i18n-html="ch1.intro">Most businesses run two machines that never meet: one that brings people in, and one that tries to keep up with them. We build one system — <em>and it turns.</em></p>
+    <div class="story" id="story">
+      <div class="stage">
+        <svg id="orbitStory" aria-hidden="true"></svg>
+        <div class="stage-meta mono" aria-hidden="true"><span id="stageNum">01 / 03</span><span class="bar"><i id="stageBar"></i></span></div>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <span class="mono k" data-i18n="st1.k">01 · Acquire</span>
+          <h3 class="split" data-i18n="st1.h">Gravity.</h3>
+          <p data-i18n="st1.p">Meta and Google ads, built on audience, creative and budget strategy, pull the right customers toward your business. Not traffic. Buyers.</p>
+        </article>
+        <article class="step">
+          <span class="mono k" data-i18n="st2.k">02 · Automate</span>
+          <h3 class="split" data-i18n="st2.h">Orbit.</h3>
+          <p data-i18n="st2.p">Every lead gets answered, followed up, tagged and reported — automatically. The work that used to eat your evenings now runs on its own.</p>
+        </article>
+        <article class="step">
+          <span class="mono k" data-i18n="st3.k">= Grow</span>
+          <h3 class="split" data-i18n="st3.h">Constellation.</h3>
+          <p data-i18n="st3.p">More sales, less manual work. The system keeps turning while you grow the business, not the to-do list.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 02 SERVICES ── -->
+<section id="hizmetler" class="chapter services">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="ch2.num">02 — Services</span><span class="ch-line"></span><span class="mono" data-i18n="ch2.tag">Two engines, one flow</span></div>
+    <div class="svc-top">
+      <h2 class="h2 split" data-i18n="ch2.h2">Two engines. One flow.</h2>
+      <p class="rv" data-i18n="ch2.p">Most agencies only run ads or only build software. We connect both, end to end — so the customer we bring in is the customer the system takes care of.</p>
+    </div>
+    <div class="engines">
+      <div class="flow-line" aria-hidden="true"><i id="flowFill"></i></div>
+      <div class="engine engine-a rv">
+        <div class="engine-head">
+          <span class="engine-num" aria-hidden="true">01</span>
+          <div><span class="mono" data-i18n="en1.k">Acquire</span><h3 data-i18n="en1.h">Ads &amp; growth consulting</h3></div>
+        </div>
+        <ul class="rows">
+          <li><span class="ri">01</span><span class="rt"><span data-i18n="en1.r1">Meta (Instagram/Facebook) &amp; Google ads management</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n1">Campaign · creative · budget</span></li>
+          <li><span class="ri">02</span><span class="rt"><span data-i18n="en1.r2">E-commerce conversion &amp; sales optimization</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n2">Store · offer · funnel</span></li>
+          <li><span class="ri">03</span><span class="rt"><span data-i18n="en1.r3">Audience, creative and budget strategy</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n3">Who · what · how much</span></li>
+          <li><span class="ri">04</span><span class="rt"><span data-i18n="en1.r4">Clear reporting: money spent → sales generated</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n4">Monthly · plain language</span></li>
         </ul>
       </div>
-      <div class="svc-card reveal">
-        <span class="tag" data-i18n="svc2.tag">Yönet</span>
-        <h3 data-i18n="svc2.h3">AI Otomasyon</h3>
-        <ul>
-          <li data-i18n="svc2.li1">Lead/talep takibi ve otomatik yanıt sistemleri</li>
-          <li data-i18n="svc2.li2">DM, WhatsApp ve mesaj otomasyonu</li>
-          <li data-i18n="svc2.li3">Otomatik raporlama ve gösterge panelleri</li>
-          <li data-i18n="svc2.li4">Tekrar eden iş akışlarının otomasyonu</li>
+      <div class="engine engine-b rv">
+        <div class="engine-head">
+          <span class="engine-num" aria-hidden="true">02</span>
+          <div><span class="mono" data-i18n="en2.k">Automate</span><h3 data-i18n="en2.h">AI automation</h3></div>
+        </div>
+        <ul class="rows">
+          <li><span class="ri">01</span><span class="rt"><span data-i18n="en2.r1">Lead tracking &amp; automatic replies</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n1">Instant · 24/7</span></li>
+          <li><span class="ri">02</span><span class="rt"><span data-i18n="en2.r2">DM, WhatsApp &amp; messaging automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n2">Instagram · WhatsApp · email</span></li>
+          <li><span class="ri">03</span><span class="rt"><span data-i18n="en2.r3">Automated reporting &amp; dashboards</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n3">Daily · weekly · monthly</span></li>
+          <li><span class="ri">04</span><span class="rt"><span data-i18n="en2.r4">Repetitive workflows, automated</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n4">Orders · follow-ups · handoffs</span></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section id="neden">
+<!-- ── 03 PROOF ── -->
+<section id="neden" class="chapter proof">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker" data-i18n="why.kicker">Neden astra-meta</div>
-      <h2 data-i18n="why.h2">Fark, uygulayıcı olmamızda</h2>
+    <div class="ch-head"><span class="mono" data-i18n="ch3.num">03 — Proof</span><span class="ch-line"></span><span class="mono" data-i18n="ch3.tag">Practitioners, not theorists</span></div>
+    <blockquote class="quote rv" data-i18n-html="ch3.quote">“The systems we build for you, we run <em>on our own business first.</em>”</blockquote>
+    <p class="proof-p rv" data-i18n="ch3.p">We manage our own e-commerce brands. Every ad structure and every automation we set up for you runs with our own money and our own customers before it reaches yours. Not theory. The field.</p>
+    <div class="proof-grid">
+      <div class="log">
+        <div class="log-head"><span class="mono" data-i18n="log.h">What “automate” looks like on a Tuesday</span><span class="mono" data-i18n="log.k">Illustrative run · local time</span></div>
+        <ol class="log-lines">
+          <li style="transition-delay:.05s"><span class="t">09:41:07</span><span class="e" data-i18n="log.e1">New lead · Instagram DM</span><span class="r pink" data-i18n="log.r1">qualified</span></li>
+          <li style="transition-delay:.25s"><span class="t">09:41:08</span><span class="e" data-i18n="log.e2">Auto-reply sent · in the customer's language</span><span class="r cyan" data-i18n="log.r2">1.2 s</span></li>
+          <li style="transition-delay:.45s"><span class="t">09:41:30</span><span class="e" data-i18n="log.e3">Added to pipeline · tagged “furniture”</span><span class="r" data-i18n="log.r3">CRM</span></li>
+          <li style="transition-delay:.65s"><span class="t">09:45:12</span><span class="e" data-i18n="log.e4">Question answered · price list sent</span><span class="r cyan" data-i18n="log.r4">auto</span></li>
+          <li style="transition-delay:.85s"><span class="t">10:02:00</span><span class="e" data-i18n="log.e5">Follow-up scheduled</span><span class="r" data-i18n="log.r5">+24 h</span></li>
+          <li style="transition-delay:1.05s"><span class="t">18:00:00</span><span class="e" data-i18n="log.e6">Daily report → owner's inbox</span><span class="r pink" data-i18n="log.r6">spend · leads · sales</span></li>
+        </ol>
+      </div>
+      <ul class="principles rv">
+        <li><span class="mono">✦ 01</span><div><h3 data-i18n="pr1.h">One team</h3><p data-i18n="pr1.p">No juggling an ad agency, a developer and a consultant. One team owns the whole flow.</p></div></li>
+        <li><span class="mono">✦ 02</span><div><h3 data-i18n="pr2.h">Clear numbers</h3><p data-i18n="pr2.p">No agency jargon. Every month: what was spent, what it earned. In plain language.</p></div></li>
+        <li><span class="mono">✦ 03</span><div><h3 data-i18n="pr3.h">Set it, let it run</h3><p data-i18n="pr3.p">We build the automation once. Repetitive work runs itself; you spend your time growing, not chasing.</p></div></li>
+      </ul>
     </div>
-    <div class="bento">
-      <div class="b wide reveal">
-        <div class="ic">⚡</div>
-        <h3 data-i18n="why.b1h">Önce kendi işimizde test ettik</h3>
-        <p data-i18n="why.b1p">Kendi e-ticaret markalarımızı yönetiyoruz. Sana kurduğumuz reklam ve otomasyon sistemlerini, gerçek parayla ve gerçek müşteriyle biz de kullanıyoruz. Teori değil, saha.</p>
+  </div>
+</section>
+
+<!-- ── 04 PROCESS ── -->
+<section id="surec" class="chapter process">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="ch4.num">04 — Process</span><span class="ch-line"></span><span class="mono" data-i18n="ch4.tag">From first message to a turning system</span></div>
+    <h2 class="h2 split" data-i18n="ch4.h2">How we start.</h2>
+    <div class="plist" id="plist"><ol>
+      <li class="pstep rv"><span class="pn" aria-hidden="true">00</span><span class="pw mono" data-i18n="ps1.w">Day 0</span><div><h3 data-i18n="ps1.h">Tell us about your business</h3><p data-i18n="ps1.p">A few sentences: what you sell, where you're stuck, where you want to go.</p></div></li>
+      <li class="pstep rv"><span class="pn" aria-hidden="true">01</span><span class="pw mono" data-i18n="ps2.w">Within 24 hours</span><div><h3 data-i18n="ps2.h">A free diagnosis</h3><p data-i18n="ps2.p">We come back with a short call and a clear acquire-automate plan written for your business. No commitment.</p></div></li>
+      <li class="pstep rv"><span class="pn" aria-hidden="true">02</span><span class="pw mono" data-i18n="ps3.w">Weeks 1–2</span><div><h3 data-i18n="ps3.h">Build</h3><p data-i18n="ps3.p">Ad accounts, audiences and creatives on one side; replies, follow-ups and reporting automations on the other.</p></div></li>
+      <li class="pstep rv"><span class="pn" aria-hidden="true">03</span><span class="pw mono" data-i18n="ps4.w">Ongoing</span><div><h3 data-i18n="ps4.h">Launch, measure, adjust</h3><p data-i18n="ps4.p">Campaigns go live, the automations take over the busywork, and every month you see what was spent and what it earned.</p></div></li>
+    </ol><div class="pline" id="pline" aria-hidden="true"></div></div>
+  </div>
+</section>
+
+<!-- ── 05 FIT ── -->
+<section id="uygun" class="chapter fit">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="ch5.num">05 — Fit</span><span class="ch-line"></span><span class="mono" data-i18n="ch5.tag">Who this is for</span></div>
+    <div class="fit-grid">
+      <div class="fit-yes rv">
+        <h2 data-i18n="fy.h">A good fit if…</h2>
+        <ul>
+          <li><i>✦</i><span data-i18n="fy.1">You already sell something and want more customers — not more chaos.</span></li>
+          <li><i>✦</i><span data-i18n="fy.2">You run an e-commerce brand, a local service, a clinic, a studio or a course.</span></li>
+          <li><i>✦</i><span data-i18n="fy.3">Incoming messages and follow-ups are eating your time.</span></li>
+          <li><i>✦</i><span data-i18n="fy.4">You want to see the numbers in plain language, every month.</span></li>
+        </ul>
       </div>
-      <div class="b reveal">
-        <div class="ic">◎</div>
-        <h3 data-i18n="why.b2h">Tek elden</h3>
-        <p data-i18n="why.b2p">Reklam ajansı + yazılımcı + danışman koşturmaya gerek yok. Hepsi tek ekipte.</p>
-      </div>
-      <div class="b reveal">
-        <div class="ic">↗</div>
-        <h3 data-i18n="why.b3h">Net rakam</h3>
-        <p data-i18n="why.b3p">Boş ajans jargonu yok. Her ay ne harcandı, ne kazandırdı — açık.</p>
-      </div>
-      <div class="b wide reveal">
-        <div class="ic">⟳</div>
-        <h3 data-i18n="why.b4h">Kur, çalışsın</h3>
-        <p data-i18n="why.b4p">Otomasyonu bir kez kurarız; tekrar eden işler kendi kendine döner. Sen takip etmek için değil, büyütmek için vakit ayırırsın.</p>
+      <div class="fit-no rv">
+        <h2 data-i18n="fn.h">Not a fit if…</h2>
+        <ul>
+          <li><i>—</i><span data-i18n="fn.1">You need a logo and a website first.</span></li>
+          <li><i>—</i><span data-i18n="fn.2">You're looking for likes rather than sales.</span></li>
+          <li><i>—</i><span data-i18n="fn.3">You'd rather get a monthly deck than a straight answer.</span></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- DIFFERENTIATOR -->
-<section>
+<!-- ── 06 CONTACT ── -->
+<section id="isinden-bahset" class="chapter contact">
   <div class="wrap">
-    <div class="diff reveal">
-      <div class="quote" data-i18n-html="diff.quote">“Size kurduğumuz sistemleri <span class="grad">önce kendi işimizde</span> çalıştırıyoruz.”</div>
-      <p data-i18n="diff.p">Anlattığımız her şeyi sahada denedik. Bu yüzden vaadimiz cesur ama gerçekçi.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TELL US ABOUT YOUR BUSINESS -->
-<section id="isinden-bahset">
-  <div class="wrap">
-    <div class="tell">
-      <div class="tell-copy reveal">
-        <div class="kicker" data-i18n="tell.kicker">İşinden bahset</div>
-        <h2 data-i18n="tell.h2">Bize işini anlat</h2>
-        <p data-i18n="tell.p1">Birkaç cümleyle anlatman yeterli: ne sattığını, şu an nerede takıldığını ve nereye gitmek istediğini yaz.</p>
-        <p data-i18n-html="tell.p2">En kısa sürede sana özel, net bir <b style="color:var(--text)">"getir-yönet"</b> planıyla döneriz. İlk görüşme tamamen ücretsiz, hiçbir taahhüt yok.</p>
-        <div class="micro" data-i18n="tell.micro">Genelde 24 saat içinde dönüş yapıyoruz.</div>
+    <div class="ch-head"><span class="mono" data-i18n="ch6.num">06 — Contact</span><span class="ch-line"></span><span class="mono" data-i18n="ch6.tag">Open the channel</span></div>
+    <div class="contact-grid">
+      <div class="contact-copy">
+        <h2 class="split" data-i18n="ch6.h2">Tell us about your business.</h2>
+        <p class="rv" data-i18n="ch6.p1">A few sentences are enough: what you sell, where you're stuck right now, and where you want to go.</p>
+        <p class="rv" data-i18n-html="ch6.p2">We'll come back with a tailored, clear <b>acquire-automate</b> plan. The first consultation is free. No commitment.</p>
+        <div class="contact-meta rv">
+          <span class="mono" data-i18n="ch6.micro">We usually reply within 24 hours</span>
+          <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
+        </div>
       </div>
 
-      <!-- ── FORM: Web3Forms ──
-           1. https://web3forms.com adresine git, aydin@astra-meta.com'u gir, ücretsiz "Access Key" al
-           2. Aşağıda BURAYA_WEB3FORMS_ANAHTARI yazan yere o anahtarı yapıştır
-           Form mesajları doğrudan aydin@astra-meta.com'a düşer. Backend/sunucu gerekmez. -->
-      <form id="leadForm" action="https://api.web3forms.com/submit" method="POST" class="reveal">
+      <!-- Web3Forms: mesajlar railetisimai1@gmail.com'a düşer -->
+      <form id="leadForm" class="form rv" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" value="68dac11d-d75c-4a23-9615-de517addbd38">
         <input type="hidden" name="subject" value="astra-meta — Yeni iş talebi (siteden)">
         <input type="hidden" name="from_name" value="astra-meta.com">
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-
         <div class="row2">
           <div class="field">
-            <label for="name" data-i18n="form.name">Ad / İşletme</label>
-            <input id="name" name="ad" type="text" data-i18n-ph="form.namePh" placeholder="Adın veya markan" required>
+            <label for="name" data-i18n="form.name">Name / Business</label>
+            <input id="name" name="ad" type="text" autocomplete="name" data-i18n-ph="form.namePh" placeholder="Your name or brand" required>
           </div>
           <div class="field">
-            <label for="contact" data-i18n="form.contact">E-posta veya telefon</label>
-            <input id="contact" name="iletisim" type="text" data-i18n-ph="form.contactPh" placeholder="Sana nasıl ulaşalım?" required>
+            <label for="contact" data-i18n="form.contact">Email or phone</label>
+            <input id="contact" name="iletisim" type="text" autocomplete="email" data-i18n-ph="form.contactPh" placeholder="How can we reach you?" required>
           </div>
         </div>
-
         <div class="field">
-          <label for="biz" data-i18n="form.biz">Ne satıyorsun?</label>
-          <input id="biz" name="is" type="text" data-i18n-ph="form.bizPh" placeholder="Ör. el yapımı takı, mobilya, online kurs...">
+          <label for="biz" data-i18n="form.biz">What do you sell?</label>
+          <input id="biz" name="is" type="text" data-i18n-ph="form.bizPh" placeholder="e.g. handmade jewelry, furniture, online courses...">
         </div>
-
         <div class="field">
-          <label for="msg" data-i18n="form.msg">İşini birkaç cümleyle anlat</label>
-          <textarea id="msg" name="mesaj" data-i18n-ph="form.msgPh" placeholder="Şu an en çok nerede takılıyorsun? Hedefin ne? (örn: reklam veriyorum ama satışa dönmüyor / gelen mesajlara yetişemiyorum...)"></textarea>
+          <label for="msg" data-i18n="form.msg">Describe your business in a few sentences</label>
+          <textarea id="msg" name="mesaj" data-i18n-ph="form.msgPh" placeholder="Where are you stuck most right now? What's your goal?"></textarea>
         </div>
-
         <div class="field">
-          <label for="budget" data-i18n="form.budget">Aylık reklam bütçen (opsiyonel)</label>
+          <label for="budget" data-i18n="form.budget">Monthly ad budget (optional)</label>
           <select id="budget" name="butce">
-            <option value="" data-i18n="form.b0">Belirtmek istemiyorum</option>
-            <option data-i18n="form.b1">Henüz reklam vermiyorum</option>
-            <option data-i18n="form.b2">Düşük — yeni başlıyorum</option>
-            <option data-i18n="form.b3">Orta — düzenli reklam veriyorum</option>
-            <option data-i18n="form.b4">Yüksek — ciddi ölçekteyim</option>
+            <option value="" data-i18n="form.b0">Prefer not to say</option>
+            <option data-i18n="form.b1">Not running ads yet</option>
+            <option data-i18n="form.b2">Low — just starting</option>
+            <option data-i18n="form.b3">Medium — running ads regularly</option>
+            <option data-i18n="form.b4">High — at serious scale</option>
           </select>
         </div>
-
-        <button type="submit" class="btn btn-primary" data-i18n="form.submit">Planımı gönder →</button>
-        <div class="form-note" id="formNote" data-i18n="form.note">Bilgilerin sadece sana dönüş yapmak için kullanılır.</div>
+        <button type="submit" class="btn btn-primary"><span data-i18n="form.submit">Send my request</span><span class="arr">→</span></button>
+        <div class="form-note" id="formNote" role="status" aria-live="polite" data-i18n="form.note">Your info is only used to get back to you.</div>
       </form>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section>
-  <div class="wrap">
-    <div class="cta-band reveal">
-      <h2 data-i18n="cta.h2">İşini büyütmeye hazır mısın?</h2>
-      <p data-i18n="cta.p">15 dakikada ne yapabileceğimizi konuşalım. İlk görüşme ücretsiz.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
-      </div>
+<!-- ── FINALE ── -->
+<section class="finale" aria-label="Closing">
+  <div class="finale-orbit" aria-hidden="true"><svg id="orbitEnd"></svg></div>
+  <div class="wrap finale-inner">
+    <span class="mono rv" data-i18n="fin.k">Acquire + Automate = Grow</span>
+    <h2 class="rv" data-i18n-html="fin.h2">Let the system turn.<br>You grow.</h2>
+    <div class="finale-cta rv">
+      <a class="btn btn-primary magnet" href="#isinden-bahset"><span data-i18n="fin.cta">Start a conversation</span><span class="arr">→</span></a>
+      <a class="btn-link" href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
     </div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
-    <div class="fbrand">
-      <img src="logo.png" alt="astra-meta" class="logo-img" style="height:36px">
-      <address class="faddr">312 W 2nd St, #5735<br>Casper, WY 82601 · USA</address>
+    <div class="fgrid">
+      <div class="fbrand">
+        <img src="logo-nav.webp" alt="astra-meta" width="219" height="96">
+        <address class="faddr">astra-meta LLC<br>312 W 2nd St, #5735<br>Casper, WY 82601 · USA</address>
+      </div>
+      <div class="fcol">
+        <span class="mono" data-i18n="foot.contact">Contact</span>
+        <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
+        <a href="mailto:info@astra-meta.com">info@astra-meta.com</a>
+        <a href="https://instagram.com/astrametamedia" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div class="fcol">
+        <span class="mono" data-i18n="foot.legal">Legal</span>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/refund.html">Refund &amp; Cancellation</a>
+      </div>
+      <div class="fcol">
+        <span class="mono" data-i18n="foot.lang">Language</span>
+        <button class="lang-text" type="button" data-lang="tr">Türkçe</button>
+        <button class="lang-text" type="button" data-lang="en">English</button>
+      </div>
     </div>
-    <div class="fsocial">
-      <a href="https://instagram.com/astrametamedia" target="_blank" rel="noopener">Instagram</a>
-      <a href="mailto:info@astra-meta.com">info@astra-meta.com</a>
-      <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
-    </div>
-    <div data-i18n="footer.copy">© 2026 astra-meta LLC · Acquire. Automate. Grow.</div>
-    <div class="flegal">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="/terms.html">Terms of Service</a>
-      <a href="/refund.html">Refund &amp; Cancellation</a>
+    <div class="fbottom">
+      <span data-i18n="foot.copy">© 2026 astra-meta LLC · Acquire. Automate. Grow.</span>
+      <a class="totop" href="#top"><span data-i18n="foot.top">Back to top</span> ↑</a>
     </div>
   </div>
 </footer>
 
 <script>
-  /* ── Scroll reveal ── */
-  const io=new IntersectionObserver((es)=>{
-    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
-  },{threshold:.12});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{
-    el.style.transitionDelay=(i%4*55)+'ms';io.observe(el);
-  });
+(function(){
+'use strict';
+const $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const FINE=matchMedia('(hover:hover) and (pointer:fine)').matches;
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-  /* ── i18n: TR / EN ── */
-  const I18N={
-    tr:{
-      "meta.title":"astra-meta — Getir. Yönet. Büyü.",
-      "meta.desc":"astra-meta: KOBİ ve e-ticaret markalarına reklamla müşteri getiren, AI otomasyonla yöneten bütünsel büyüme ortağı.",
-      "nav.services":"Hizmetler","nav.why":"Neden biz","nav.contact":"İletişim","nav.cta":"Ücretsiz görüşme",
-      "hero.eyebrow":"KOBİ & e-ticaret için büyüme ortağı",
-      "hero.h1":"Getir. <span class=\"grad\">Yönet.</span> Büyü.",
-      "hero.lead":"Reklamla müşteriyi <b>getiririz</b>, sonra o müşteriyi <b>yönetme yükünü sırtından alırız</b> — AI otomasyonla. Tek elden, tek ekip; sen işine odaklan.",
-      "hero.cta1":"İşinden bahset →","hero.cta2":"Nasıl çalışıyor?",
-      "marquee":["Meta Reklamları","Google Ads","AI Otomasyon","E-ticaret Büyüme","Lead Yönetimi","WhatsApp Otomasyonu","Raporlama"],
-      "m1.num":"01 — GETİR","m1.h3":"Reklam & Danışmanlık","m1.p":"Meta ve Google reklamlarıyla doğru müşteriyi işine getiririz.",
-      "m2.num":"02 — YÖNET","m2.h3":"AI Otomasyon","m2.p":"Lead takibi, mesajlaşma ve raporlamayı AI ile otomatikleştiririz.",
-      "m3.num":"SONUÇ","m3.h3":"Büyü","m3.p":"Daha çok satış, daha az elle iş. Sistem dönsün — sen büyü.",
-      "svc.kicker":"Hizmetler","svc.h2":"İki motor, tek akış","svc.p":"Çoğu ajans ya sadece reklam verir ya sadece yazılım kurar. Biz ikisini tek elden bağlarız.",
-      "svc1.tag":"Getir","svc1.h3":"Reklam & Büyüme Danışmanlığı",
-      "svc1.li1":"Meta (Instagram/Facebook) & Google reklam yönetimi","svc1.li2":"E-ticaret dönüşüm ve satış optimizasyonu","svc1.li3":"Hedef kitle, kreatif ve bütçe stratejisi","svc1.li4":"Net raporlama: harcanan para → gelen satış",
-      "svc2.tag":"Yönet","svc2.h3":"AI Otomasyon",
-      "svc2.li1":"Lead takibi ve otomatik yanıt sistemleri","svc2.li2":"DM, WhatsApp ve mesaj otomasyonu","svc2.li3":"Otomatik raporlama ve gösterge panelleri","svc2.li4":"Tekrar eden iş akışlarının otomasyonu",
-      "why.kicker":"Neden astra-meta","why.h2":"Fark, uygulayıcı olmamızda",
-      "why.b1h":"Önce kendi işimizde test ederiz","why.b1p":"Kendi e-ticaret markalarımızı yönetiyoruz. Sana kurduğumuz reklam ve otomasyon sistemlerini, gerçek parayla ve gerçek müşteriyle biz de kullanıyoruz. Teori değil, saha.",
-      "why.b2h":"Tek elden","why.b2p":"Reklam ajansı + yazılımcı + danışman koşturmaya gerek yok. Hepsi tek ekipte.",
-      "why.b3h":"Net rakam","why.b3p":"Boş ajans jargonu yok. Her ay ne harcandı, ne kazandırdı — açık.",
-      "why.b4h":"Kur, çalışsın","why.b4p":"Otomasyonu bir kez kurarız; tekrar eden işler kendi kendine döner. Vaktini takip etmeye değil, büyümeye ayırırsın.",
-      "diff.quote":"“Size kurduğumuz sistemleri <span class=\"grad\">önce kendi işimizde</span> çalıştırıyoruz.”",
-      "diff.p":"Anlattığımız her şeyi sahada denedik. Bu yüzden vaadimiz cesur ama gerçekçi.",
-      "tell.kicker":"İşinden bahset","tell.h2":"Bize işini anlat",
-      "tell.p1":"Birkaç cümle yeterli: ne sattığını, şu an nerede takıldığını ve nereye gitmek istediğini yaz.",
-      "tell.p2":"En kısa sürede sana özel, net bir <b style=\"color:var(--text)\">\"getir-yönet\"</b> planıyla döneriz. İlk görüşme tamamen ücretsiz, hiçbir taahhüt yok.",
-      "tell.micro":"Genelde 24 saat içinde dönüş yapıyoruz.",
-      "form.name":"Ad / İşletme","form.namePh":"Adın veya markan",
-      "form.contact":"E-posta veya telefon","form.contactPh":"Sana nasıl ulaşalım?",
-      "form.biz":"Ne satıyorsun?","form.bizPh":"Ör. el yapımı takı, mobilya, online kurs...",
-      "form.msg":"İşini birkaç cümleyle anlat","form.msgPh":"Şu an en çok nerede takılıyorsun? Hedefin ne? (örn: reklam veriyorum ama satışa dönmüyor / gelen mesajlara yetişemiyorum...)",
-      "form.budget":"Aylık reklam bütçen (opsiyonel)",
-      "form.b0":"Belirtmek istemiyorum","form.b1":"Henüz reklam vermiyorum","form.b2":"Düşük — yeni başlıyorum","form.b3":"Orta — düzenli reklam veriyorum","form.b4":"Yüksek — ciddi ölçekteyim",
-      "form.submit":"Talebimi gönder →","form.note":"Bilgilerin sadece sana dönüş yapmak için kullanılır.",
-      "form.sending":"Gönderiliyor...","form.sent":"Gönderildi ✓",
-      "form.success":"✓ Teşekkürler! Mesajın bize ulaştı, en kısa sürede dönüş yapacağız.",
-      "form.error":"Bir sorun oldu. Lütfen tekrar dene veya aydin@astra-meta.com'a yaz.",
-      "cta.h2":"İşini büyütmeye hazır mısın?","cta.p":"15 dakikada ne yapabileceğimizi konuşalım. İlk görüşme ücretsiz.","cta.wa":"WhatsApp'tan yaz",
-      "wa.text":"Merhaba, astra-meta hakkında bilgi almak istiyorum.",
-      "footer.email":"E-posta","footer.copy":"© 2026 astra-meta LLC · Getir. Yönet. Büyü."
-    },
-    en:{
-      "meta.title":"astra-meta — Acquire. Automate. Grow.",
-      "meta.desc":"astra-meta: a full-stack growth partner that brings customers to SMBs and e-commerce brands with ads and manages them with AI automation.",
-      "nav.services":"Services","nav.why":"Why us","nav.contact":"Contact","nav.cta":"Free consultation",
-      "hero.eyebrow":"Growth partner for SMBs & e-commerce",
-      "hero.h1":"Acquire. <span class=\"grad\">Automate.</span> Grow.",
-      "hero.lead":"We <b>acquire</b> customers with ads, then take the <b>burden of managing them off your shoulders</b> with AI automation. One team, end to end — you focus on your business.",
-      "hero.cta1":"Tell us about your business →","hero.cta2":"How it works",
-      "marquee":["Meta Ads","Google Ads","AI Automation","E-commerce Growth","Lead Management","WhatsApp Automation","Reporting"],
-      "m1.num":"01 — ACQUIRE","m1.h3":"Ads & Consulting","m1.p":"We bring the right customers to your business with Meta and Google ads.",
-      "m2.num":"02 — AUTOMATE","m2.h3":"AI Automation","m2.p":"We automate lead tracking, messaging and reporting with AI.",
-      "m3.num":"RESULT","m3.h3":"Grow","m3.p":"More sales, less manual work. Let the system run — you grow.",
-      "svc.kicker":"Services","svc.h2":"Two engines, one flow","svc.p":"Most agencies only run ads or only build software. We connect both, end to end.",
-      "svc1.tag":"Acquire","svc1.h3":"Ads & Growth Consulting",
-      "svc1.li1":"Meta (Instagram/Facebook) & Google ads management","svc1.li2":"E-commerce conversion & sales optimization","svc1.li3":"Audience, creative and budget strategy","svc1.li4":"Clear reporting: money spent → sales generated",
-      "svc2.tag":"Automate","svc2.h3":"AI Automation",
-      "svc2.li1":"Lead tracking and automatic response systems","svc2.li2":"DM, WhatsApp and messaging automation","svc2.li3":"Automated reporting and dashboards","svc2.li4":"Automation of repetitive workflows",
-      "why.kicker":"Why astra-meta","why.h2":"The difference: we're practitioners",
-      "why.b1h":"We test it on our own business first","why.b1p":"We run our own e-commerce brands. The ad and automation systems we build for you, we use ourselves — with real money and real customers. Not theory, the field.",
-      "why.b2h":"One team","why.b2p":"No need to juggle an ad agency + developer + consultant. It's all in one team.",
-      "why.b3h":"Clear numbers","why.b3p":"No empty agency jargon. Every month: what was spent, what it earned — clear.",
-      "why.b4h":"Set it, let it run","why.b4p":"We set up the automation once; repetitive work runs itself. You spend your time growing, not chasing.",
-      "diff.quote":"“The systems we build for you, we run <span class=\"grad\">on our own business first</span>.”",
-      "diff.p":"We've tested everything we claim in the field. That's why our promise is bold but realistic.",
-      "tell.kicker":"Tell us about your business","tell.h2":"Tell us about your business",
-      "tell.p1":"A few sentences are enough: what you sell, where you're stuck right now, and where you want to go.",
-      "tell.p2":"We'll get back to you with a tailored, clear <b style=\"color:var(--text)\">\"acquire-automate\"</b> plan as soon as possible. The first consultation is completely free, no commitment.",
-      "tell.micro":"We usually reply within 24 hours.",
-      "form.name":"Name / Business","form.namePh":"Your name or brand",
-      "form.contact":"Email or phone","form.contactPh":"How can we reach you?",
-      "form.biz":"What do you sell?","form.bizPh":"e.g. handmade jewelry, furniture, online courses...",
-      "form.msg":"Describe your business in a few sentences","form.msgPh":"Where are you stuck most right now? What's your goal? (e.g. I run ads but they don't convert / I can't keep up with incoming messages...)",
-      "form.budget":"Monthly ad budget (optional)",
-      "form.b0":"Prefer not to say","form.b1":"Not running ads yet","form.b2":"Low — just starting","form.b3":"Medium — running ads regularly","form.b4":"High — at serious scale",
-      "form.submit":"Send my request →","form.note":"Your info is only used to get back to you.",
-      "form.sending":"Sending...","form.sent":"Sent ✓",
-      "form.success":"✓ Thank you! Your message reached us. We'll get back to you shortly.",
-      "form.error":"Something went wrong. Please try again or email aydin@astra-meta.com.",
-      "cta.h2":"Ready to grow your business?","cta.p":"Let's spend 15 minutes on what we can do for you. First consultation is free.","cta.wa":"Message on WhatsApp",
-      "wa.text":"Hi, I'd like to learn more about astra-meta.",
-      "footer.email":"Email","footer.copy":"© 2026 astra-meta LLC · Acquire. Automate. Grow."
-    }
-  };
-
-  let currentLang='en';
-  function applyLang(lang,persist){
-    const d=I18N[lang]||I18N.en;
-    document.documentElement.lang=lang;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k];});
-    document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(d[k]!=null)el.innerHTML=d[k];});
-    document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(d[k]!=null)el.placeholder=d[k];});
-    if(d["meta.title"])document.title=d["meta.title"];
-    const md=document.querySelector('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
-    const mt=document.getElementById('marqueeTrack');
-    if(mt&&d.marquee){mt.innerHTML='';d.marquee.concat(d.marquee).forEach(t=>{const s=document.createElement('span');s.textContent=t;mt.appendChild(s);});}
-    const tg=document.getElementById('langToggle');if(tg)tg.textContent=lang==='tr'?'EN':'TR';
-    currentLang=lang;
-    if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
+/* ── i18n ── */
+const I18N={
+  tr:{
+    "meta.title":"astra-meta — Getir. Yönet. Büyü.",
+    "meta.desc":"astra-meta, KOBİ ve e-ticaret markalarına reklamla müşteri getirir, sonra o müşteriyi AI otomasyonla yönetir. Tek ekip, dönmeye devam eden tek sistem.",
+    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Kanıt","nav.process":"Süreç","nav.contact":"İletişim","nav.cta":"Konuşalım",
+    "hero.k1":"KOBİ & e-ticaret için büyüme sistemleri","hero.k2":"Reklam + AI otomasyon · Tek ekip",
+    "hero.h1":"<span class=\"line\"><span class=\"li\">Getir.</span></span><span class=\"line grad\"><span class=\"li\">Yönet.</span></span><span class=\"line\"><span class=\"li\">Büyü.</span></span>",
+    "hero.lead":"Reklamla müşteriyi işine getiririz, sonra o müşteriyi <b>yönetme yükünü</b> AI otomasyonla sırtından alırız. Tek ekip, uçtan uca. <b>Sen işine odaklan.</b>",
+    "hero.cta1":"İşinden bahset","hero.cta2":"Sistem nasıl dönüyor?","hero.scroll":"Kaydır","hero.loc":"Casper, WY · Dünyanın her yerinde",
+    "marquee":["Meta Reklamları","Google Ads","AI Otomasyon","WhatsApp & DM Otomasyonu","Lead Yönetimi","E-ticaret Büyüme","Net Raporlama"],
+    "ch1.num":"01 — Model","ch1.tag":"Getir + Yönet = Büyü",
+    "ch1.intro":"Çoğu işletmede birbirine hiç değmeyen iki makine çalışır: biri müşteri getirir, diğeri gelenlere yetişmeye çalışır. Biz tek bir sistem kurarız — <em>ve o sistem döner.</em>",
+    "st1.k":"01 · Getir","st1.h":"Çekim.","st1.p":"Hedef kitle, kreatif ve bütçe stratejisi üzerine kurulu Meta ve Google reklamları doğru müşteriyi işine çeker. Trafik değil, alıcı.",
+    "st2.k":"02 · Yönet","st2.h":"Yörünge.","st2.p":"Gelen her talep otomatik yanıtlanır, takip edilir, etiketlenir ve raporlanır. Akşamlarını yiyen iş artık kendi kendine döner.",
+    "st3.k":"= Büyü","st3.h":"Takımyıldız.","st3.p":"Daha çok satış, daha az elle iş. Sen yapılacaklar listesini değil işini büyütürken sistem dönmeye devam eder.",
+    "ch2.num":"02 — Hizmetler","ch2.tag":"İki motor, tek akış",
+    "ch2.h2":"İki motor. Tek akış.",
+    "ch2.p":"Çoğu ajans ya sadece reklam verir ya sadece yazılım kurar. Biz ikisini uçtan uca bağlarız — getirdiğimiz müşteri, sistemin ilgilendiği müşteridir.",
+    "en1.k":"Getir","en1.h":"Reklam & büyüme danışmanlığı",
+    "en1.r1":"Meta (Instagram/Facebook) & Google reklam yönetimi","en1.n1":"Kampanya · kreatif · bütçe",
+    "en1.r2":"E-ticaret dönüşüm ve satış optimizasyonu","en1.n2":"Mağaza · teklif · huni",
+    "en1.r3":"Hedef kitle, kreatif ve bütçe stratejisi","en1.n3":"Kime · ne · ne kadar",
+    "en1.r4":"Net raporlama: harcanan para → gelen satış","en1.n4":"Aylık · sade dil",
+    "en2.k":"Yönet","en2.h":"AI otomasyon",
+    "en2.r1":"Lead takibi & otomatik yanıt","en2.n1":"Anında · 7/24",
+    "en2.r2":"DM, WhatsApp & mesaj otomasyonu","en2.n2":"Instagram · WhatsApp · e-posta",
+    "en2.r3":"Otomatik raporlama & gösterge panelleri","en2.n3":"Günlük · haftalık · aylık",
+    "en2.r4":"Tekrar eden iş akışları, otomatik","en2.n4":"Sipariş · takip · devir",
+    "ch3.num":"03 — Kanıt","ch3.tag":"Teorisyen değil, uygulayıcı",
+    "ch3.quote":"“Size kurduğumuz sistemleri <em>önce kendi işimizde</em> çalıştırıyoruz.”",
+    "ch3.p":"Kendi e-ticaret markalarımızı yönetiyoruz. Sana kurduğumuz her reklam yapısı ve her otomasyon, senin müşterine ulaşmadan önce bizim paramızla, bizim müşterimizle çalışır. Teori değil, saha.",
+    "log.h":"“Yönet” bir salı günü neye benzer","log.k":"Temsili akış · yerel saat",
+    "log.e1":"Yeni talep · Instagram DM","log.r1":"nitelikli",
+    "log.e2":"Otomatik yanıt gitti · müşterinin dilinde","log.r2":"1,2 sn",
+    "log.e3":"Pipeline'a eklendi · “mobilya” etiketi","log.r3":"CRM",
+    "log.e4":"Soru yanıtlandı · fiyat listesi gönderildi","log.r4":"otomatik",
+    "log.e5":"Takip planlandı","log.r5":"+24 sa",
+    "log.e6":"Günlük rapor → sahibin gelen kutusu","log.r6":"harcama · talep · satış",
+    "pr1.h":"Tek elden","pr1.p":"Reklam ajansı, yazılımcı ve danışman koşturmaya gerek yok. Akışın tamamı tek ekipte.",
+    "pr2.h":"Net rakam","pr2.p":"Boş ajans jargonu yok. Her ay: ne harcandı, ne kazandırdı. Sade dille.",
+    "pr3.h":"Kur, çalışsın","pr3.p":"Otomasyonu bir kez kurarız; tekrar eden işler kendi kendine döner. Vaktini takibe değil, büyümeye ayırırsın.",
+    "ch4.num":"04 — Süreç","ch4.tag":"İlk mesajdan dönen sisteme",
+    "ch4.h2":"Nasıl başlıyoruz.",
+    "ps1.w":"Gün 0","ps1.h":"İşinden bahset","ps1.p":"Birkaç cümle: ne satıyorsun, nerede takılıyorsun, nereye gitmek istiyorsun.",
+    "ps2.w":"24 saat içinde","ps2.h":"Ücretsiz teşhis","ps2.p":"Kısa bir görüşme ve işine özel yazılmış net bir getir-yönet planıyla döneriz. Taahhüt yok.",
+    "ps3.w":"1–2. hafta","ps3.h":"Kurulum","ps3.p":"Bir yanda reklam hesapları, hedef kitleler ve kreatifler; diğer yanda yanıt, takip ve raporlama otomasyonları.",
+    "ps4.w":"Sürekli","ps4.h":"Yayın, ölçüm, ayar","ps4.p":"Kampanyalar yayına girer, otomasyonlar angaryayı devralır ve her ay ne harcandığını, ne kazandırdığını görürsün.",
+    "ch5.num":"05 — Uyum","ch5.tag":"Kimin için",
+    "fy.h":"Uygunsun, eğer…","fy.1":"Zaten bir şey satıyorsan ve daha çok kaos değil, daha çok müşteri istiyorsan.","fy.2":"E-ticaret markası, yerel hizmet, klinik, stüdyo ya da kurs işletiyorsan.","fy.3":"Gelen mesajlar ve takipler vaktini yiyorsa.","fy.4":"Rakamları her ay sade dille görmek istiyorsan.",
+    "fn.h":"Uygun değilsin, eğer…","fn.1":"Önce logo ve web sitesine ihtiyacın varsa.","fn.2":"Satıştan çok beğeni arıyorsan.","fn.3":"Düz cevap yerine aylık sunum dosyası istiyorsan.",
+    "ch6.num":"06 — İletişim","ch6.tag":"Kanalı aç",
+    "ch6.h2":"Bize işini anlat.",
+    "ch6.p1":"Birkaç cümle yeterli: ne sattığını, şu an nerede takıldığını ve nereye gitmek istediğini yaz.",
+    "ch6.p2":"Sana özel, net bir <b>getir-yönet</b> planıyla döneriz. İlk görüşme ücretsiz. Taahhüt yok.",
+    "ch6.micro":"Genelde 24 saat içinde dönüş yapıyoruz",
+    "form.name":"Ad / İşletme","form.namePh":"Adın veya markan",
+    "form.contact":"E-posta veya telefon","form.contactPh":"Sana nasıl ulaşalım?",
+    "form.biz":"Ne satıyorsun?","form.bizPh":"Ör. el yapımı takı, mobilya, online kurs...",
+    "form.msg":"İşini birkaç cümleyle anlat","form.msgPh":"Şu an en çok nerede takılıyorsun? Hedefin ne?",
+    "form.budget":"Aylık reklam bütçen (opsiyonel)",
+    "form.b0":"Belirtmek istemiyorum","form.b1":"Henüz reklam vermiyorum","form.b2":"Düşük — yeni başlıyorum","form.b3":"Orta — düzenli reklam veriyorum","form.b4":"Yüksek — ciddi ölçekteyim",
+    "form.submit":"Talebimi gönder","form.note":"Bilgilerin sadece sana dönüş yapmak için kullanılır.",
+    "form.sending":"Gönderiliyor...","form.sent":"Gönderildi ✓",
+    "form.success":"✓ Teşekkürler! Mesajın bize ulaştı, en kısa sürede dönüş yapacağız.",
+    "form.error":"Bir sorun oldu. Lütfen tekrar dene veya aydin@astra-meta.com'a yaz.",
+    "fin.k":"Getir + Yönet = Büyü","fin.h2":"Sistem dönsün.<br>Sen büyü.","fin.cta":"Konuşmaya başla",
+    "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Getir. Yönet. Büyü.","foot.top":"Başa dön"
+  },
+  en:{
+    "meta.title":"astra-meta — Acquire. Automate. Grow.",
+    "meta.desc":"astra-meta brings customers to SMBs and e-commerce brands with ads, then manages them with AI automation. One team, one system that keeps turning.",
+    "nav.model":"Model","nav.services":"Services","nav.proof":"Proof","nav.process":"Process","nav.contact":"Contact","nav.cta":"Let's talk",
+    "hero.k1":"Growth systems for SMBs & e-commerce","hero.k2":"Ads + AI automation · One team",
+    "hero.h1":"<span class=\"line\"><span class=\"li\">Acquire.</span></span><span class=\"line grad\"><span class=\"li\">Automate.</span></span><span class=\"line\"><span class=\"li\">Grow.</span></span>",
+    "hero.lead":"We bring customers to your business with ads, then take the weight of <b>managing them</b> off your shoulders with AI automation. One team, end to end. <b>You focus on the business.</b>",
+    "hero.cta1":"Tell us about your business","hero.cta2":"See how it turns","hero.scroll":"Scroll","hero.loc":"Casper, WY · Working worldwide",
+    "marquee":["Meta Ads","Google Ads","AI Automation","WhatsApp & DM Automation","Lead Management","E-commerce Growth","Clear Reporting"],
+    "ch1.num":"01 — The model","ch1.tag":"Acquire + Automate = Grow",
+    "ch1.intro":"Most businesses run two machines that never meet: one that brings people in, and one that tries to keep up with them. We build one system — <em>and it turns.</em>",
+    "st1.k":"01 · Acquire","st1.h":"Gravity.","st1.p":"Meta and Google ads, built on audience, creative and budget strategy, pull the right customers toward your business. Not traffic. Buyers.",
+    "st2.k":"02 · Automate","st2.h":"Orbit.","st2.p":"Every lead gets answered, followed up, tagged and reported — automatically. The work that used to eat your evenings now runs on its own.",
+    "st3.k":"= Grow","st3.h":"Constellation.","st3.p":"More sales, less manual work. The system keeps turning while you grow the business, not the to-do list.",
+    "ch2.num":"02 — Services","ch2.tag":"Two engines, one flow",
+    "ch2.h2":"Two engines. One flow.",
+    "ch2.p":"Most agencies only run ads or only build software. We connect both, end to end — so the customer we bring in is the customer the system takes care of.",
+    "en1.k":"Acquire","en1.h":"Ads & growth consulting",
+    "en1.r1":"Meta (Instagram/Facebook) & Google ads management","en1.n1":"Campaign · creative · budget",
+    "en1.r2":"E-commerce conversion & sales optimization","en1.n2":"Store · offer · funnel",
+    "en1.r3":"Audience, creative and budget strategy","en1.n3":"Who · what · how much",
+    "en1.r4":"Clear reporting: money spent → sales generated","en1.n4":"Monthly · plain language",
+    "en2.k":"Automate","en2.h":"AI automation",
+    "en2.r1":"Lead tracking & automatic replies","en2.n1":"Instant · 24/7",
+    "en2.r2":"DM, WhatsApp & messaging automation","en2.n2":"Instagram · WhatsApp · email",
+    "en2.r3":"Automated reporting & dashboards","en2.n3":"Daily · weekly · monthly",
+    "en2.r4":"Repetitive workflows, automated","en2.n4":"Orders · follow-ups · handoffs",
+    "ch3.num":"03 — Proof","ch3.tag":"Practitioners, not theorists",
+    "ch3.quote":"“The systems we build for you, we run <em>on our own business first.</em>”",
+    "ch3.p":"We manage our own e-commerce brands. Every ad structure and every automation we set up for you runs with our own money and our own customers before it reaches yours. Not theory. The field.",
+    "log.h":"What “automate” looks like on a Tuesday","log.k":"Illustrative run · local time",
+    "log.e1":"New lead · Instagram DM","log.r1":"qualified",
+    "log.e2":"Auto-reply sent · in the customer's language","log.r2":"1.2 s",
+    "log.e3":"Added to pipeline · tagged “furniture”","log.r3":"CRM",
+    "log.e4":"Question answered · price list sent","log.r4":"auto",
+    "log.e5":"Follow-up scheduled","log.r5":"+24 h",
+    "log.e6":"Daily report → owner's inbox","log.r6":"spend · leads · sales",
+    "pr1.h":"One team","pr1.p":"No juggling an ad agency, a developer and a consultant. One team owns the whole flow.",
+    "pr2.h":"Clear numbers","pr2.p":"No agency jargon. Every month: what was spent, what it earned. In plain language.",
+    "pr3.h":"Set it, let it run","pr3.p":"We build the automation once. Repetitive work runs itself; you spend your time growing, not chasing.",
+    "ch4.num":"04 — Process","ch4.tag":"From first message to a turning system",
+    "ch4.h2":"How we start.",
+    "ps1.w":"Day 0","ps1.h":"Tell us about your business","ps1.p":"A few sentences: what you sell, where you're stuck, where you want to go.",
+    "ps2.w":"Within 24 hours","ps2.h":"A free diagnosis","ps2.p":"We come back with a short call and a clear acquire-automate plan written for your business. No commitment.",
+    "ps3.w":"Weeks 1–2","ps3.h":"Build","ps3.p":"Ad accounts, audiences and creatives on one side; replies, follow-ups and reporting automations on the other.",
+    "ps4.w":"Ongoing","ps4.h":"Launch, measure, adjust","ps4.p":"Campaigns go live, the automations take over the busywork, and every month you see what was spent and what it earned.",
+    "ch5.num":"05 — Fit","ch5.tag":"Who this is for",
+    "fy.h":"A good fit if…","fy.1":"You already sell something and want more customers — not more chaos.","fy.2":"You run an e-commerce brand, a local service, a clinic, a studio or a course.","fy.3":"Incoming messages and follow-ups are eating your time.","fy.4":"You want to see the numbers in plain language, every month.",
+    "fn.h":"Not a fit if…","fn.1":"You need a logo and a website first.","fn.2":"You're looking for likes rather than sales.","fn.3":"You'd rather get a monthly deck than a straight answer.",
+    "ch6.num":"06 — Contact","ch6.tag":"Open the channel",
+    "ch6.h2":"Tell us about your business.",
+    "ch6.p1":"A few sentences are enough: what you sell, where you're stuck right now, and where you want to go.",
+    "ch6.p2":"We'll come back with a tailored, clear <b>acquire-automate</b> plan. The first consultation is free. No commitment.",
+    "ch6.micro":"We usually reply within 24 hours",
+    "form.name":"Name / Business","form.namePh":"Your name or brand",
+    "form.contact":"Email or phone","form.contactPh":"How can we reach you?",
+    "form.biz":"What do you sell?","form.bizPh":"e.g. handmade jewelry, furniture, online courses...",
+    "form.msg":"Describe your business in a few sentences","form.msgPh":"Where are you stuck most right now? What's your goal?",
+    "form.budget":"Monthly ad budget (optional)",
+    "form.b0":"Prefer not to say","form.b1":"Not running ads yet","form.b2":"Low — just starting","form.b3":"Medium — running ads regularly","form.b4":"High — at serious scale",
+    "form.submit":"Send my request","form.note":"Your info is only used to get back to you.",
+    "form.sending":"Sending...","form.sent":"Sent ✓",
+    "form.success":"✓ Thank you! Your message reached us. We'll get back to you shortly.",
+    "form.error":"Something went wrong. Please try again or email aydin@astra-meta.com.",
+    "fin.k":"Acquire + Automate = Grow","fin.h2":"Let the system turn.<br>You grow.","fin.cta":"Start a conversation",
+    "foot.contact":"Contact","foot.legal":"Legal","foot.lang":"Language","foot.copy":"© 2026 astra-meta LLC · Acquire. Automate. Grow.","foot.top":"Back to top"
   }
+};
 
-  /* Dil tespiti: kayitli tercih > IP ulkesi (TR -> Turkce) > tarayici dili */
-  (function initLang(){
-    let saved=null;try{saved=localStorage.getItem('astra_lang');}catch(e){}
-    if(saved){applyLang(saved,false);return;}
-    const nl=(navigator.language||'en').toLowerCase();
-    applyLang(nl.startsWith('tr')?'tr':'en',false);
-    fetch('https://ipapi.co/country/').then(function(r){return r.ok?r.text():Promise.reject();}).then(function(c){
-      const cc=(c||'').trim().toUpperCase();
-      let stillAuto=true;try{stillAuto=!localStorage.getItem('astra_lang');}catch(e){}
-      if(cc.length===2&&stillAuto)applyLang(cc==='TR'?'tr':'en',false);
-    }).catch(function(){});
-  })();
+/* ── Split words (display headings) ── */
+function split(el){
+  const words=el.textContent.trim().split(/\s+/);
+  el.innerHTML=words.map((w,i)=>'<span class="w"><span class="wi" style="transition-delay:'+(i*45)+'ms">'+esc(w)+'</span></span>').join(' ');
+}
+function splitAll(){ $$('.split').forEach(split); }
 
-  const langBtn=document.getElementById('langToggle');
-  if(langBtn)langBtn.addEventListener('click',function(){applyLang(currentLang==='tr'?'en':'tr',true);});
+/* ── Reveal observer ── */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+function observeAll(){ $$('.rv,.split,.ch-head,.log').forEach(el=>{ if(!el.classList.contains('in')) io.observe(el); }); }
 
-  /* ── Web3Forms submit (sayfada kalır, mesaj gösterir) ── */
-  const form=document.getElementById('leadForm');
-  form.addEventListener('submit',async(e)=>{
-    e.preventDefault();
-    const d=I18N[currentLang]||I18N.en;
-    const btn=form.querySelector('button[type="submit"]');
-    const note=document.getElementById('formNote');
-    const original=btn.textContent;
-    btn.textContent=d["form.sending"];btn.disabled=true;
-    try{
-      const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-      const data=await res.json();
-      if(data.success){
-        form.reset();
-        note.textContent=d["form.success"];note.style.color='#36e08a';
-        btn.textContent=d["form.sent"];
-      }else{throw new Error(data.message||'error');}
-    }catch(err){
-      note.textContent=d["form.error"];note.style.color='#ff6b6b';
-      btn.textContent=original;btn.disabled=false;
-    }
+let currentLang='en';
+function applyLang(lang,persist){
+  const d=I18N[lang]||I18N.en;
+  document.documentElement.lang=lang;
+  $$('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k];});
+  $$('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(d[k]!=null)el.innerHTML=d[k];});
+  $$('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(d[k]!=null)el.placeholder=d[k];});
+  if(d["meta.title"])document.title=d["meta.title"];
+  const md=$('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
+  const mt=$('#marqueeTrack');
+  if(mt&&d.marquee){mt.innerHTML='';d.marquee.concat(d.marquee).forEach(t=>{const s=document.createElement('span');s.textContent=t;mt.appendChild(s);});}
+  $$('.lang').forEach(b=>b.textContent=lang==='tr'?'EN':'TR');
+  $$('.lang-text').forEach(b=>b.style.color=b.dataset.lang===lang?'var(--text)':'');
+  currentLang=lang;
+  if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
+  splitAll(); observeAll();
+}
+/* Dil tespiti: kayıtlı tercih > IP ülkesi (TR -> Türkçe) > tarayıcı dili */
+(function initLang(){
+  let saved=null;try{saved=localStorage.getItem('astra_lang');}catch(e){}
+  if(saved){applyLang(saved,false);return;}
+  const nl=(navigator.language||'en').toLowerCase();
+  applyLang(nl.startsWith('tr')?'tr':'en',false);
+  fetch('https://ipapi.co/country/').then(r=>r.ok?r.text():Promise.reject()).then(c=>{
+    const cc=(c||'').trim().toUpperCase();
+    let stillAuto=true;try{stillAuto=!localStorage.getItem('astra_lang');}catch(e){}
+    if(cc.length===2&&stillAuto)applyLang(cc==='TR'?'tr':'en',false);
+  }).catch(()=>{});
+})();
+$$('.lang').forEach(b=>b.addEventListener('click',()=>applyLang(currentLang==='tr'?'en':'tr',true)));
+$$('.lang-text').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang,true)));
+
+/* ── Fonts ready → hero ignition ── */
+let heroStart=null;
+function fontsIn(){ if(heroStart!==null)return; heroStart=performance.now(); document.documentElement.classList.add('fonts-in'); }
+if(document.fonts&&document.fonts.ready){ Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,900))]).then(()=>requestAnimationFrame(fontsIn)); } else setTimeout(fontsIn,300);
+
+/* ── Orbit builder: rings, arcs, points, constellation lines, center star ── */
+function makeOrbit(svg,o){
+  o=Object.assign({rings:[110,190,270,350],points:16,late:6,pairs:9,seed:7,spin:.8,arcs:true,alpha:1},o);
+  const NS='http://www.w3.org/2000/svg',C=400,D=Math.PI/180;
+  let s=o.seed;const rnd=()=>{s=(s*9301+49297)%233280;return s/233280};
+  const el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  svg.setAttribute('viewBox','0 0 800 800');
+  const id='og'+Math.random().toString(36).slice(2,8);
+  const defs=el('defs');
+  const lg=el('linearGradient',{id:id,x1:'0',y1:'0',x2:'1',y2:'1'},defs);
+  el('stop',{offset:'0','stop-color':'#ed3aa2'},lg);el('stop',{offset:'1','stop-color':'#4fc3de'},lg);
+  const gAll=el('g',{opacity:o.alpha});
+  const gRings=el('g',{},gAll),gArcs=el('g',{},gAll),gLines=el('g',{},gAll),gPts=el('g',{},gAll),gC=el('g',{},gAll);
+  const rings=o.rings.map(r=>el('circle',{cx:C,cy:C,r:r,fill:'none',stroke:'rgba(255,255,255,.13)','stroke-width':'1','vector-effect':'non-scaling-stroke'},gRings));
+  const arcs=[];
+  if(o.arcs){[[1,'#ed3aa2',.34,1.6,-30],[2,'#4fc3de',.42,-1,120]].forEach(([ri,col,frac,sp,off])=>{
+    const r=o.rings[ri],len=2*Math.PI*r;
+    const a=el('circle',{cx:C,cy:C,r:r,fill:'none',stroke:col,'stroke-width':'1.5','stroke-linecap':'round','stroke-dasharray':(len*frac)+' '+len,'stroke-dashoffset':len*frac,'vector-effect':'non-scaling-stroke',opacity:.95},gArcs);
+    arcs.push({e:a,len:len*frac,sp,off});});}
+  const cols=['#f3f3f8','#ed3aa2','#4fc3de','#f3f3f8','#ed3aa2','#f3f3f8','#4fc3de'];
+  const pts=[];
+  for(let i=0;i<o.points+o.late;i++){
+    const late=i>=o.points,ri=1+Math.floor(rnd()*3),ang=rnd()*360,sr=460+rnd()*220,sa=ang+(rnd()-.5)*170,col=cols[i%cols.length];
+    const g=el('g',{opacity:0},gPts);
+    el('circle',{r:9,fill:col,opacity:.16},g);el('circle',{r:2.6,fill:col},g);
+    pts.push({g,ri,ang,sr,sa,late,speed:(4-ri)*.55+.45,x:C,y:C});
+  }
+  const lines=[];
+  for(let k=0;k<o.pairs;k++){const i=Math.floor(rnd()*pts.length),j=Math.floor(rnd()*pts.length);if(i===j)continue;
+    lines.push({e:el('line',{stroke:'url(#'+id+')','stroke-width':'1','vector-effect':'non-scaling-stroke',opacity:0},gLines),i,j});}
+  const halo=el('circle',{cx:C,cy:C,r:26,fill:'url(#'+id+')',opacity:.12},gC);
+  const star=el('path',{d:'M400 384 L416 400 L400 416 L384 400 Z',fill:'url(#'+id+')'},gC);
+  const ease=e=>1-Math.pow(1-e,3);
+  let last=null;
+  function update(p,t){
+    const a=ease(clamp(p/.36,0,1)),b=ease(clamp((p-.3)/.36,0,1)),c=ease(clamp((p-.62)/.38,0,1));
+    const key=a.toFixed(3)+b.toFixed(3)+c.toFixed(3)+t.toFixed(2);if(key===last)return;last=key;
+    const rot=t*o.spin,sc=1+.05*c;
+    gAll.setAttribute('transform','translate(400 400) scale('+sc.toFixed(4)+') translate(-400 -400)');
+    rings.forEach(r=>r.setAttribute('opacity',(.25+.75*a).toFixed(3)));
+    arcs.forEach(ar=>{ar.e.setAttribute('stroke-dashoffset',(ar.len*(1-b)).toFixed(2));ar.e.setAttribute('transform','rotate('+(rot*ar.sp+ar.off).toFixed(2)+' 400 400)');});
+    pts.forEach(pt=>{
+      const ah=(pt.ang+rot*pt.speed)*D,rh=o.rings[pt.ri];
+      const hx=C+Math.cos(ah)*rh,hy=C+Math.sin(ah)*rh,sx=C+Math.cos(pt.sa*D)*pt.sr,sy=C+Math.sin(pt.sa*D)*pt.sr;
+      pt.x=sx+(hx-sx)*a;pt.y=sy+(hy-sy)*a;
+      pt.g.setAttribute('transform','translate('+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+')');
+      pt.g.setAttribute('opacity',pt.late?c.toFixed(2):(a*.95).toFixed(2));
+    });
+    lines.forEach(l=>{const A=pts[l.i],B=pts[l.j];l.e.setAttribute('x1',A.x.toFixed(1));l.e.setAttribute('y1',A.y.toFixed(1));l.e.setAttribute('x2',B.x.toFixed(1));l.e.setAttribute('y2',B.y.toFixed(1));l.e.setAttribute('opacity',(c*.5).toFixed(2));});
+    star.setAttribute('transform','rotate('+(rot*.5).toFixed(2)+' 400 400) translate(400 400) scale('+(.5+.5*a).toFixed(3)+') translate(-400 -400)');
+    halo.setAttribute('r',(18+16*a+10*c).toFixed(1));
+  }
+  return {update};
+}
+
+const orbits=[];
+function addOrbit(svg,cfg,getP){ if(!svg)return; const api=makeOrbit(svg,cfg); const o={svg,api,getP,visible:false}; orbits.push(o);
+  new IntersectionObserver(es=>{es.forEach(e=>{o.visible=e.isIntersecting;});},{rootMargin:'12% 0px'}).observe(svg); return o; }
+
+addOrbit($('#orbitHero'),{seed:11,points:14,late:5,pairs:8,spin:.9},()=>{ if(RM)return 1; if(heroStart===null)return 0; return clamp((performance.now()-heroStart)/1900,0,1); });
+const story=$('#story'),stageNum=$('#stageNum'),stageBar=$('#stageBar');
+let pS=0;
+addOrbit($('#orbitStory'),{seed:23,points:16,late:8,pairs:11,spin:.6},()=>{
+  const r=story.getBoundingClientRect(),total=Math.max(1,r.height-innerHeight),raw=clamp(-r.top/total,0,1);
+  pS=RM?raw:pS+(raw-pS)*.14;
+  const n=1+Math.min(2,Math.floor(pS*3));
+  stageNum.textContent='0'+n+' / 03';stageBar.style.transform='scaleX('+pS.toFixed(3)+')';
+  return pS; });
+addOrbit($('#orbitEnd'),{seed:5,points:18,late:8,pairs:12,spin:.5,alpha:.9},()=>1);
+
+const t0=performance.now();
+(function loop(now){ const t=RM?0:(now-t0)/1000; orbits.forEach(o=>{ if(!o.visible)return; o.api.update(o.getP(),t); }); requestAnimationFrame(loop); })(t0);
+
+/* ── Step activation (viewport-centre) ── */
+const steps=$$('.step');
+const stepIO=new IntersectionObserver(es=>{es.forEach(e=>{ if(e.isIntersecting){steps.forEach(s=>s.classList.toggle('on',s===e.target));} });},{rootMargin:innerWidth<=1024?'-50% 0px -30% 0px':'-42% 0px -42% 0px',threshold:0});
+steps.forEach(s=>stepIO.observe(s));
+
+/* ── Scroll: nav, progress ring, parallax, drawn lines ── */
+const nav=$('#nav'),ringP=$('#ringP'),heroOrbit=$('#heroOrbit'),plist=$('#plist'),pline=$('#pline'),engines=$('.engines'),flowFill=$('#flowFill');
+let lastY=scrollY,ticking=false,menuOpen=false;
+function onScroll(){
+  if(ticking)return;ticking=true;
+  requestAnimationFrame(()=>{
+    const y=scrollY;
+    nav.classList.toggle('solid',y>30);
+    if(y>lastY+6&&y>220&&!menuOpen)nav.classList.add('hide');else if(y<lastY-6||y<=220)nav.classList.remove('hide');
+    lastY=y;
+    const doc=document.documentElement;
+    const prog=clamp(y/Math.max(1,doc.scrollHeight-innerHeight),0,1);
+    ringP.style.strokeDashoffset=(50.27*(1-prog)).toFixed(2);
+    if(FINE&&!RM&&y<innerHeight*1.3){heroOrbit.style.setProperty('--py',(y*.12).toFixed(1)+'px');heroOrbit.style.setProperty('--rot',(y*.02).toFixed(2)+'deg');}
+    const r=plist.getBoundingClientRect();pline.style.transform='scaleY('+clamp((innerHeight*.72-r.top)/r.height,0,1).toFixed(3)+')';
+    const e=engines.getBoundingClientRect();flowFill.style.transform='scaleY('+clamp((innerHeight*.75-e.top)/e.height,0,1).toFixed(3)+')';
+    ticking=false;
   });
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+
+/* ── Mobile menu ── */
+const burger=$('.burger'),menu=$('#menu');
+function setMenu(o){menuOpen=o;burger.setAttribute('aria-expanded',o);menu.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';if(o)nav.classList.remove('hide');}
+burger.addEventListener('click',()=>setMenu(!menuOpen));
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen)setMenu(false);});
+matchMedia('(min-width:821px)').addEventListener('change',e=>{if(e.matches&&menuOpen)setMenu(false);});
+
+/* ── Magnetic primary buttons (pointer: fine only) ── */
+if(FINE&&!RM){$$('.magnet').forEach(b=>{
+  b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();const dx=(e.clientX-(r.left+r.width/2))/r.width,dy=(e.clientY-(r.top+r.height/2))/r.height;b.style.transform='translate('+(dx*10).toFixed(1)+'px,'+(dy*8).toFixed(1)+'px)';});
+  b.addEventListener('pointerleave',()=>{b.style.transform='';});
+});}
+
+/* ── Web3Forms submit (sayfada kalır, mesaj gösterir) ── */
+const form=$('#leadForm');
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const d=I18N[currentLang]||I18N.en;
+  const btn=form.querySelector('button[type="submit"]'),label=btn.querySelector('span'),note=$('#formNote');
+  const original=label.textContent;
+  label.textContent=d["form.sending"];btn.disabled=true;
+  try{
+    const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+    const data=await res.json();
+    if(data.success){form.reset();note.textContent=d["form.success"];note.style.color='#36e08a';label.textContent=d["form.sent"];}
+    else throw new Error(data.message||'error');
+  }catch(err){note.textContent=d["form.error"];note.style.color='#ff6b6b';label.textContent=original;btn.disabled=false;}
+});
+})();
 </script>
 </body>
 </html>

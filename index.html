@@ -8,8 +8,10 @@
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta — tek dosya statik site (HTML + CSS + JS)
-     Konsept: Getir + Yönet = Büyü. 01 Model bolumunde kaydirmaya bagli SVG
-     sistem grafigi uc asamada kuruluyor; basliklar duz Turkce (metafor yok).
+     Konsept: Getir + Yönet = Büyüt. 01 Model bolumu kaydirmaya bagli tek bir
+     SVG yolculuk: 01 uzaktaki galaksi -> 02 yildizlarin arasindan gecis ->
+     03 gezegene varis (makeJourney). Hero ve final makeOrbit kullanir.
+     Sahne arka plani YOK; mobilde gorsel ustte, metin altta akar.
      • Dil: TR/EN. Türkiye'den girenler Türkçe (IP'ye göre), diğerleri İngilizce;
        sağ üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır (localStorage).
      • Form: Web3Forms; mesajlar railetisimai1@gmail.com'a düşer.
@@ -320,12 +322,12 @@
 
   /* ── Responsive ── */
   @media(max-width:1024px){
-    .story{grid-template-columns:1fr;gap:0}
-    .stage{top:0;height:46vh;height:46svh;padding-top:var(--nav-h);background:var(--bg);z-index:2}
-    .stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:56px;background:linear-gradient(transparent,var(--bg))}
-    .stage svg{width:auto;height:100%}
-    .stage-meta{bottom:14px}
-    .step{min-height:0;padding:12vh 0}
+    .story{grid-template-columns:1fr;gap:0;position:relative}
+    .stage{align-items:flex-start}
+    .stage svg{width:min(98%,98vw);opacity:.62;margin-top:calc(var(--nav-h) + 10px)}
+    .stage-meta{top:calc(var(--nav-h) - 16px);bottom:auto}
+    .steps{position:relative;z-index:1;margin-top:-100vh;margin-top:-100svh}
+    .step{padding:0 0 13vh;justify-content:flex-end}
     .step p{max-width:560px}
     .engines{grid-template-columns:1fr;gap:64px}
     .engine-b{padding-top:0}
@@ -688,19 +690,19 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 /* ── i18n ── */
 const I18N={
   tr:{
-    "meta.title":"astra-meta — Getir. Yönet. Büyü.",
+    "meta.title":"astra-meta — Getir. Yönet. Büyüt.",
     "meta.desc":"Reklamla müşteri getiriyoruz, gelen müşteriyle uğraşmayı da otomasyonla biz üstleniyoruz. KOBİ ve e-ticaret markaları için tek ekip, tek sistem.",
     "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Kanıt","nav.process":"Süreç","nav.contact":"İletişim","nav.cta":"Konuşalım",
     "hero.k1":"KOBİ ve e-ticaret markaları için büyüme sistemi","hero.k2":"Reklam + AI otomasyon · Tek ekip",
-    "hero.h1":"<span class=\"line\"><span class=\"li\">Getir.</span></span><span class=\"line grad\"><span class=\"li\">Yönet.</span></span><span class=\"line\"><span class=\"li\">Büyü.</span></span>",
+    "hero.h1":"<span class=\"line\"><span class=\"li\">Getir.</span></span><span class=\"line grad\"><span class=\"li\">Yönet.</span></span><span class=\"line\"><span class=\"li\">Büyüt.</span></span>",
     "hero.lead":"Reklamla müşteriyi getiririz, gelen müşteriyle <b>uğraşma işini</b> de otomasyonla biz üstleniriz. Reklam da otomasyon da tek ekipte. <b>Sen işini büyütmeye bak.</b>",
     "hero.cta1":"İşinden bahset","hero.cta2":"Nasıl çalışıyor?","hero.scroll":"Kaydır","hero.loc":"New York, NY · Dünyanın her yerinde",
     "marquee":["Meta Reklamları","Google Ads","AI Otomasyon","WhatsApp ve DM Otomasyonu","Talep Yönetimi","E-ticaret Büyütme","Net Raporlama"],
-    "ch1.num":"01 — Model","ch1.tag":"Getir + Yönet = Büyü",
+    "ch1.num":"01 — Model","ch1.tag":"Getir + Yönet = Büyüt",
     "ch1.intro":"Çoğu işletmede iki ayrı iş döner ve birbirine hiç değmez: biri müşteri bulur, diğeri gelen müşteriye yetişmeye çalışır. Biz ikisini tek sisteme bağlarız — <em>ve o sistem kendi kendine döner.</em>",
     "st1.k":"01 · Getir","st1.h":"Müşteri gelir.","st1.p":"Meta ve Google reklamlarını doğru kitleye, doğru görselle ve doğru bütçeyle kurarız. Boş tıklama değil, alacak müşteri gelir.",
     "st2.k":"02 · Yönet","st2.h":"Sistem devralır.","st2.p":"Gelen her mesaj anında yanıtlanır, takibe alınır, kaydedilir ve raporlanır. Akşamları oturup tek tek cevap yazmana gerek kalmaz.",
-    "st3.k":"= Büyü","st3.h":"Sen büyürsün.","st3.p":"Satış artar, elle yapılan iş azalır. Sen işini büyütürken sistem arkada kendi kendine çalışmaya devam eder.",
+    "st3.k":"= Büyüt","st3.h":"İşin büyür.","st3.p":"Satış artar, elle yapılan iş azalır. Sen işini büyütürken sistem arkada kendi kendine çalışmaya devam eder.",
     "ch2.num":"02 — Hizmetler","ch2.tag":"İki motor, tek sistem",
     "ch2.h2":"İki motor. Tek sistem.",
     "ch2.p":"Çoğu ajans ya sadece reklam verir ya sadece yazılım kurar. Biz ikisini birbirine bağlarız: reklamla getirdiğimiz müşteriyle, kurduğumuz sistem ilgilenir.",
@@ -751,8 +753,8 @@ const I18N={
     "form.sending":"Gönderiliyor...","form.sent":"Gönderildi ✓",
     "form.success":"✓ Teşekkürler! Mesajın bize ulaştı, en kısa sürede dönüş yapacağız.",
     "form.error":"Bir sorun oldu. Lütfen tekrar dene veya aydin@astra-meta.com'a yaz.",
-    "fin.k":"Getir + Yönet = Büyü","fin.h2":"Sistem dönsün.<br>Sen büyü.","fin.cta":"Bize yaz",
-    "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Getir. Yönet. Büyü.","foot.top":"Başa dön"
+    "fin.k":"Getir + Yönet = Büyüt","fin.h2":"Sistem dönsün.<br>Sen işini büyüt.","fin.cta":"Bize yaz",
+    "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Getir. Yönet. Büyüt.","foot.top":"Başa dön"
   },
   en:{
     "meta.title":"astra-meta — Acquire. Automate. Grow.",
@@ -926,20 +928,143 @@ function makeOrbit(svg,o){
   return {update};
 }
 
+/* ── Galaksiden gezegene: 3 asamali yolculuk (01 Model bolumu) ──
+   p = 0..1 kaydirma ilerlemesi. 01 uzaktaki galaksi → 02 yildizlarin
+   arasindan gecis → 03 gezegene varis. Arka plan yok, hepsi saydam. */
+function makeJourney(svg,o){
+  o=Object.assign({stars:150,warp:88,seed:23},o);
+  const NS='http://www.w3.org/2000/svg',C=400,TAU=Math.PI*2;
+  let sd=o.seed;const rnd=()=>{sd=(sd*9301+49297)%233280;return sd/233280};
+  const el=(n,a,p)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  const ease=e=>1-Math.pow(1-e,3);
+  const seg=(v,a,b)=>clamp((v-a)/(b-a),0,1);
+  svg.setAttribute('viewBox','0 0 800 800');
+  const u='j'+Math.random().toString(36).slice(2,7);
+  const defs=el('defs');
+  const grad=(tag,attrs,stops)=>{const g=el(tag,attrs,defs);stops.forEach(st=>el('stop',st,g));return g};
+
+  grad('radialGradient',{id:u+'core'},[
+    {offset:'0','stop-color':'#ffe4f3','stop-opacity':'.75'},
+    {offset:'.32','stop-color':'#ed3aa2','stop-opacity':'.3'},
+    {offset:'1','stop-color':'#ed3aa2','stop-opacity':'0'}]);
+  grad('radialGradient',{id:u+'atm'},[
+    {offset:'.79','stop-color':'#4fc3de','stop-opacity':'0'},
+    {offset:'.895','stop-color':'#4fc3de','stop-opacity':'.22'},
+    {offset:'.955','stop-color':'#ed3aa2','stop-opacity':'.15'},
+    {offset:'1','stop-color':'#ed3aa2','stop-opacity':'0'}]);
+  grad('radialGradient',{id:u+'body',fx:'.3',fy:'.26'},[
+    {offset:'0','stop-color':'#2b2540'},
+    {offset:'.44','stop-color':'#14121f'},
+    {offset:'1','stop-color':'#07070c'}]);
+  grad('linearGradient',{id:u+'limb',x1:'0',y1:'0',x2:'1',y2:'1'},[
+    {offset:'0','stop-color':'#ed3aa2'},
+    {offset:'1','stop-color':'#4fc3de'}]);
+  const clip=el('clipPath',{id:u+'clip'},defs);
+  el('circle',{cx:C,cy:C,r:200},clip);
+
+  /* ---------- 01 · uzaktaki galaksi ---------- */
+  const gGal=el('g',{});
+  const core=el('circle',{cx:C,cy:C,r:74,fill:'url(#'+u+'core)'},gGal);
+  const discs=[{col:'#f3f3f8',w:2.1},{col:'#f3f3f8',w:1.3},{col:'#ed3aa2',w:1.9},{col:'#4fc3de',w:1.8}];
+  discs.forEach(b=>{b.el=el('path',{stroke:b.col,'stroke-width':b.w,'stroke-linecap':'round',fill:'none'},gGal);});
+  const gal=[];
+  for(let i=0;i<o.stars;i++){
+    const bulge=i<o.stars*0.18;
+    const arm=i%3, t=Math.pow(rnd(),.62);
+    const th=arm*2.0944+t*3.5+(rnd()-.5)*.42;
+    const r=bulge?rnd()*58:36+t*262+(rnd()-.5)*30*(.35+t);
+    const ang=bulge?rnd()*TAU:th;
+    gal.push({x:Math.cos(ang)*r,y:Math.sin(ang)*r*0.44,b:(i%9===1)?2:(i%7===0)?3:(i%3===0)?0:1});
+  }
+
+  /* ---------- 02 · yildizlarin arasindan gecis ---------- */
+  const gWarp=el('g',{});
+  const warpB=[{col:'#f3f3f8',w:1.9},{col:'#f3f3f8',w:1.05},{col:'#ed3aa2',w:1.5},{col:'#4fc3de',w:1.5}];
+  warpB.forEach(b=>{b.el=el('path',{stroke:b.col,'stroke-width':b.w,'stroke-linecap':'round',fill:'none',opacity:'.95'},gWarp);});
+  const warp=[];
+  for(let i=0;i<o.warp;i++)warp.push({a:rnd()*TAU,z:rnd(),b:i%4});
+
+  /* ---------- 03 · gezegen ---------- */
+  const gPl=el('g',{opacity:0});
+  const gRing=el('g',{transform:'rotate(-17 400 400)'},gPl);
+  el('ellipse',{cx:C,cy:C,rx:338,ry:94,fill:'none',stroke:'rgba(79,195,222,.32)','stroke-width':'1'},gRing);
+  const ringDash=el('ellipse',{cx:C,cy:C,rx:306,ry:85,fill:'none',stroke:'rgba(237,58,162,.3)','stroke-width':'1','stroke-dasharray':'3 13'},gRing);
+  const sat=el('circle',{r:4,fill:'#4fc3de',cx:C+338,cy:C},gRing);
+  el('circle',{cx:C,cy:C,r:252,fill:'url(#'+u+'atm)'},gPl);
+  el('circle',{cx:C,cy:C,r:200,fill:'url(#'+u+'body)'},gPl);
+  const gWire=el('g',{'clip-path':'url(#'+u+'clip)',opacity:'.9'},gPl);
+  [-152,-84,0,84,152].forEach(h=>{const rx=Math.sqrt(40000-h*h);
+    el('ellipse',{cx:C,cy:C+h,rx:rx,ry:rx*0.17,fill:'none',stroke:'rgba(79,195,222,.26)','stroke-width':'.9'},gWire);});
+  const lon=[0,1,2].map(()=>el('ellipse',{cx:C,cy:C,rx:60,ry:200,fill:'none',stroke:'rgba(243,243,248,.17)','stroke-width':'.9'},gWire));
+  el('circle',{cx:C,cy:C,r:200,fill:'none',stroke:'rgba(79,195,222,.3)','stroke-width':'1'},gPl);
+  el('path',{d:'M 258 296 A 200 200 0 0 1 505 250',fill:'none',stroke:'url(#'+u+'limb)','stroke-width':'1.8','stroke-linecap':'round',opacity:'.9'},gPl);
+  const gHud=el('g',{opacity:0},gPl);
+  const hudRing=el('circle',{cx:C,cy:C,r:232,fill:'none',stroke:'rgba(243,243,248,.2)','stroke-width':'1','stroke-dasharray':'2 12'},gHud);
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s){const sx=s[0],sy=s[1],d=244,a=30;
+    el('path',{d:'M '+(C+sx*d)+' '+(C+sy*d-sy*a)+' L '+(C+sx*d)+' '+(C+sy*d)+' L '+(C+sx*d-sx*a)+' '+(C+sy*d),
+      fill:'none',stroke:'rgba(237,58,162,.55)','stroke-width':'1.4','stroke-linecap':'round'},gHud);});
+
+  function update(p,t){
+    /* 01 · galaksi: yaklastikca buyur ve gecip gideriz */
+    const gOp=1-seg(p,.24,.52);
+    gGal.setAttribute('opacity',gOp.toFixed(3));
+    if(gOp>0){
+      const gz=0.98+Math.pow(seg(p,0,.62),2.1)*9;
+      gGal.setAttribute('transform','translate(400 400) rotate('+(t*1.6+p*34).toFixed(2)+') scale('+gz.toFixed(3)+') translate(-400 -400)');
+      core.setAttribute('opacity',(1-seg(p,.1,.42)).toFixed(3));
+      const dd=['','','',''];
+      for(let i=0;i<gal.length;i++){const g=gal[i];
+        dd[g.b]+='M'+(C+g.x).toFixed(1)+' '+(C+g.y).toFixed(1)+'l.1 0';}
+      for(let i=0;i<4;i++)discs[i].el.setAttribute('d',dd[i]);
+    }
+    /* 02 · gecis: yildizlar disari akar, ortada hiz en yuksek */
+    const wOp=seg(p,.14,.3)*(1-seg(p,.72,.95));
+    gWarp.setAttribute('opacity',wOp.toFixed(3));
+    if(wOp>0){
+      const spd=Math.sin(Math.PI*seg(p,.1,.92));
+      const k=0.35+3.4*spd, dp=0.011;
+      const dd=['','','',''];
+      for(let i=0;i<warp.length;i++){const w=warp[i];
+        let z=w.z-p*2.6; z-=Math.floor(z);
+        let zp=w.z-(p-dp)*2.6; zp-=Math.floor(zp);
+        const R=16/(z*z*.97+.03), Rp=16/(zp*zp*.97+.03);
+        if(R<20||R>640||Rp>R)continue;
+        const r0=Math.max(18,R-(R-Rp)*k), ca=Math.cos(w.a), sa=Math.sin(w.a);
+        dd[w.b]+='M'+(C+ca*r0).toFixed(1)+' '+(C+sa*r0).toFixed(1)+'L'+(C+ca*R).toFixed(1)+' '+(C+sa*R).toFixed(1);}
+      for(let i=0;i<4;i++)warpB[i].el.setAttribute('d',dd[i]);
+    }
+    /* 03 · gezegen: uzak bir noktadan gelip kadraji doldurur */
+    const c=seg(p,.5,1), pOp=seg(p,.5,.62);
+    gPl.setAttribute('opacity',pOp.toFixed(3));
+    if(pOp>0){
+      const ps=0.022*Math.exp(ease(c)*3.82);
+      gPl.setAttribute('transform','translate(400 400) scale('+ps.toFixed(4)+') translate(-400 -400)');
+      for(let i=0;i<3;i++)lon[i].setAttribute('rx',(196*Math.abs(Math.cos(t*.34+i*1.047))+4).toFixed(1));
+      const sa=t*.55+1.1;
+      sat.setAttribute('cx',(C+Math.cos(sa)*338).toFixed(1));
+      sat.setAttribute('cy',(C+Math.sin(sa)*94).toFixed(1));
+      ringDash.setAttribute('transform','rotate('+(t*6).toFixed(1)+' 400 400)');
+      hudRing.setAttribute('transform','rotate('+(-t*9).toFixed(1)+' 400 400)');
+      gHud.setAttribute('opacity',seg(p,.8,.96).toFixed(3));
+    }
+  }
+  return {update};
+}
+
 const orbits=[];
-function addOrbit(svg,cfg,getP){ if(!svg)return; const api=makeOrbit(svg,cfg); const o={svg,api,getP,visible:false}; orbits.push(o);
+function addStage(svg,factory,cfg,getP){ if(!svg)return; const api=factory(svg,cfg); const o={svg,api,getP,visible:false}; orbits.push(o);
   new IntersectionObserver(es=>{es.forEach(e=>{o.visible=e.isIntersecting;});},{rootMargin:'12% 0px'}).observe(svg); return o; }
 
-addOrbit($('#orbitHero'),{seed:11,points:14,late:5,pairs:8,spin:.9},()=>{ if(RM)return 1; if(heroStart===null)return 0; return clamp((performance.now()-heroStart)/1900,0,1); });
+addStage($('#orbitHero'),makeOrbit,{seed:11,points:14,late:5,pairs:8,spin:.9},()=>{ if(RM)return 1; if(heroStart===null)return 0; return clamp((performance.now()-heroStart)/1900,0,1); });
 const story=$('#story'),stageNum=$('#stageNum'),stageBar=$('#stageBar');
 let pS=0;
-addOrbit($('#orbitStory'),{seed:23,points:16,late:8,pairs:11,spin:.6},()=>{
+addStage($('#orbitStory'),makeJourney,{seed:23,stars:innerWidth<760?96:150,warp:innerWidth<760?60:88},()=>{
   const r=story.getBoundingClientRect(),total=Math.max(1,r.height-innerHeight),raw=clamp(-r.top/total,0,1);
   pS=RM?raw:pS+(raw-pS)*.14;
   const n=1+Math.min(2,Math.floor(pS*3));
   stageNum.textContent='0'+n+' / 03';stageBar.style.transform='scaleX('+pS.toFixed(3)+')';
   return pS; });
-addOrbit($('#orbitEnd'),{seed:5,points:18,late:8,pairs:12,spin:.5,alpha:.9},()=>1);
+addStage($('#orbitEnd'),makeOrbit,{seed:5,points:18,late:8,pairs:12,spin:.5,alpha:.9},()=>1);
 
 const t0=performance.now();
 (function loop(now){ const t=RM?0:(now-t0)/1000; orbits.forEach(o=>{ if(!o.visible)return; o.api.update(o.getP(),t); }); requestAnimationFrame(loop); })(t0);

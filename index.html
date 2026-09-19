@@ -218,7 +218,9 @@
 
   /* 02 Services */
   .svc-top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(56px,8vw,120px)}
-  .svc-top p{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:480px;justify-self:end}
+  .svc-intro{max-width:480px;justify-self:end}
+  .svc-top p{color:var(--muted);font-size:clamp(17px,1.4vw,19px)}
+  .svc-note{margin-top:18px;padding-left:14px;border-left:2px solid var(--pink);font-size:14px!important;line-height:1.6;color:var(--dim)}
   .engines{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);position:relative}
   .engine-b{padding-top:clamp(0px,10vw,160px)}
   .engine-head{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:end;margin-bottom:34px}
@@ -241,6 +243,14 @@
   .rows .rn{grid-column:2;font-size:11px}
   .flow-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-50%)}
   .flow-line i{position:absolute;inset:0;background:linear-gradient(180deg,var(--pink),var(--cyan));transform:scaleY(0);transform-origin:top}
+  .engine-c{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);align-items:start;margin-top:clamp(24px,5vw,80px);padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+  .engine-c .engine-num{-webkit-text-stroke-color:rgba(243,243,248,.6)}
+  .engine-c .engine-head{margin-bottom:22px}
+  .engine-c .engine-head .mono{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .engine-p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px}
+  .engine-c .rows li::before{background:var(--grad)}
+  .engine-c .rows .rt .arr{color:var(--cyan)}
+  .engine-c .rows .rn{color:var(--dim)}
 
   /* 03 Proof */
   .quote{font-family:var(--fd);font-weight:500;font-size:clamp(30px,4.6vw,68px);line-height:1.04;letter-spacing:-.035em;max-width:1160px}
@@ -344,6 +354,7 @@
     .step p{max-width:560px}
     .engines{grid-template-columns:1fr;gap:64px}
     .engine-b{padding-top:0}
+    .engine-c{grid-template-columns:1fr;gap:28px;margin-top:0;padding-top:0;border-top:0}
     .flow-line{display:none}
     .proof-grid,.fit-grid,.contact-grid,.svc-top{grid-template-columns:1fr}
     .svc-top p{justify-self:start}
@@ -499,10 +510,13 @@
 <!-- ── 02 SERVICES ── -->
 <section id="hizmetler" class="chapter services">
   <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="ch2.num">02 — Services</span><span class="ch-line"></span><span class="mono" data-i18n="ch2.tag">Two engines, one system</span></div>
+    <div class="ch-head"><span class="mono" data-i18n="ch2.num">02 — Services</span><span class="ch-line"></span><span class="mono" data-i18n="ch2.tag">Three engines, one system</span></div>
     <div class="svc-top">
-      <h2 class="h2 split" data-i18n="ch2.h2">Two engines. One system.</h2>
-      <p class="rv" data-i18n="ch2.p">First the system that takes the load off your business, then the engine that grows it. Both from one team — no separate developer, agency and consultant to chase.</p>
+      <h2 class="h2 split" data-i18n="ch2.h2">Three engines. One system.</h2>
+      <div class="svc-intro rv">
+        <p data-i18n="ch2.p">First the system that takes the load off your business, then the growth side, and finally what all of it gives back to you. One team — no separate developer, agency and consultant to chase.</p>
+        <p class="svc-note" data-i18n="ch2.note">Services are optional. After the analysis we pick together what your business actually needs; the scope differs from one business to the next.</p>
+      </div>
     </div>
     <div class="engines">
       <div class="flow-line" aria-hidden="true"><i id="flowFill"></i></div>
@@ -512,10 +526,10 @@
           <div><span class="mono" data-i18n="en1.k">Systemize</span><h3 data-i18n="en1.h">Problem analysis &amp; custom automation</h3></div>
         </div>
         <ul class="rows">
-          <li><span class="ri">01</span><span class="rt"><span data-i18n="en1.r1">Business-specific problem analysis &amp; process map</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n1">Who · what · why by hand</span></li>
+          <li><span class="ri">01</span><span class="rt"><span data-i18n="en1.r1">Problem analysis for your business</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n1">Who · what · why by hand</span></li>
           <li><span class="ri">02</span><span class="rt"><span data-i18n="en1.r2">Paperwork, quote &amp; invoice automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n2">Documents · quotes · invoices</span></li>
-          <li><span class="ri">03</span><span class="rt"><span data-i18n="en1.r3">Connecting the tools you already use</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n3">Email · sheets · accounting · CRM</span></li>
-          <li><span class="ri">04</span><span class="rt"><span data-i18n="en1.r4">Customer messaging &amp; follow-up automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n4">WhatsApp · email · 24/7</span></li>
+          <li><span class="ri">03</span><span class="rt"><span data-i18n="en1.r3">Your existing tools, connected</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n3">Email · sheets · accounting · CRM</span></li>
+          <li><span class="ri">04</span><span class="rt"><span data-i18n="en1.r4">Messaging &amp; follow-up automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n4">WhatsApp · email · 24/7</span></li>
         </ul>
       </div>
       <div class="engine engine-b rv">
@@ -524,10 +538,25 @@
           <div><span class="mono" data-i18n="en2.k">Grow</span><h3 data-i18n="en2.h">Ads, website &amp; customer acquisition</h3></div>
         </div>
         <ul class="rows">
-          <li><span class="ri">01</span><span class="rt"><span data-i18n="en2.r1">Meta &amp; Google ads consulting and management</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n1">Campaign · creative · budget</span></li>
+          <li><span class="ri">01</span><span class="rt"><span data-i18n="en2.r1">Meta &amp; Google ads consulting</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n1">Campaign · creative · budget</span></li>
           <li><span class="ri">02</span><span class="rt"><span data-i18n="en2.r2">Website setup that sells</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n2">Company site · store · landing page</span></li>
-          <li><span class="ri">03</span><span class="rt"><span data-i18n="en2.r3">B2B customer acquisition: target lists &amp; email outreach</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n3">List · outreach · follow-up</span></li>
-          <li><span class="ri">04</span><span class="rt"><span data-i18n="en2.r4">Clear reporting: what was spent, what it earned</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n4">Monthly · plain language</span></li>
+          <li><span class="ri">03</span><span class="rt"><span data-i18n="en2.r3">B2B customer acquisition</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n3">Target list · outreach · follow-up</span></li>
+          <li><span class="ri">04</span><span class="rt"><span data-i18n="en2.r4">Plain-language reporting</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n4">Monthly · spent vs. earned</span></li>
+        </ul>
+      </div>
+      <div class="engine engine-c rv">
+        <div class="engine-head-wrap">
+          <div class="engine-head">
+            <span class="engine-num" aria-hidden="true">03</span>
+            <div><span class="mono" data-i18n="en3.k">Scale</span><h3 data-i18n="en3.h">Your day once the system is running</h3></div>
+          </div>
+          <p class="engine-p" data-i18n="en3.p">Built once, runs every day. Everything you used to do by hand now runs in the system; the time you get back goes into growing.</p>
+        </div>
+        <ul class="rows">
+          <li><span class="ri">01</span><span class="rt"><span data-i18n="en3.r1">Quotes reach the customer in minutes</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n1">Before: half a day</span></li>
+          <li><span class="ri">02</span><span class="rt"><span data-i18n="en3.r2">Invoices and paperwork handle themselves</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n2">Before: evening overtime</span></li>
+          <li><span class="ri">03</span><span class="rt"><span data-i18n="en3.r3">No customer ever goes unfollowed</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n3">Before: forgotten messages</span></li>
+          <li><span class="ri">04</span><span class="rt"><span data-i18n="en3.r4">One summary every morning, whole business in view</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n4">Before: five different screens</span></li>
         </ul>
       </div>
     </div>
@@ -728,19 +757,20 @@ const I18N={
     "st1.k":"01 · Analiz","st1.h":"Problemi buluruz.","st1.p":"İşletmene girer, günün nasıl geçtiğine bakarız: hangi iş elle yapılıyor, hangi evrak nerede bekliyor, nerede zaman ve para kaçıyor. Genel çözüm değil, senin işine özel teşhis.",
     "st2.k":"02 · Sistem","st2.h":"Sistem devralır.","st2.p":"Bulduğumuz her tekrar eden iş için sana özel otomasyon kurarız. Teklif hazırlanır, fatura kesilir, müşteri takibi yapılır, rapor gelir — sen elini sürmeden.",
     "st3.k":"= Büyüme","st3.h":"İşin büyür.","st3.p":"Bu işler sistemde dönmeye başlayınca önünde vakit açılır. O vakti doğru yere koyarız: reklam, web sitesi, yeni B2B müşteriler. Sistem arkada döner, sen büyütürsün.",
-    "ch2.num":"02 — Hizmetler","ch2.tag":"İki motor, tek sistem",
-    "ch2.h2":"İki motor. Tek sistem.",
-    "ch2.p":"Önce işini rahatlatan sistemi kurarız, sonra büyümeni sağlayan tarafı. İkisi de tek ekipte; ayrı ayrı yazılımcı, ajans ve danışman aramazsın.",
+    "ch2.num":"02 — Hizmetler","ch2.tag":"Üç motor, tek sistem",
+    "ch2.h2":"Üç motor. Tek sistem.",
+    "ch2.p":"Önce işini rahatlatan sistem, sonra büyüme tarafı, en sonda da bunun sana ne kazandırdığı. Hepsi tek ekipte; ayrı ayrı yazılımcı, ajans ve danışman aramazsın.",
     "en1.k":"Sistem","en1.h":"Problem analizi ve otomasyon",
-    "en1.r1":"İşletmeye özel problem analizi ve süreç haritası","en1.n1":"Kim · ne · neden elle",
+    "en1.r1":"İşletmeye özel problem analizi","en1.n1":"Kim · ne · neden elle",
     "en1.r2":"Evrak, teklif ve fatura otomasyonu","en1.n2":"Belge · teklif · fatura",
-    "en1.r3":"Kullandığın araçları birbirine bağlama","en1.n3":"E-posta · Excel · muhasebe · CRM",
-    "en1.r4":"Müşteri mesajları ve takip otomasyonu","en1.n4":"WhatsApp · e-posta · 7/24",
+    "en1.r3":"Mevcut araçların birbirine bağlanması","en1.n3":"E-posta · Excel · muhasebe · CRM",
+    "en1.r4":"Mesaj ve müşteri takibi otomasyonu","en1.n4":"WhatsApp · e-posta · 7/24",
     "en2.k":"Büyüme","en2.h":"Reklam, web sitesi ve müşteri bulma",
-    "en2.r1":"Meta ve Google reklam danışmanlığı ve yönetimi","en2.n1":"Kampanya · kreatif · bütçe",
-    "en2.r2":"Satan bir web sitesi kurulumu","en2.n2":"Kurumsal · e-ticaret · landing",
-    "en2.r3":"B2B müşteri bulma: hedef liste ve e-postayla ulaşma","en2.n3":"Liste · e-posta · takip",
-    "en2.r4":"Net raporlama: ne harcandı, ne kazandırdı","en2.n4":"Ayda bir · sade dille",
+    "en2.r1":"Meta ve Google reklam danışmanlığı","en2.n1":"Kampanya · kreatif · bütçe",
+    "en2.r2":"Satan web sitesi kurulumu","en2.n2":"Kurumsal · e-ticaret · landing",
+    "en2.r3":"B2B müşteri bulma","en2.n3":"Hedef liste · e-posta · takip",
+    "en2.r4":"Sade raporlama","en2.n4":"Ayda bir · ne harcandı, ne kazandırdı",
+    "ch2.note":"Hizmetler opsiyoneldir. Analizden sonra işletmenin gerçekten ihtiyaç duyduklarını birlikte seçeriz; kapsam işletmeden işletmeye değişir.","en3.k":"Ölçekle","en3.h":"Sistem kurulunca günün böyle geçer","en3.p":"Bir kez kurulur, her gün çalışır. Elle yaptığın ne varsa sistemde döner; kalan vakit işi büyütmeye gider.","en3.r1":"Teklif dakikalar içinde müşteride","en3.n1":"Eskiden: yarım gün","en3.r2":"Fatura ve evrak kendi kendine işlenir","en3.n2":"Eskiden: akşam mesaisi","en3.r3":"Hiçbir müşteri takipsiz kalmaz","en3.n3":"Eskiden: unutulan mesajlar","en3.r4":"Her sabah tek özet, tüm iş önünde","en3.n4":"Eskiden: beş ayrı ekran",
     "ch3.num":"03 — Kanıt","ch3.tag":"Anlatan değil, yapan",
     "ch3.quote":"“Sana kurduğumuz sistemi <em>önce kendi işimizde</em> çalıştırıyoruz.”",
     "ch3.p":"Kendi e-ticaret markalarımızı ve B2B müşteri bulma işimizi bu sistemlerle yönetiyoruz. Sana kurduğumuz her otomasyon ve her reklam yapısı, sana gelmeden önce bizim işimizde, bizim paramızla denenmiş oluyor. Kitaptan değil, sahadan.",
@@ -795,19 +825,20 @@ const I18N={
     "st1.k":"01 · Analyze","st1.h":"We find the problem.","st1.p":"We sit inside your business and look at how a day actually goes: what's done by hand, where documents pile up, where time and money leak. Not a generic fix — a diagnosis of your business.",
     "st2.k":"02 · Systemize","st2.h":"The system takes over.","st2.p":"For every piece of busywork we found, we build automation made for you. Quotes go out, invoices get issued, customers get followed up, reports arrive — without you touching any of it.",
     "st3.k":"= Grow","st3.h":"You grow.","st3.p":"Once the busywork is gone, you have time again. We put it to work: ads, a website, new B2B customers. The system keeps running in the back; you grow the business.",
-    "ch2.num":"02 — Services","ch2.tag":"Two engines, one system",
-    "ch2.h2":"Two engines. One system.",
-    "ch2.p":"First the system that takes the load off your business, then the engine that grows it. Both from one team — no separate developer, agency and consultant to chase.",
+    "ch2.num":"02 — Services","ch2.tag":"Three engines, one system",
+    "ch2.h2":"Three engines. One system.",
+    "ch2.p":"First the system that takes the load off your business, then the growth side, and finally what all of it gives back to you. One team — no separate developer, agency and consultant to chase.",
     "en1.k":"Systemize","en1.h":"Problem analysis & custom automation",
-    "en1.r1":"Business-specific problem analysis & process map","en1.n1":"Who · what · why by hand",
+    "en1.r1":"Problem analysis for your business","en1.n1":"Who · what · why by hand",
     "en1.r2":"Paperwork, quote & invoice automation","en1.n2":"Documents · quotes · invoices",
-    "en1.r3":"Connecting the tools you already use","en1.n3":"Email · sheets · accounting · CRM",
-    "en1.r4":"Customer messaging & follow-up automation","en1.n4":"WhatsApp · email · 24/7",
+    "en1.r3":"Your existing tools, connected","en1.n3":"Email · sheets · accounting · CRM",
+    "en1.r4":"Messaging & follow-up automation","en1.n4":"WhatsApp · email · 24/7",
     "en2.k":"Grow","en2.h":"Ads, website & customer acquisition",
-    "en2.r1":"Meta & Google ads consulting and management","en2.n1":"Campaign · creative · budget",
+    "en2.r1":"Meta & Google ads consulting","en2.n1":"Campaign · creative · budget",
     "en2.r2":"Website setup that sells","en2.n2":"Company site · store · landing page",
-    "en2.r3":"B2B customer acquisition: target lists & email outreach","en2.n3":"List · outreach · follow-up",
-    "en2.r4":"Clear reporting: what was spent, what it earned","en2.n4":"Monthly · plain language",
+    "en2.r3":"B2B customer acquisition","en2.n3":"Target list · outreach · follow-up",
+    "en2.r4":"Plain-language reporting","en2.n4":"Monthly · spent vs. earned",
+    "ch2.note":"Services are optional. After the analysis we pick together what your business actually needs; the scope differs from one business to the next.","en3.k":"Scale","en3.h":"Your day once the system is running","en3.p":"Built once, runs every day. Everything you used to do by hand now runs in the system; the time you get back goes into growing.","en3.r1":"Quotes reach the customer in minutes","en3.n1":"Before: half a day","en3.r2":"Invoices and paperwork handle themselves","en3.n2":"Before: evening overtime","en3.r3":"No customer ever goes unfollowed","en3.n3":"Before: forgotten messages","en3.r4":"One summary every morning, whole business in view","en3.n4":"Before: five different screens",
     "ch3.num":"03 — Proof","ch3.tag":"Practitioners, not theorists",
     "ch3.quote":"“The systems we build for you, we run <em>on our own business first.</em>”",
     "ch3.p":"We run our own e-commerce brands and our own B2B outreach on these systems. Every automation and every ad structure we build for you has run in our business, with our money, before it reaches yours. Not theory. The field.",

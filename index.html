@@ -100,6 +100,19 @@
   .ring .rp{stroke-dasharray:50.27;stroke-dashoffset:50.27}
   .lang{font-family:var(--fm);font-size:12px;letter-spacing:.12em;padding:0 13px;min-height:44px;min-width:44px;border:1px solid var(--line-2);border-radius:3px;color:var(--text);transition:border-color .25s,color .25s}
   .lang:hover{border-color:var(--pink);color:var(--pink)}
+  .lang-wrap{position:relative}
+  .lang{display:inline-flex;align-items:center;gap:8px}
+  .flag{width:18px;height:12px;border-radius:2px;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+  .lang-wrap[data-cur="tr"] .lang>.flag-en,.lang-wrap[data-cur="en"] .lang>.flag-tr{display:none}
+  .lang-caret{font-size:9px;opacity:.6;transition:transform .2s}
+  .lang-wrap.open .lang-caret{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:calc(100% + 6px);right:0;min-width:150px;padding:4px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:6px;box-shadow:0 12px 32px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:5}
+  .lang-wrap.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;font-size:14px;font-weight:500;color:var(--muted);border-radius:4px;text-align:left;transition:background .15s,color .15s}
+  .lang-menu button:hover{background:rgba(255,255,255,.06);color:var(--text)}
+  .lang-menu button[aria-selected="true"]{color:var(--text)}
+  .lang-menu button[aria-selected="true"]::after{content:"✓";margin-left:auto;font-size:12px;color:var(--pink)}
+  .menu-foot .lang-menu{right:auto;left:0;top:auto;bottom:calc(100% + 6px);transform:translateY(4px)}
   .nav-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-size:14px;font-weight:600;border:1px solid var(--line-2);border-radius:3px;transition:border-color .25s,background .25s}
   .nav-cta:hover{border-color:var(--pink);background:rgba(237,58,162,.1)}
   .burger{display:none;width:44px;height:44px;position:relative;margin-right:-8px}
@@ -392,7 +405,13 @@
         <circle cx="12" cy="12" r="8" stroke="rgba(255,255,255,.15)"/>
         <circle class="rp" id="ringP" cx="12" cy="12" r="8" stroke="url(#ringGrad)" stroke-linecap="round"/>
       </svg>
-      <button class="lang" type="button" aria-label="Language / Dil">TR</button>
+      <div class="lang-wrap" data-cur="en">
+        <button class="lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / Dil"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg><span class="lang-code">EN</span><span class="lang-caret" aria-hidden="true">▾</span></button>
+        <div class="lang-menu" role="listbox">
+          <button type="button" role="option" data-lang="tr" aria-selected="false"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg>Türkçe</button>
+          <button type="button" role="option" data-lang="en" aria-selected="true"><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg>English</button>
+        </div>
+      </div>
       <a class="nav-cta" href="#isinden-bahset" data-i18n="nav.cta">Let's talk</a>
       <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     </div>
@@ -408,7 +427,13 @@
     <a href="#isinden-bahset"><span class="mono">06</span><span data-i18n="nav.contact">Contact</span></a>
   </nav>
   <div class="menu-foot">
-    <button class="lang" type="button" aria-label="Language / Dil">TR</button>
+    <div class="lang-wrap" data-cur="en">
+      <button class="lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / Dil"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg><span class="lang-code">EN</span><span class="lang-caret" aria-hidden="true">▾</span></button>
+      <div class="lang-menu" role="listbox">
+        <button type="button" role="option" data-lang="tr" aria-selected="false"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg>Türkçe</button>
+        <button type="button" role="option" data-lang="en" aria-selected="true"><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg>English</button>
+    </div>
+    </div>
     <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
   </div>
 </div>
@@ -692,7 +717,7 @@ const I18N={
   tr:{
     "meta.title":"astra-meta — Analiz. Sistem. Büyüme.",
     "meta.desc":"İşletmene özel problem analizi yapar, sana özel otomasyon sistemi kurarız. Evrak, teklif, takip ve tekrar eden işler sistemde döner; sen işini büyütürsün. Reklam, web sitesi ve B2B müşteri bulma da bizde.",
-    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Kanıt","nav.process":"Süreç","nav.contact":"İletişim","nav.cta":"Konuşalım",
+    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Kanıt","nav.process":"Süreç","nav.contact":"İletişim","nav.cta":"İletişime geç",
     "hero.k1":"B2B işletmeler ve e-ticaret markaları için iş sistemleri","hero.k2":"Analiz · Otomasyon · Büyüme · Tek ekip",
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analiz.</span></span><span class=\"line grad\"><span class=\"li\">Sistem.</span></span><span class=\"line\"><span class=\"li\">Büyüme.</span></span>",
     "hero.lead":"Önce işletmene bakarız: vaktin ve paran nereye akıyor? Sonra <b>sana özel bir sistem</b> kurarız. Evrak, teklif, takip, tekrar eden ne varsa sistem yapar. <b>Sen işini büyütmeye bak.</b>",
@@ -701,8 +726,8 @@ const I18N={
     "ch1.num":"01 — Model","ch1.tag":"Analiz + Sistem = Büyüme",
     "ch1.intro":"Çoğu işletmede patron günün yarısını evrak, teklif, fatura ve takip işleriyle geçirir; işi büyütmeye vakit kalmaz. Biz o işleri tek tek buluruz, sana özel bir sisteme bağlarız — <em>ve o sistem kendi kendine döner.</em>",
     "st1.k":"01 · Analiz","st1.h":"Problemi buluruz.","st1.p":"İşletmene girer, günün nasıl geçtiğine bakarız: hangi iş elle yapılıyor, hangi evrak nerede bekliyor, nerede zaman ve para kaçıyor. Genel çözüm değil, senin işine özel teşhis.",
-    "st2.k":"02 · Sistem","st2.h":"Sistem devralır.","st2.p":"Bulduğumuz her angarya için sana özel otomasyon kurarız. Teklif hazırlanır, fatura kesilir, müşteri takibi yapılır, rapor gelir — sen elini sürmeden.",
-    "st3.k":"= Büyüme","st3.h":"İşin büyür.","st3.p":"Angarya bitince önünde vakit açılır. O vakti doğru yere koyarız: reklam, web sitesi, yeni B2B müşteriler. Sistem arkada döner, sen büyütürsün.",
+    "st2.k":"02 · Sistem","st2.h":"Sistem devralır.","st2.p":"Bulduğumuz her tekrar eden iş için sana özel otomasyon kurarız. Teklif hazırlanır, fatura kesilir, müşteri takibi yapılır, rapor gelir — sen elini sürmeden.",
+    "st3.k":"= Büyüme","st3.h":"İşin büyür.","st3.p":"Bu işler sistemde dönmeye başlayınca önünde vakit açılır. O vakti doğru yere koyarız: reklam, web sitesi, yeni B2B müşteriler. Sistem arkada döner, sen büyütürsün.",
     "ch2.num":"02 — Hizmetler","ch2.tag":"İki motor, tek sistem",
     "ch2.h2":"İki motor. Tek sistem.",
     "ch2.p":"Önce işini rahatlatan sistemi kurarız, sonra büyümeni sağlayan tarafı. İkisi de tek ekipte; ayrı ayrı yazılımcı, ajans ve danışman aramazsın.",
@@ -728,15 +753,15 @@ const I18N={
     "log.e6":"Günlük özet → senin mailine","log.r6":"teklif · sipariş · tahsilat",
     "pr1.h":"Tek elden","pr1.p":"Ayrı ayrı yazılımcı, reklam ajansı ve danışman peşinde koşmana gerek yok. Analizden kuruluma, hepsi tek ekipte.",
     "pr2.h":"Net rakam","pr2.p":"Süslü laf yok. Hangi iş kaç saat alıyordu, şimdi kaç dakika; ne harcandı, ne kazandırdı — açık açık yazarız.",
-    "pr3.h":"Kur, çalışsın","pr3.p":"Sistemi bir kez kurarız, angarya kendi kendine yürür. Vaktin evrak ve takiple değil, işinle geçer.",
+    "pr3.h":"Kur, çalışsın","pr3.p":"Sistemi bir kez kurarız, tekrar eden işler kendi kendine yürür. Vaktin evrak ve takiple değil, işinle geçer.",
     "ch4.num":"04 — Süreç","ch4.tag":"İlk mesajdan çalışan sisteme",
     "ch4.h2":"Nasıl başlıyoruz.",
     "ps1.w":"Gün 0","ps1.h":"İşinden bahset","ps1.p":"Birkaç cümle yeter: ne satıyorsun, nerede tıkandın, nereye varmak istiyorsun.",
     "ps2.w":"24 saat içinde","ps2.h":"Ücretsiz problem analizi","ps2.p":"Kısa bir görüşme yaparız, işine bakarız ve nereden başlanacağını yazan net bir plan çıkarırız. Hiçbir taahhüt yok.",
-    "ps3.w":"1–3. hafta","ps3.h":"Kurulum","ps3.p":"Analizde çıkan angaryalar için otomasyonlar kurulur, mevcut araçların birbirine bağlanır, ekibin nasıl kullanacağını öğrenir.",
-    "ps4.w":"Sürekli","ps4.h":"Çalıştır, ölç, büyüt","ps4.p":"Sistem angaryayı devralır. İşin rahatlayınca büyüme tarafına geçeriz: reklam, web sitesi, yeni müşteriler. Her ay ne değiştiğini açık açık görürsün.",
+    "ps3.w":"1–3. hafta","ps3.h":"Kurulum","ps3.p":"Analizde çıkan işler için otomasyonlar kurulur, mevcut araçların birbirine bağlanır, ekibin nasıl kullanacağını öğrenir.",
+    "ps4.w":"Sürekli","ps4.h":"Çalıştır, ölç, büyüt","ps4.p":"Sistem günlük işleri devralır. İşin rahatlayınca büyüme tarafına geçeriz: reklam, web sitesi, yeni müşteriler. Her ay ne değiştiğini açık açık görürsün.",
     "ch5.num":"05 — Kimler","ch5.tag":"Dürüst konuşalım",
-    "fy.h":"Kimlerle iyi çalışıyoruz","fy.1":"Günün önemli bir kısmı evrak, teklif, fatura ve takip işlerine gidiyor.","fy.2":"Üretici, toptancı, ithalatçı, hizmet firması ya da e-ticaret markasısın.","fy.3":"Aynı işi her gün elle yapıyorsun ve “bunun bir yolu olmalı” diyorsun.","fy.4":"Angarya bitince o vakti yeni müşteri bulmaya ve büyümeye ayırmak istiyorsun.",
+    "fy.h":"Kimlerle iyi çalışıyoruz","fy.1":"Günün önemli bir kısmı evrak, teklif, fatura ve takip işlerine gidiyor.","fy.2":"Üretici, toptancı, ithalatçı, hizmet firması ya da e-ticaret markasısın.","fy.3":"Aynı işi her gün elle yapıyorsun ve “bunun bir yolu olmalı” diyorsun.","fy.4":"Evrak ve takip işleri sistemde dönünce o vakti yeni müşteri bulmaya ve büyümeye ayırmak istiyorsun.",
     "fn.h":"Kimlere faydamız olmaz","fn.1":"Sadece hazır bir program almak istiyorsun; işine bakılmasını istemiyorsun.","fn.2":"Satıştan çok beğeni peşindesin.","fn.3":"Düz cevap yerine aylık sunum dosyası bekliyorsun.",
     "ch6.num":"06 — İletişim","ch6.tag":"Bir mesaj yeter",
     "ch6.h2":"Bize işini anlat.",
@@ -847,7 +872,7 @@ function applyLang(lang,persist){
   const md=$('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
   const mt=$('#marqueeTrack');
   if(mt&&d.marquee){mt.innerHTML='';d.marquee.concat(d.marquee).forEach(t=>{const s=document.createElement('span');s.textContent=t;mt.appendChild(s);});}
-  $$('.lang').forEach(b=>b.textContent=lang==='tr'?'EN':'TR');
+  $$('.lang-wrap').forEach(w=>{w.dataset.cur=lang;const c=w.querySelector('.lang-code');if(c)c.textContent=lang.toUpperCase();w.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',b.dataset.lang===lang?'true':'false'));});
   $$('.lang-text').forEach(b=>b.style.color=b.dataset.lang===lang?'var(--text)':'');
   currentLang=lang;
   if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
@@ -865,7 +890,14 @@ function applyLang(lang,persist){
     if(cc.length===2&&stillAuto)applyLang(cc==='TR'?'tr':'en',false);
   }).catch(()=>{});
 })();
-$$('.lang').forEach(b=>b.addEventListener('click',()=>applyLang(currentLang==='tr'?'en':'tr',true)));
+$$('.lang-wrap').forEach(w=>{
+  const btn=w.querySelector('.lang');
+  const setOpen=o=>{w.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');};
+  btn.addEventListener('click',e=>{e.stopPropagation();const o=!w.classList.contains('open');$$('.lang-wrap.open').forEach(x=>{if(x!==w){x.classList.remove('open');x.querySelector('.lang').setAttribute('aria-expanded','false');}});setOpen(o);});
+  w.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{applyLang(b.dataset.lang,true);setOpen(false);}));
+});
+document.addEventListener('click',()=>$$('.lang-wrap.open').forEach(w=>{w.classList.remove('open');w.querySelector('.lang').setAttribute('aria-expanded','false');}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.lang-wrap.open').forEach(w=>{w.classList.remove('open');w.querySelector('.lang').setAttribute('aria-expanded','false');});});
 $$('.lang-text').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang,true)));
 
 /* ── Fonts ready → hero ignition ── */

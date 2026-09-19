@@ -15,8 +15,11 @@
      • Dil: TR/EN. Türkiye'den girenler Türkçe (IP'ye göre), diğerleri İngilizce;
        sağ üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır (localStorage).
      • Form: Web3Forms; mesajlar railetisimai1@gmail.com'a düşer.
-     • Bölümler: Hero → 01 Model (kaydırmalı sistem hikâyesi) → 02 Hizmetler →
-       03 Kanıt → 04 Süreç → 05 Uyum → 06 İletişim → Final → Footer
+     • Bölümler: Hero → 01 Model (kaydırmalı sistem hikâyesi) → 02 Hizmetler
+       (başında "reklamdan randevuya" örnek akış: makePipe) → 03 Kanıt → 04 Süreç →
+       05 Uyum → 06 İletişim → Final → Footer
+     • 03 Kanıt içinde YORUMDA bekleyen iki blok: vaka analizi (.cases) ve
+       "karşında kim var" (.who). Gerçek veri/fotoğraf gelince açılacak.
      • Eski site yedeği: git tag "yedek-2026-09-16-eski-site" / branch "eski-site-2026-09-16"
      ════════════════════════════════════════════════════════════════ -->
 
@@ -252,6 +255,52 @@
   .engine-c .rows .rt .arr{color:var(--cyan)}
   .engine-c .rows .rn{color:var(--dim)}
 
+  /* 02b Pipe: reklamdan randevuya örnek akış (talep paketi çizgide ilerler) */
+  .pipe{margin:0 0 clamp(72px,9vw,140px);padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+  .pipe-head{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(48px,6vw,84px)}
+  .pipe-head .mono{display:block;margin-bottom:16px;color:var(--pink)}
+  .pipe-head h3{font-size:clamp(28px,3.6vw,52px);letter-spacing:-.03em;max-width:16ch}
+  .pipe-head p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px;justify-self:end}
+  .pipe-head p b{color:var(--text);font-weight:500}
+  .pipe-rail{position:relative}
+  .pipe-rail::before{content:"";position:absolute;left:5px;top:5px;height:1px;width:var(--rw,100%);background:var(--line-2);transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--ease-out)}
+  .pipe.in .pipe-rail::before{transform:scaleX(1)}
+  .pipe-fill{position:absolute;left:5px;top:5px;height:1px;width:0;background:var(--grad);pointer-events:none}
+  .pipe-pk{position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--text);box-shadow:0 0 0 4px rgba(243,243,248,.12),0 0 18px rgba(79,195,222,.85);opacity:0;pointer-events:none;will-change:transform}
+  .pipe-list{display:grid;grid-template-columns:repeat(5,1fr);gap:0 28px;padding-top:34px}
+  .pipe-node{position:relative;min-width:0}
+  .pipe-dot{position:absolute;left:0;top:-34px;width:11px;height:11px;border-radius:50%;border:1px solid var(--line-3);background:var(--bg)}
+  .pipe-node.hit .pipe-dot{animation:pipehit .9s var(--ease-out)}
+  @keyframes pipehit{0%{box-shadow:0 0 0 0 rgba(237,58,162,.7);border-color:var(--pink);background:var(--pink)}100%{box-shadow:0 0 0 16px rgba(237,58,162,0);border-color:var(--line-3);background:var(--bg)}}
+  .pipe-act{display:block;margin-bottom:10px;font-size:11px}
+  .pipe-act.c{color:var(--cyan)}.pipe-act.s{color:var(--pink)}.pipe-act.u{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pipe-node h4{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.5vw,22px);letter-spacing:-.015em;line-height:1.2;margin-bottom:8px;max-width:15ch}
+  .pipe-node p{font-size:14px;line-height:1.5;color:var(--muted);max-width:24ch}
+  .pipe-seg{position:absolute;left:calc(50% + 14px);top:-58px;transform:translateX(-50%);white-space:nowrap;font-size:10px;color:var(--dim)}
+
+  /* 03b Vaka + karşında kim var — markup şu an yorum satırında, veri gelince açılır */
+  .cases{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);margin-bottom:clamp(56px,8vw,110px)}
+  .case{border-top:1px solid var(--line-2);padding-top:22px}
+  .case-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+  .case-head .mono:first-child{color:var(--text)}
+  .case-big{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+  .case-big b{font-family:var(--fd);font-weight:700;font-size:clamp(56px,7vw,104px);line-height:.9;letter-spacing:-.05em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .case-big span{font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,22px);letter-spacing:-.015em;max-width:16ch;line-height:1.2}
+  .case-rows li{padding:16px 0}
+  .case-rows .rt{font-size:clamp(16px,1.3vw,19px)}
+  .case-p{color:var(--muted);font-size:16px;margin-top:22px;max-width:520px}
+  .case-shot{margin-top:26px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+  .case-shot img{width:100%;height:auto}
+  .who{display:grid;grid-template-columns:.62fr 1.38fr;gap:clamp(32px,5vw,80px);align-items:center;margin-bottom:clamp(56px,8vw,110px)}
+  .who-photo{aspect-ratio:4/5;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+  .who-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+  .who:hover .who-photo img{filter:none}
+  .who-text .mono{display:block;margin-bottom:16px;color:var(--pink)}
+  .who-text h3{font-size:clamp(30px,3.8vw,56px);letter-spacing:-.03em;margin-bottom:8px}
+  .who-role{font-family:var(--fm);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:22px}
+  .who-text p{color:var(--muted);font-size:clamp(16px,1.35vw,19px);max-width:560px}
+  .who-text .btn{margin-top:28px}
+
   /* 03 Proof */
   .quote{font-family:var(--fd);font-weight:500;font-size:clamp(30px,4.6vw,68px);line-height:1.04;letter-spacing:-.035em;max-width:1160px}
   .quote em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -356,7 +405,8 @@
     .engine-b{padding-top:0}
     .engine-c{grid-template-columns:1fr;gap:28px;margin-top:0;padding-top:0;border-top:0}
     .flow-line{display:none}
-    .proof-grid,.fit-grid,.contact-grid,.svc-top{grid-template-columns:1fr}
+    .proof-grid,.fit-grid,.contact-grid,.svc-top,.cases,.who{grid-template-columns:1fr}
+    .who{max-width:640px}
     .svc-top p{justify-self:start}
     .fgrid{grid-template-columns:1fr 1fr}
   }
@@ -380,6 +430,17 @@
     .ch-head .mono:last-child{display:none}
     .form .btn{width:100%}
     .engine-head{grid-template-columns:1fr;gap:10px}
+    .pipe-head{grid-template-columns:1fr;gap:18px}
+    .pipe-head p{justify-self:start}
+    .pipe-rail::before{width:1px;height:var(--rh,100%);transform:scaleY(0);transform-origin:top}
+    .pipe.in .pipe-rail::before{transform:scaleY(1)}
+    .pipe-fill{width:1px;height:0}
+    .pipe-list{grid-template-columns:1fr;gap:0;padding:0 0 0 34px}
+    .pipe-node{padding-bottom:40px}
+    .pipe-node:last-child{padding-bottom:0}
+    .pipe-dot{left:-34px;top:3px}
+    .pipe-node h4,.pipe-node p{max-width:none}
+    .pipe-seg{position:static;transform:none;display:block;margin-top:14px}
   }
   @media(max-width:480px){
     .hero-meta span:last-child{display:none}
@@ -388,7 +449,8 @@
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .rv,.split .wi,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.ch-head .ch-line,.log-lines li,.menu-links a{transition:none!important;opacity:1!important;transform:none!important}
-    .marquee-track,.scroll-cue i::after,.log-lines li:last-child .e::after{animation:none!important}
+    .marquee-track,.scroll-cue i::after,.log-lines li:last-child .e::after,.pipe-node.hit .pipe-dot{animation:none!important}
+    .pipe-rail::before{transform:none!important}
     .nav{transition:none}
   }
 </style>
@@ -490,17 +552,17 @@
         <article class="step">
           <span class="mono k" data-i18n="st1.k">01 · Analyze</span>
           <h3 class="split" data-i18n="st1.h">We find the problem.</h3>
-          <p data-i18n="st1.p">We sit inside your business and look at how a day actually goes: what's done by hand, where documents pile up, where time and money leak. Not a generic fix — a diagnosis of your business.</p>
+          <p data-i18n="st1.p">We sit inside your business and watch how a day actually goes: what's done by hand, where documents pile up, which customers never get an answer. You get a list: which tasks can run in a system, and how many hours a week that gives back. Not a generic fix — a diagnosis of your business.</p>
         </article>
         <article class="step">
           <span class="mono k" data-i18n="st2.k">02 · Systemize</span>
           <h3 class="split" data-i18n="st2.h">The system takes over.</h3>
-          <p data-i18n="st2.p">For every piece of busywork we found, we build automation made for you. Quotes go out, invoices get issued, customers get followed up, reports arrive — without you touching any of it.</p>
+          <p data-i18n="st2.p">For every task on that list we build automation made for you. A quote request is read from your inbox, the PDF is generated, sent and logged to accounting. A message that arrives at night gets a WhatsApp reply within seconds, and the call lands in your calendar. You don't touch any of it.</p>
         </article>
         <article class="step">
           <span class="mono k" data-i18n="st3.k">= Grow</span>
           <h3 class="split" data-i18n="st3.h">You grow.</h3>
-          <p data-i18n="st3.p">Once the busywork is gone, you have time again. We put it to work: ads, a website, new B2B customers. The system keeps running in the back; you grow the business.</p>
+          <p data-i18n="st3.p">Once that work runs in the system, hours open up every week. We put them where they pay: the same system catches the leads from your ads, your website sells, your B2B list turns into new customers. The system keeps running in the back; you grow the business.</p>
         </article>
       </div>
     </div>
@@ -516,6 +578,25 @@
       <div class="svc-intro rv">
         <p data-i18n="ch2.p">First the system that takes the load off your business, then the growth side, and finally what all of it gives back to you. One team — no separate developer, agency and consultant to chase.</p>
         <p class="svc-note" data-i18n="ch2.note">Services are optional. After the analysis we pick together what your business actually needs; the scope differs from one business to the next.</p>
+      </div>
+    </div>
+    <div class="pipe rv" id="pipe">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="pipe.k">Example run · From ad click to booked call</span>
+          <h3 data-i18n="pipe.h">What happens when a lead comes in?</h3>
+        </div>
+        <p data-i18n-html="pipe.p">A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b></p>
+      </div>
+      <div class="pipe-rail" id="pipeRail">
+        <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
+        <ol class="pipe-list">
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pipe.a1">Customer</span><h4 data-i18n="pipe.t1">Sees the ad, clicks.</h4><p data-i18n="pipe.n1">Meta · Google · your website</p></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pipe.a2">Customer</span><h4 data-i18n="pipe.t2">Fills in the form.</h4><p data-i18n="pipe.n2">Name, phone, what they need</p><span class="mono pipe-seg" data-i18n="pipe.s2">within seconds</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pipe.a3">System</span><h4 data-i18n="pipe.t3">Replies on WhatsApp.</h4><p data-i18n="pipe.n3">An assistant trained on your business answers their questions</p><span class="mono pipe-seg" data-i18n="pipe.s3">within minutes</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pipe.a4">System</span><h4 data-i18n="pipe.t4">Books the call into your calendar.</h4><p data-i18n="pipe.n4">Picks a free slot, logs it to the CRM</p><span class="mono pipe-seg" data-i18n="pipe.s4">same day</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="pipe.a5">You</span><h4 data-i18n="pipe.t5">Take the call.</h4><p data-i18n="pipe.n5">Morning summary: who they are, what they want</p></li>
+        </ol>
       </div>
     </div>
     <div class="engines">
@@ -569,6 +650,49 @@
     <div class="ch-head"><span class="mono" data-i18n="ch3.num">03 — Proof</span><span class="ch-line"></span><span class="mono" data-i18n="ch3.tag">Practitioners, not theorists</span></div>
     <blockquote class="quote rv" data-i18n-html="ch3.quote">“The systems we build for you, we run <em>on our own business first.</em>”</blockquote>
     <p class="proof-p rv" data-i18n="ch3.p">We run our own e-commerce brands and our own B2B outreach on these systems. Every automation and every ad structure we build for you has run in our business, with our money, before it reaches yours. Not theory. The field.</p>
+    <!-- ══ VAKA ANALİZİ ══ Şu an YORUMDA. Gerçek veri gelince açılacak.
+         Vaka başına gereken: marka veya sektör, dönem, 2-3 ölçülebilir sonuç (önce → sonra),
+         ne yapıldığını anlatan 1-2 cümle, 1 ekran görüntüsü (webp). CSS hazır (.cases); metinler
+         açılırken i18n'e alınacak. Köşeli parantezli her şey yer tutucudur.
+    <div class="cases rv">
+      <article class="case">
+        <div class="case-head"><span class="mono">[Sektör] · [Ülke] · [Dönem]</span><span class="mono">[Kendi markamız / Müşteri]</span></div>
+        <div class="case-big"><b>[%XX]</b><span>[daha düşük müşteri edinme maliyeti]</span></div>
+        <ul class="rows case-rows">
+          <li><span class="ri">01</span><span class="rt">[Reklam harcaması → ciro]</span><span class="rn mono">[Önce: $X → $Y · Sonra: $X → $Z]</span></li>
+          <li><span class="ri">02</span><span class="rt">[Talebe ilk dönüş süresi]</span><span class="rn mono">[Önce: X saat · Sonra: saniyeler]</span></li>
+          <li><span class="ri">03</span><span class="rt">[Haftalık elle yapılan iş]</span><span class="rn mono">[Önce: X saat · Sonra: Y saat]</span></li>
+        </ul>
+        <p class="case-p">[Ne yapıldı: 1-2 cümle.]</p>
+        <figure class="case-shot"><img src="vaka-1.webp" alt="" loading="lazy" width="1200" height="720"></figure>
+      </article>
+      <article class="case">
+        <div class="case-head"><span class="mono">[Sektör] · [Ülke] · [Dönem]</span><span class="mono">[Kendi markamız / Müşteri]</span></div>
+        <div class="case-big"><b>[XX sa]</b><span>[haftada geri kazanılan süre]</span></div>
+        <ul class="rows case-rows">
+          <li><span class="ri">01</span><span class="rt">[Teklif hazırlama]</span><span class="rn mono">[Önce: yarım gün · Sonra: 2 dk]</span></li>
+          <li><span class="ri">02</span><span class="rt">[Takipsiz kalan talep]</span><span class="rn mono">[Önce: %X · Sonra: %0]</span></li>
+          <li><span class="ri">03</span><span class="rt">[Aylık ciro]</span><span class="rn mono">[Önce: $X · Sonra: $Y]</span></li>
+        </ul>
+        <p class="case-p">[Ne yapıldı: 1-2 cümle.]</p>
+        <figure class="case-shot"><img src="vaka-2.webp" alt="" loading="lazy" width="1200" height="720"></figure>
+      </article>
+    </div>
+    ══ VAKA SONU ══ -->
+    <!-- ══ KARŞINDA KİM VAR ══ Şu an YORUMDA. Bilgi gelince açılacak.
+         Gereken: ad soyad, unvan, 2-3 cümle (ne yaptın, hangi markaları yönetiyorsun),
+         1 fotoğraf (dikey 4:5, webp), isteğe bağlı 1 dakikalık video linki. CSS hazır (.who).
+    <div class="who rv">
+      <figure class="who-photo"><img src="kurucu.webp" alt="[Ad Soyad]" loading="lazy" width="800" height="1000"></figure>
+      <div class="who-text">
+        <span class="mono">Karşında kim var</span>
+        <h3>[Ad Soyad]</h3>
+        <p class="who-role">[Kurucu · astra-meta]</p>
+        <p>[2-3 cümle: kaç yıldır ne yapıyorsun, hangi markaları bu sistemlerle yönetiyorsun, mesajlar kime düşüyor.]</p>
+        <a class="btn btn-ghost" href="[video-linki]" target="_blank" rel="noopener">[1 dakikada iş modelimiz] <span class="arr">▶</span></a>
+      </div>
+    </div>
+    ══ KİM SONU ══ -->
     <div class="proof-grid">
       <div class="log">
         <div class="log-head"><span class="mono" data-i18n="log.h">What the system does on an ordinary Tuesday</span><span class="mono" data-i18n="log.k">Illustrative run · local time</span></div>
@@ -754,9 +878,9 @@ const I18N={
     "marquee":["Problem Analizi", "İş Süreci Otomasyonu", "Evrak ve Belge Otomasyonu", "Teklif ve Fatura Akışı", "Müşteri Takibi", "Reklam Danışmanlığı", "Web Sitesi Kurulumu", "B2B Müşteri Bulma"],
     "ch1.num":"01 — Model","ch1.tag":"Analiz + Sistem = Büyüme",
     "ch1.intro":"Çoğu işletmede patron günün yarısını evrak, teklif, fatura ve takip işleriyle geçirir; işi büyütmeye vakit kalmaz. Biz o işleri tek tek buluruz, sana özel bir sisteme bağlarız — <em>ve o sistem kendi kendine döner.</em>",
-    "st1.k":"01 · Analiz","st1.h":"Problemi buluruz.","st1.p":"İşletmene girer, günün nasıl geçtiğine bakarız: hangi iş elle yapılıyor, hangi evrak nerede bekliyor, nerede zaman ve para kaçıyor. Genel çözüm değil, senin işine özel teşhis.",
-    "st2.k":"02 · Sistem","st2.h":"Sistem devralır.","st2.p":"Bulduğumuz her tekrar eden iş için sana özel otomasyon kurarız. Teklif hazırlanır, fatura kesilir, müşteri takibi yapılır, rapor gelir — sen elini sürmeden.",
-    "st3.k":"= Büyüme","st3.h":"İşin büyür.","st3.p":"Bu işler sistemde dönmeye başlayınca önünde vakit açılır. O vakti doğru yere koyarız: reklam, web sitesi, yeni B2B müşteriler. Sistem arkada döner, sen büyütürsün.",
+    "st1.k":"01 · Analiz","st1.h":"Problemi buluruz.","st1.p":"İşletmene girer, bir günün nasıl geçtiğine bakarız: hangi iş elle yapılıyor, hangi evrak nerede bekliyor, hangi müşteri cevapsız kalıyor. Çıktı bir liste: hangi işler sisteme devredilir, haftada kaç saat geri gelir. Genel çözüm değil, senin işine özel teşhis.",
+    "st2.k":"02 · Sistem","st2.h":"Sistem devralır.","st2.p":"Listedeki her iş için sana özel otomasyon kurarız. Teklif talebi mailden okunur, PDF hazırlanır, müşteriye gider, muhasebeye işlenir. Gece gelen mesaja saniyeler içinde WhatsApp'tan cevap verilir, randevu takvimine düşer. Sen elini sürmezsin.",
+    "st3.k":"= Büyüme","st3.h":"İşin büyür.","st3.p":"Bu işler sistemde dönmeye başlayınca haftada saatler açılır. O saatleri doğru yere koyarız: reklamdan gelen talebi aynı sistem karşılar, web siten satar, B2B listeden yeni müşteri çıkar. Sistem arkada döner, sen büyütürsün.",
     "ch2.num":"02 — Hizmetler","ch2.tag":"Üç motor, tek sistem",
     "ch2.h2":"Üç motor. Tek sistem.",
     "ch2.p":"Önce işini rahatlatan sistem, sonra büyüme tarafı, en sonda da bunun sana ne kazandırdığı. Hepsi tek ekipte; ayrı ayrı yazılımcı, ajans ve danışman aramazsın.",
@@ -771,6 +895,13 @@ const I18N={
     "en2.r3":"B2B müşteri bulma","en2.n3":"Hedef liste · e-posta · takip",
     "en2.r4":"Sade raporlama","en2.n4":"Ayda bir · ne harcandı, ne kazandırdı",
     "ch2.note":"Hizmetler opsiyoneldir. Analizden sonra işletmenin gerçekten ihtiyaç duyduklarını birlikte seçeriz; kapsam işletmeden işletmeye değişir.","en3.k":"Ölçekle","en3.h":"Sistem kurulunca günün böyle geçer","en3.p":"Bir kez kurulur, her gün çalışır. Elle yaptığın ne varsa sistemde döner; kalan vakit işi büyütmeye gider.","en3.r1":"Teklif dakikalar içinde müşteride","en3.n1":"Eskiden: yarım gün","en3.r2":"Fatura ve evrak kendi kendine işlenir","en3.n2":"Eskiden: akşam mesaisi","en3.r3":"Hiçbir müşteri takipsiz kalmaz","en3.n3":"Eskiden: unutulan mesajlar","en3.r4":"Her sabah tek özet, tüm iş önünde","en3.n4":"Eskiden: beş ayrı ekran",
+    "pipe.k":"Örnek akış · Reklamdan randevuya","pipe.h":"Bir talep geldiğinde ne olur?",
+    "pipe.p":"Gece üçte gelen talep de sabah dokuzda gelen de aynı yoldan geçer: reklam, form, mesaj ve takvim tek zincirdir. <b>Sen yalnızca son halkasın.</b>",
+    "pipe.a1":"Müşteri","pipe.t1":"Reklamı görür, tıklar.","pipe.n1":"Meta · Google · web siten",
+    "pipe.a2":"Müşteri","pipe.t2":"Formu doldurur.","pipe.n2":"Adı, telefonu, ne istediği","pipe.s2":"saniyeler içinde",
+    "pipe.a3":"Sistem","pipe.t3":"WhatsApp'tan dönüş yapılır.","pipe.n3":"İşine göre eğitilmiş asistan sorularını yanıtlar","pipe.s3":"dakikalar içinde",
+    "pipe.a4":"Sistem","pipe.t4":"Randevu takvimine düşer.","pipe.n4":"Uygun saati seçer, CRM'e işler","pipe.s4":"aynı gün",
+    "pipe.a5":"Sen","pipe.t5":"Görüşmeye girersin.","pipe.n5":"Sabah özetinde kim, ne istiyor, hazır",
     "ch3.num":"03 — Kanıt","ch3.tag":"Anlatan değil, yapan",
     "ch3.quote":"“Sana kurduğumuz sistemi <em>önce kendi işimizde</em> çalıştırıyoruz.”",
     "ch3.p":"Kendi e-ticaret markalarımızı ve B2B müşteri bulma işimizi bu sistemlerle yönetiyoruz. Sana kurduğumuz her otomasyon ve her reklam yapısı, sana gelmeden önce bizim işimizde, bizim paramızla denenmiş oluyor. Kitaptan değil, sahadan.",
@@ -822,9 +953,9 @@ const I18N={
     "marquee":["Problem Analysis", "Workflow Automation", "Document & Paperwork Automation", "Quotes & Invoicing Flow", "Customer Follow-up", "Ads Consulting", "Website Setup", "B2B Customer Acquisition"],
     "ch1.num":"01 — The model","ch1.tag":"Analysis + System = Growth",
     "ch1.intro":"In most businesses the owner spends half the day on paperwork, quotes, invoices and follow-ups, and there's no time left to grow. We find that work, piece by piece, and put it into one system built for you — <em>and it runs on its own.</em>",
-    "st1.k":"01 · Analyze","st1.h":"We find the problem.","st1.p":"We sit inside your business and look at how a day actually goes: what's done by hand, where documents pile up, where time and money leak. Not a generic fix — a diagnosis of your business.",
-    "st2.k":"02 · Systemize","st2.h":"The system takes over.","st2.p":"For every piece of busywork we found, we build automation made for you. Quotes go out, invoices get issued, customers get followed up, reports arrive — without you touching any of it.",
-    "st3.k":"= Grow","st3.h":"You grow.","st3.p":"Once the busywork is gone, you have time again. We put it to work: ads, a website, new B2B customers. The system keeps running in the back; you grow the business.",
+    "st1.k":"01 · Analyze","st1.h":"We find the problem.","st1.p":"We sit inside your business and watch how a day actually goes: what's done by hand, where documents pile up, which customers never get an answer. You get a list: which tasks can run in a system, and how many hours a week that gives back. Not a generic fix — a diagnosis of your business.",
+    "st2.k":"02 · Systemize","st2.h":"The system takes over.","st2.p":"For every task on that list we build automation made for you. A quote request is read from your inbox, the PDF is generated, sent and logged to accounting. A message that arrives at night gets a WhatsApp reply within seconds, and the call lands in your calendar. You don't touch any of it.",
+    "st3.k":"= Grow","st3.h":"You grow.","st3.p":"Once that work runs in the system, hours open up every week. We put them where they pay: the same system catches the leads from your ads, your website sells, your B2B list turns into new customers. The system keeps running in the back; you grow the business.",
     "ch2.num":"02 — Services","ch2.tag":"Three engines, one system",
     "ch2.h2":"Three engines. One system.",
     "ch2.p":"First the system that takes the load off your business, then the growth side, and finally what all of it gives back to you. One team — no separate developer, agency and consultant to chase.",
@@ -839,6 +970,13 @@ const I18N={
     "en2.r3":"B2B customer acquisition","en2.n3":"Target list · outreach · follow-up",
     "en2.r4":"Plain-language reporting","en2.n4":"Monthly · spent vs. earned",
     "ch2.note":"Services are optional. After the analysis we pick together what your business actually needs; the scope differs from one business to the next.","en3.k":"Scale","en3.h":"Your day once the system is running","en3.p":"Built once, runs every day. Everything you used to do by hand now runs in the system; the time you get back goes into growing.","en3.r1":"Quotes reach the customer in minutes","en3.n1":"Before: half a day","en3.r2":"Invoices and paperwork handle themselves","en3.n2":"Before: evening overtime","en3.r3":"No customer ever goes unfollowed","en3.n3":"Before: forgotten messages","en3.r4":"One summary every morning, whole business in view","en3.n4":"Before: five different screens",
+    "pipe.k":"Example run · From ad click to booked call","pipe.h":"What happens when a lead comes in?",
+    "pipe.p":"A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b>",
+    "pipe.a1":"Customer","pipe.t1":"Sees the ad, clicks.","pipe.n1":"Meta · Google · your website",
+    "pipe.a2":"Customer","pipe.t2":"Fills in the form.","pipe.n2":"Name, phone, what they need","pipe.s2":"within seconds",
+    "pipe.a3":"System","pipe.t3":"Replies on WhatsApp.","pipe.n3":"An assistant trained on your business answers their questions","pipe.s3":"within minutes",
+    "pipe.a4":"System","pipe.t4":"Books the call into your calendar.","pipe.n4":"Picks a free slot, logs it to the CRM","pipe.s4":"same day",
+    "pipe.a5":"You","pipe.t5":"Take the call.","pipe.n5":"Morning summary: who they are, what they want",
     "ch3.num":"03 — Proof","ch3.tag":"Practitioners, not theorists",
     "ch3.quote":"“The systems we build for you, we run <em>on our own business first.</em>”",
     "ch3.p":"We run our own e-commerce brands and our own B2B outreach on these systems. Every automation and every ad structure we build for you has run in our business, with our money, before it reaches yours. Not theory. The field.",
@@ -1114,6 +1252,45 @@ function makeJourney(svg,o){
   return {update};
 }
 
+/* ── Pipe: talep akışı. Paket noktadan noktaya gider, geçtiği yer gradyanla dolar,
+   vardığı nokta bir kez atar. Konumlar ölçülür; yatay/dikey fark etmez. ── */
+function makePipe(rail,o){
+  o=Object.assign({dwell:.95,travel:1.25,tail:.9},o);
+  const nodes=$$('.pipe-node',rail),dots=nodes.map(n=>$('.pipe-dot',n));
+  const fill=$('.pipe-fill',rail),pk=$('.pipe-pk',rail),N=nodes.length;
+  const T=N*o.dwell+(N-1)*o.travel+o.tail;
+  let pos=[],vert=false,last=-1,tm=-9;
+  function measure(){
+    const R=rail.getBoundingClientRect();
+    pos=dots.map(d=>{const r=d.getBoundingClientRect();return {x:r.left-R.left+r.width/2,y:r.top-R.top+r.height/2};});
+    vert=N>1&&Math.abs(pos[1].x-pos[0].x)<2;
+    const e=pos[N-1];
+    rail.style.setProperty('--rw',(e.x-pos[0].x).toFixed(1)+'px');rail.style.setProperty('--rh',(e.y-pos[0].y).toFixed(1)+'px');
+  }
+  const ease=e=>e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2;
+  function update(p,t){
+    if(t-tm>2){tm=t;measure();}
+    if(!N)return;
+    if(RM){fill.style.opacity=1;if(vert){fill.style.height='var(--rh)';fill.style.width='1px';}else{fill.style.width='var(--rw)';fill.style.height='1px';}pk.style.opacity=0;return;}
+    const u=t%T;let k=0,f=0,acc=0,tail=false;
+    for(;;){
+      if(u<acc+o.dwell){break;}
+      acc+=o.dwell;
+      if(k===N-1){tail=true;break;}
+      if(u<acc+o.travel){f=ease((u-acc)/o.travel);break;}
+      acc+=o.travel;k++;
+    }
+    const a=pos[k],b=pos[Math.min(k+1,N-1)],x=a.x+(b.x-a.x)*f,y=a.y+(b.y-a.y)*f;
+    const op=tail?Math.max(0,1-(u-acc)/o.tail):1;
+    pk.style.transform='translate('+(x-5.5).toFixed(1)+'px,'+(y-5.5).toFixed(1)+'px)';
+    pk.style.opacity=op.toFixed(2);fill.style.opacity=op.toFixed(2);
+    if(vert){fill.style.height=(y-pos[0].y).toFixed(1)+'px';fill.style.width='1px';}else{fill.style.width=(x-pos[0].x).toFixed(1)+'px';fill.style.height='1px';}
+    if(f===0&&!tail&&k!==last){last=k;nodes[k].classList.remove('hit');void nodes[k].offsetWidth;nodes[k].classList.add('hit');}
+    if(tail)last=-1;
+  }
+  return {update};
+}
+
 const orbits=[];
 function addStage(svg,factory,cfg,getP){ if(!svg)return; const api=factory(svg,cfg); const o={svg,api,getP,visible:false}; orbits.push(o);
   new IntersectionObserver(es=>{es.forEach(e=>{o.visible=e.isIntersecting;});},{rootMargin:'12% 0px'}).observe(svg); return o; }
@@ -1128,6 +1305,7 @@ addStage($('#orbitStory'),makeJourney,{seed:23,stars:innerWidth<760?96:150,warp:
   stageNum.textContent='0'+n+' / 03';stageBar.style.transform='scaleX('+pS.toFixed(3)+')';
   return pS; });
 addStage($('#orbitEnd'),makeOrbit,{seed:5,points:18,late:8,pairs:12,spin:.5,alpha:.9},()=>1);
+addStage($('#pipeRail'),makePipe,{},()=>0);
 
 const t0=performance.now();
 (function loop(now){ const t=RM?0:(now-t0)/1000; orbits.forEach(o=>{ if(!o.visible)return; o.api.update(o.getP(),t); }); requestAnimationFrame(loop); })(t0);

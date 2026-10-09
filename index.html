@@ -278,6 +278,34 @@
   .pipe-node p{font-size:14px;line-height:1.5;color:var(--muted);max-width:24ch}
   .pipe-seg{position:absolute;left:calc(50% + 14px);top:-58px;transform:translateX(-50%);white-space:nowrap;font-size:10px;color:var(--dim)}
 
+  /* 00 E-ticaret: Amazon + Shopify şeritleri. Ray ve paket makePipe'tan; şerit rengi --lc.
+     Yalnız genel akış yazılır: ajan sayısı, araç adı, eşik yok. */
+  .ecom-head{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+  .ecom-head h2{font-size:clamp(34px,4.6vw,72px);letter-spacing:-.035em;max-width:15ch}
+  .ecom-head p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px;justify-self:end}
+  .ecom-head p b{color:var(--text);font-weight:500}
+  .lanes{border-bottom:1px solid var(--line)}
+  .lane{--lc:var(--cyan);display:grid;grid-template-columns:170px minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;padding:clamp(34px,4.5vw,56px) 0;border-top:1px solid var(--line)}
+  .lane-amz{--lc:#ff9900}
+  .lane-shp{--lc:#95bf47}
+  .lane-brand{margin-top:-11px}
+  .lane-logo{height:32px;width:auto}
+  .lane .pipe-list{grid-template-columns:repeat(4,1fr)}
+  .lane.in .pipe-rail::before{transform:scaleX(1)}
+  .lane .pipe-fill{background:linear-gradient(90deg,var(--pink),var(--lc))}
+  .lane .pipe-pk{box-shadow:0 0 0 4px rgba(243,243,248,.12),0 0 18px var(--lc)}
+  .lane .pipe-act{color:var(--lc)}
+  .lane .pipe-node.hit .pipe-dot{animation:lanehit .9s var(--ease-out)}
+  @keyframes lanehit{0%{box-shadow:0 0 0 0 var(--lc);border-color:var(--lc);background:var(--lc)}100%{box-shadow:0 0 0 16px transparent;border-color:var(--line-3);background:var(--bg)}}
+  .lane:has(.pipe-node:last-child.hit) .lane-logo{animation:logoglow 1.8s var(--ease-out)}
+  @keyframes logoglow{0%{filter:drop-shadow(0 0 0 transparent)}25%{filter:drop-shadow(0 0 14px var(--lc))}100%{filter:drop-shadow(0 0 0 transparent)}}
+  .ecom-foot{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:clamp(32px,4vw,52px)}
+  .ecom-you{display:flex;align-items:center;gap:16px;font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;line-height:1.3;max-width:640px}
+  .ecom-you i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:16px;font-weight:700}
+  .ecom-legal{margin-top:24px;font-size:11px;line-height:1.5;color:var(--dim)}
+  .ecom{padding-bottom:0}
+  .ecom+.model{padding-top:clamp(56px,7vw,96px)}
+
   /* 03b Vaka + karşında kim var — markup şu an yorum satırında, veri gelince açılır */
   .cases{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,80px);margin-bottom:clamp(56px,8vw,110px)}
   .case{border-top:1px solid var(--line-2);padding-top:22px}
@@ -405,6 +433,8 @@
     .engine-b{padding-top:0}
     .engine-c{grid-template-columns:1fr;gap:28px;margin-top:0;padding-top:0;border-top:0}
     .flow-line{display:none}
+    .lane{grid-template-columns:1fr;gap:22px}
+    .lane-brand{margin-top:0}
     .proof-grid,.fit-grid,.contact-grid,.svc-top,.cases,.who{grid-template-columns:1fr}
     .who{max-width:640px}
     .svc-top p{justify-self:start}
@@ -441,6 +471,11 @@
     .pipe-dot{left:-34px;top:3px}
     .pipe-node h4,.pipe-node p{max-width:none}
     .pipe-seg{position:static;transform:none;display:block;margin-top:14px}
+    .ecom-head{grid-template-columns:1fr;gap:18px}
+    .ecom-head p{justify-self:start}
+    .lane.in .pipe-rail::before{transform:scaleY(1)}
+    .lane .pipe-list{grid-template-columns:1fr}
+    .lane-logo{height:28px}
   }
   @media(max-width:480px){
     .hero-meta span:last-child{display:none}
@@ -449,7 +484,7 @@
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .rv,.split .wi,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.ch-head .ch-line,.log-lines li,.menu-links a{transition:none!important;opacity:1!important;transform:none!important}
-    .marquee-track,.scroll-cue i::after,.log-lines li:last-child .e::after,.pipe-node.hit .pipe-dot{animation:none!important}
+    .marquee-track,.scroll-cue i::after,.log-lines li:last-child .e::after,.pipe-node.hit .pipe-dot,.lane .pipe-node.hit .pipe-dot,.lane-logo{animation:none!important}
     .pipe-rail::before{transform:none!important}
     .nav{transition:none}
   }
@@ -537,6 +572,49 @@
     <div class="marquee-track" id="marqueeTrack"></div>
   </div>
 </header>
+
+<!-- ── 00 E-TİCARET: Amazon + Shopify otomasyonu. Numarasız (01..06 sırası bozulmasın).
+     Sadece genel akış: ajan sayısı, ajan adı, araç/veri kaynağı adı ve eşik buraya yazılmaz. ── -->
+<section id="eticaret" class="chapter ecom">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="ec.num">✦ New · Amazon &amp; Shopify</span><span class="ch-line"></span><span class="mono" data-i18n="ec.tag">E-commerce automation</span></div>
+    <div class="ecom-head">
+      <h2 class="split" data-i18n="ec.h">The system finds the product. The system runs the store.</h2>
+      <p class="rv" data-i18n-html="ec.p">We run our own Amazon and Shopify stores on this system every day. We build the same for yours. <b>You just approve.</b></p>
+    </div>
+    <div class="lanes">
+      <div class="lane lane-amz rv">
+        <div class="lane-brand"><svg class="lane-logo" viewBox="0 0 603 182" role="img" aria-label="Amazon"><path fill="#f90" d="m 374,142.2 c -35,25.8 -85.7,39.6 -129.4,39.6 -61.2,0 -116.4,-22.7 -158.1,-60.3 -3.3,-3 -0.3,-7 3.6,-4.7 45,26.2 100.7,41.9 158.2,41.9 38.8,0 81.4,-8 120.6,-24.7 5.9,-2.5 10.9,3.9 5.1,8.2"/><path fill="#f90" d="m 388.6,125.5 c -4.5,-5.7 -29.6,-2.7 -40.8,-1.4 -3.4,0.4 -4,-2.6 -0.9,-4.7 20,-14.1 52.8,-10 56.7,-5.3 3.8,4.7 -1,37.6 -19.8,53.4 -2.9,2.4 -5.6,1.1 -4.4,-2.1 4.2,-10.5 13.7,-34.2 9.2,-39.9"/><path fill="#fff" d="M 348.5,20.1 V 6.4 c 0,-2.1 1.6,-3.5 3.5,-3.5 h 61.3 c 2,0 3.5,1.4 3.5,3.5 v 11.7 c -0,2 -1.7,4.5 -4.6,8.6 l -31.7,45.3 c 11.8,-0.3 24.3,1.5 34.9,7.5 2.4,1.4 3.1,3.4 3.3,5.3 V 99.5 c 0,2 -2.2,4.3 -4.5,3.1 -18.8,-9.9 -43.9,-11 -64.7,0.1 -2.1,1.2 -4.4,-1.2 -4.4,-3.1 V 85.7 c 0,-2.2 0,-6 2.3,-9.4 l 36.8,-52.7 h -32 c -2,0 -3.5,-1.4 -3.5,-3.4"/><path fill="#fff" d="m 125,105.5 h -18.6 c -1.8,-0.1 -3.2,-1.5 -3.3,-3.2 V 6.6 c 0,-1.9 1.6,-3.4 3.6,-3.4 h 17.4 c 1.8,0.1 3.3,1.5 3.4,3.2 v 12.5 h 0.3 c 4.5,-12.1 13.1,-17.7 24.5,-17.7 11.7,0 19,5.6 24.2,17.7 4.5,-12.1 14.8,-17.7 25.7,-17.7 7.8,0 16.4,3.2 21.6,10.5 5.9,8 4.7,19.7 4.7,30 l -0,60.4 c 0,1.9 -1.6,3.5 -3.6,3.5 h -18.6 c -1.9,-0.1 -3.4,-1.6 -3.4,-3.5 V 51.3 c 0,-4 0.4,-14.1 -0.5,-17.9 -1.4,-6.4 -5.6,-8.2 -11,-8.2 -4.5,0 -9.2,3 -11.1,7.8 -1.9,4.8 -1.7,12.9 -1.7,18.3 v 50.7 c 0,1.9 -1.6,3.5 -3.6,3.5 h -18.6 c -1.9,-0.1 -3.4,-1.6 -3.4,-3.5 L 152.9,51.3 c 0,-10.7 1.8,-26.4 -11.5,-26.4 -13.4,0 -12.9,15.3 -12.9,26.4 v 50.7 c 0,1.9 -1.6,3.5 -3.6,3.5"/><path fill="#fff" d="m 469.5,1.2 c 27.7,0 42.6,23.8 42.6,54 0,29.2 -16.5,52.3 -42.6,52.3 -27.2,0 -41.9,-23.8 -41.9,-53.4 0,-29.8 15,-52.9 41.9,-52.9 m 0.2,19.5 c -13.7,0 -14.6,18.7 -14.6,30.4 0,11.7 -0.2,36.7 14.4,36.7 14.4,0 15.1,-20.1 15.1,-32.4 0,-8.1 -0.3,-17.7 -2.8,-25.4 -2.1,-6.7 -6.3,-9.3 -12.2,-9.3"/><path fill="#fff" d="M 548,105.5 H 529.4 c -1.9,-0.1 -3.4,-1.6 -3.4,-3.5 l -0,-95.7 c 0.2,-1.8 1.7,-3.1 3.6,-3.1 h 17.3 c 1.6,0.1 3,1.2 3.3,2.7 v 14.6 h 0.3 c 5.2,-13.1 12.5,-19.3 25.4,-19.3 8.4,0 16.5,3 21.8,11.3 4.9,7.7 4.9,20.5 4.9,29.8 v 60.2 c -0.2,1.7 -1.8,3 -3.6,3 h -18.7 c -1.7,-0.1 -3.1,-1.4 -3.3,-3 V 50.5 c 0,-10.5 1.2,-25.8 -11.7,-25.8 -4.5,0 -8.7,3 -10.8,7.7 -2.6,5.8 -3,11.7 -3,18.1 v 51.5 c -0,1.9 -1.7,3.5 -3.6,3.5"/><path fill="#fff" d="M 55.3,59.8 V 55.7 c -13.5,0 -27.7,2.9 -27.7,18.8 0,8 4.2,13.5 11.3,13.5 5.2,0 9.9,-3.2 12.9,-8.5 3.7,-6.4 3.5,-12.5 3.5,-19.8 m 18.8,45.4 c -1.2,1.1 -3,1.2 -4.4,0.4 -6.2,-5.1 -7.3,-7.5 -10.7,-12.4 -10.2,10.4 -17.5,13.6 -30.7,13.6 -15.7,0 -27.9,-9.7 -27.9,-29 0,-15.1 8.2,-25.4 19.9,-30.5 10.1,-4.5 24.3,-5.2 35.1,-6.5 v -2.4 c 0,-4.4 0.3,-9.7 -2.3,-13.5 -2.3,-3.4 -6.6,-4.9 -10.5,-4.9 -7.1,0 -13.4,3.6 -15,11.2 -0.3,1.7 -1.5,3.3 -3.2,3.4 L 6.3,32.7 C 4.7,32.3 3.1,31.1 3.5,28.8 7.7,6.9 27.4,0.2 45.2,0.2 c 9.1,0 20.9,2.4 28.1,9.3 9.1,8.5 8.2,19.8 8.2,32.1 v 29 c 0,8.7 3.6,12.6 7,17.3 1.2,1.7 1.5,3.7 -0.1,5 -3.8,3.2 -10.6,9.1 -14.3,12.4 l -0.1,-0.1"/><path fill="#fff" transform="translate(244.4)" d="M 55.3,59.8 V 55.7 c -13.5,0 -27.7,2.9 -27.7,18.8 0,8 4.2,13.5 11.3,13.5 5.2,0 9.9,-3.2 12.9,-8.5 3.7,-6.4 3.5,-12.5 3.5,-19.8 m 18.8,45.4 c -1.2,1.1 -3,1.2 -4.4,0.4 -6.2,-5.1 -7.3,-7.5 -10.7,-12.4 -10.2,10.4 -17.5,13.6 -30.7,13.6 -15.7,0 -27.9,-9.7 -27.9,-29 0,-15.1 8.2,-25.4 19.9,-30.5 10.1,-4.5 24.3,-5.2 35.1,-6.5 v -2.4 c 0,-4.4 0.3,-9.7 -2.3,-13.5 -2.3,-3.4 -6.6,-4.9 -10.5,-4.9 -7.1,0 -13.4,3.6 -15,11.2 -0.3,1.7 -1.5,3.3 -3.2,3.4 L 6.3,32.7 C 4.7,32.3 3.1,31.1 3.5,28.8 7.7,6.9 27.4,0.2 45.2,0.2 c 9.1,0 20.9,2.4 28.1,9.3 9.1,8.5 8.2,19.8 8.2,32.1 v 29 c 0,8.7 3.6,12.6 7,17.3 1.2,1.7 1.5,3.7 -0.1,5 -3.8,3.2 -10.6,9.1 -14.3,12.4 l -0.1,-0.1"/></svg></div>
+        <div class="pipe-rail" id="laneAmz">
+          <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
+          <ol class="pipe-list">
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.a1k">01 · Find</span><h4 data-i18n="ec.a1h">Finds products that sell.</h4><p data-i18n="ec.a1p">Scans the market daily</p></li>
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.a2k">02 · Filter</span><h4 data-i18n="ec.a2h">Cuts the risky ones.</h4><p data-i18n="ec.a2p">Profit, policy and risk checks</p></li>
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.a3k">03 · List</span><h4 data-i18n="ec.a3h">Puts them in your store.</h4><p data-i18n="ec.a3p">Product, price, description</p></li>
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.a4k">04 · Run</span><h4 data-i18n="ec.a4h">Watches price and stock.</h4><p data-i18n="ec.a4p">24/7, even while you sleep</p></li>
+          </ol>
+        </div>
+      </div>
+      <div class="lane lane-shp rv">
+        <div class="lane-brand"><svg class="lane-logo" viewBox="0 302.1 612 192" role="img" aria-label="Shopify"><path fill="#95BF47" d="M131.5 341.9c-.1-.9-.9-1.3-1.5-1.3s-13.7-1-13.7-1-9.1-9.1-10.2-10c-1-1-2.9-.7-3.7-.5-.1 0-2 .6-5.1 1.6-3.1-8.9-8.4-17-17.9-17h-.9c-2.6-3.4-6-5-8.8-5-22 0-32.6 27.5-35.9 41.5-8.6 2.7-14.7 4.5-15.4 4.8-4.8 1.5-4.9 1.6-5.5 6.1-.5 3.4-13 100.1-13 100.1l97.3 18.2L150 468c.1-.2-18.4-125.2-18.5-126.1zm-39.6-9.8c-2.4.7-5.3 1.6-8.2 2.6v-1.8c0-5.4-.7-9.8-2-13.3 5 .6 8.1 6.1 10.2 12.5zm-16.3-11.4c1.3 3.4 2.2 8.2 2.2 14.8v1c-5.4 1.7-11.1 3.4-17 5.3 3.3-12.6 9.6-18.8 14.8-21.1zm-6.4-6.2c1 0 2 .4 2.8 1-7.1 3.3-14.6 11.6-17.7 28.4-4.7 1.5-9.2 2.8-13.5 4.2 3.6-12.8 12.6-33.6 28.4-33.6z"/><path fill="#5E8E3E" d="M130 340.4c-.6 0-13.7-1-13.7-1s-9.1-9.1-10.2-10c-.4-.4-.9-.6-1.3-.6l-7.3 150.6 52.8-11.4s-18.5-125.2-18.6-126.1c-.4-.9-1.1-1.3-1.7-1.5z"/><path fill="#FFF" d="M79.4 369.6L73 388.9s-5.8-3.1-12.7-3.1c-10.3 0-10.8 6.5-10.8 8.1 0 8.8 23 12.2 23 32.9 0 16.3-10.3 26.8-24.2 26.8-16.8 0-25.2-10.4-25.2-10.4l4.5-14.8s8.8 7.6 16.2 7.6c4.9 0 6.9-3.8 6.9-6.6 0-11.5-18.8-12-18.8-31 0-15.9 11.4-31.3 34.5-31.3 8.6-.1 13 2.5 13 2.5z"/><path fill="#fff" d="M211.6 405.9c-5.3-2.8-8-5.3-8-8.6 0-4.2 3.8-6.9 9.7-6.9 6.9 0 13 2.8 13 2.8l4.8-14.7s-4.4-3.4-17.4-3.4c-18.1 0-30.7 10.4-30.7 25 0 8.3 5.9 14.6 13.7 19.1 6.4 3.5 8.6 6.1 8.6 9.9 0 3.9-3.2 7.1-9.1 7.1-8.7 0-17-4.5-17-4.5l-5.1 14.7s7.6 5.1 20.4 5.1c18.6 0 32.1-9.2 32.1-25.7-.2-9-6.9-15.2-15-19.9zM285.8 374.9c-9.2 0-16.4 4.4-21.9 11l-.2-.1 8-41.6H251l-20.2 106h20.7l6.9-36.2c2.7-13.7 9.8-22.2 16.4-22.2 4.7 0 6.5 3.2 6.5 7.7 0 2.8-.2 6.4-.9 9.2l-7.8 41.5h20.7l8.1-42.8c.9-4.5 1.5-9.9 1.5-13.6-.1-11.9-6.2-18.9-17.1-18.9zM349.7 374.9c-25 0-41.5 22.5-41.5 47.6 0 16 9.9 29 28.5 29 24.5 0 41-21.9 41-47.6.1-14.9-8.5-29-28-29zm-10.2 60.8c-7.1 0-10-6-10-13.6 0-11.9 6.1-31.2 17.4-31.2 7.3 0 9.8 6.4 9.8 12.5 0 12.7-6.3 32.3-17.2 32.3zM430.8 374.9c-14 0-21.9 12.4-21.9 12.4h-.2l1.2-11.1h-18.4c-.9 7.5-2.6 19-4.2 27.5L373 479.6h20.7l5.8-30.7h.5s4.3 2.7 12.1 2.7c24.4 0 40.3-25 40.3-50.2-.1-14-6.4-26.5-21.6-26.5zm-19.8 61c-5.4 0-8.6-3.1-8.6-3.1l3.4-19.3c2.4-13 9.2-21.5 16.4-21.5 6.4 0 8.3 5.9 8.3 11.4.1 13.4-7.9 32.5-19.5 32.5zM481.9 345.2c-6.6 0-11.9 5.3-11.9 12 0 6.1 3.9 10.4 9.8 10.4h.2c6.5 0 12-4.4 12.1-12 .1-6.1-4-10.4-10.2-10.4zM452.9 450.1h20.7l14-73.6h-20.8M540.4 376.4H526l.7-3.4c1.2-7.1 5.4-13.3 12.4-13.3 3.7 0 6.6 1.1 6.6 1.1l4-16.3s-3.5-1.8-11.3-1.8c-7.3 0-14.7 2.1-20.3 6.9-7.1 6-10.4 14.7-12 23.5l-.6 3.4h-9.7l-3.1 15.7h9.7l-11 58h20.7l11-58h14.3l3-15.8zM590.3 376.5s-13 32.7-18.7 50.6h-.2c-.4-5.8-5.1-50.6-5.1-50.6h-21.8l12.5 67.4c.2 1.5.1 2.4-.5 3.4-2.4 4.7-6.5 9.2-11.3 12.5-3.9 2.8-8.3 4.7-11.8 5.9l5.8 17.6c4.2-.9 13-4.4 20.3-11.3 9.4-8.8 18.2-22.5 27.2-41.1l25.3-54.5h-21.7z"/></svg></div>
+        <div class="pipe-rail" id="laneShp">
+          <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
+          <ol class="pipe-list">
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.s1k">01 · Find</span><h4 data-i18n="ec.s1h">Finds the winning product.</h4><p data-i18n="ec.s1p">Demand and competitor research</p></li>
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.s2k">02 · Build</span><h4 data-i18n="ec.s2h">Makes the page and the content.</h4><p data-i18n="ec.s2p">Images, video, copy</p></li>
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.s3k">03 · Launch</span><h4 data-i18n="ec.s3h">Starts the ads and posts.</h4><p data-i18n="ec.s3p">Meta · social media</p></li>
+            <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act" data-i18n="ec.s4k">04 · Run</span><h4 data-i18n="ec.s4h">Reads the numbers, scales.</h4><p data-i18n="ec.s4p">Spent vs. earned</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="ecom-foot rv">
+      <p class="ecom-you"><i aria-hidden="true">✓</i><span data-i18n="ec.you">Every step that spends money waits for your approval. One summary every morning.</span></p>
+      <a class="btn btn-ghost" href="#isinden-bahset"><span data-i18n="ec.cta">Tell us about your store</span><span class="arr">→</span></a>
+    </div>
+    <p class="ecom-legal" data-i18n="ec.legal">Amazon and Shopify are trademarks of their respective owners. astra-meta is not affiliated with them.</p>
+  </div>
+</section>
 
 <!-- ── 01 MODEL ── -->
 <section id="model" class="chapter model">
@@ -875,7 +953,21 @@ const I18N={
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analiz.</span></span><span class=\"line grad\"><span class=\"li\">Sistem.</span></span><span class=\"line\"><span class=\"li\">Büyüme.</span></span>",
     "hero.lead":"Önce işletmene bakarız: vaktin ve paran nereye akıyor? Sonra <b>sana özel bir sistem</b> kurarız. Evrak, teklif, takip, tekrar eden ne varsa sistem yapar. <b>Sen işini büyütmeye bak.</b>",
     "hero.cta1":"İşinden bahset","hero.cta2":"Nasıl çalışıyor?","hero.scroll":"Kaydır","hero.loc":"New York, NY · Dünyanın her yerinde",
-    "marquee":["Problem Analizi", "İş Süreci Otomasyonu", "Evrak ve Belge Otomasyonu", "Teklif ve Fatura Akışı", "Müşteri Takibi", "Reklam Danışmanlığı", "Web Sitesi Kurulumu", "B2B Müşteri Bulma"],
+    "marquee":["Problem Analizi", "Amazon Otomasyonu", "Shopify Otomasyonu", "İş Süreci Otomasyonu", "Evrak ve Belge Otomasyonu", "Teklif ve Fatura Akışı", "Müşteri Takibi", "Reklam Danışmanlığı", "Web Sitesi Kurulumu", "B2B Müşteri Bulma"],
+    "ec.num":"✦ Yeni · Amazon ve Shopify","ec.tag":"E-ticaret otomasyonu",
+    "ec.h":"Ürünü sistem bulur, mağazayı sistem yönetir.",
+    "ec.p":"Kendi Amazon ve Shopify mağazalarımızı her gün bu sistemle yönetiyoruz. Aynısını senin mağazana kuruyoruz. <b>Sen sadece onaylarsın.</b>",
+    "ec.a1k":"01 · Bul","ec.a1h":"Satan ürünü bulur.","ec.a1p":"Pazarı her gün tarar",
+    "ec.a2k":"02 · Ele","ec.a2h":"Riskliyi eler.","ec.a2p":"Kâr, kural ve risk kontrolü",
+    "ec.a3k":"03 · Listele","ec.a3h":"Mağazana yükler.","ec.a3p":"Ürün, fiyat, açıklama",
+    "ec.a4k":"04 · Yönet","ec.a4h":"Fiyatı ve stoğu takip eder.","ec.a4p":"7/24, sen uyurken de",
+    "ec.s1k":"01 · Bul","ec.s1h":"Kazanan ürünü bulur.","ec.s1p":"Talep ve rakip analizi",
+    "ec.s2k":"02 · Hazırla","ec.s2h":"Sayfayı ve içeriği yapar.","ec.s2p":"Görsel, video, metin",
+    "ec.s3k":"03 · Yayınla","ec.s3h":"Reklamı ve paylaşımı açar.","ec.s3p":"Meta · sosyal medya",
+    "ec.s4k":"04 · Yönet","ec.s4h":"Rakama bakar, büyütür.","ec.s4p":"Ne harcandı, ne kazandırdı",
+    "ec.you":"Para çıkan her adım senin onayından geçer. Her sabah tek özet.",
+    "ec.cta":"Mağazanı anlat",
+    "ec.legal":"Amazon ve Shopify, sahiplerinin tescilli markalarıdır. astra-meta bu şirketlerle bağlantılı değildir.",
     "ch1.num":"01 — Model","ch1.tag":"Analiz + Sistem = Büyüme",
     "ch1.intro":"Çoğu işletmede patron günün yarısını evrak, teklif, fatura ve takip işleriyle geçirir; işi büyütmeye vakit kalmaz. Biz o işleri tek tek buluruz, sana özel bir sisteme bağlarız — <em>ve o sistem kendi kendine döner.</em>",
     "st1.k":"01 · Analiz","st1.h":"Problemi buluruz.","st1.p":"İşletmene girer, bir günün nasıl geçtiğine bakarız: hangi iş elle yapılıyor, hangi evrak nerede bekliyor, hangi müşteri cevapsız kalıyor. Çıktı bir liste: hangi işler sisteme devredilir, haftada kaç saat geri gelir. Genel çözüm değil, senin işine özel teşhis.",
@@ -950,7 +1042,21 @@ const I18N={
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analyze.</span></span><span class=\"line grad\"><span class=\"li\">Systemize.</span></span><span class=\"line\"><span class=\"li\">Grow.</span></span>",
     "hero.lead":"First we look at how your business actually runs and where time and money leak. Then we build <b>a system made for it</b>: paperwork, quotes, follow-ups and every repetitive task run on their own. <b>You focus on growing.</b>",
     "hero.cta1":"Tell us about your business","hero.cta2":"See how it works","hero.scroll":"Scroll","hero.loc":"New York, NY · Working worldwide",
-    "marquee":["Problem Analysis", "Workflow Automation", "Document & Paperwork Automation", "Quotes & Invoicing Flow", "Customer Follow-up", "Ads Consulting", "Website Setup", "B2B Customer Acquisition"],
+    "marquee":["Problem Analysis", "Amazon Automation", "Shopify Automation", "Workflow Automation", "Document & Paperwork Automation", "Quotes & Invoicing Flow", "Customer Follow-up", "Ads Consulting", "Website Setup", "B2B Customer Acquisition"],
+    "ec.num":"✦ New · Amazon & Shopify","ec.tag":"E-commerce automation",
+    "ec.h":"The system finds the product. The system runs the store.",
+    "ec.p":"We run our own Amazon and Shopify stores on this system every day. We build the same for yours. <b>You just approve.</b>",
+    "ec.a1k":"01 · Find","ec.a1h":"Finds products that sell.","ec.a1p":"Scans the market daily",
+    "ec.a2k":"02 · Filter","ec.a2h":"Cuts the risky ones.","ec.a2p":"Profit, policy and risk checks",
+    "ec.a3k":"03 · List","ec.a3h":"Puts them in your store.","ec.a3p":"Product, price, description",
+    "ec.a4k":"04 · Run","ec.a4h":"Watches price and stock.","ec.a4p":"24/7, even while you sleep",
+    "ec.s1k":"01 · Find","ec.s1h":"Finds the winning product.","ec.s1p":"Demand and competitor research",
+    "ec.s2k":"02 · Build","ec.s2h":"Makes the page and the content.","ec.s2p":"Images, video, copy",
+    "ec.s3k":"03 · Launch","ec.s3h":"Starts the ads and posts.","ec.s3p":"Meta · social media",
+    "ec.s4k":"04 · Run","ec.s4h":"Reads the numbers, scales.","ec.s4p":"Spent vs. earned",
+    "ec.you":"Every step that spends money waits for your approval. One summary every morning.",
+    "ec.cta":"Tell us about your store",
+    "ec.legal":"Amazon and Shopify are trademarks of their respective owners. astra-meta is not affiliated with them.",
     "ch1.num":"01 — The model","ch1.tag":"Analysis + System = Growth",
     "ch1.intro":"In most businesses the owner spends half the day on paperwork, quotes, invoices and follow-ups, and there's no time left to grow. We find that work, piece by piece, and put it into one system built for you — <em>and it runs on its own.</em>",
     "st1.k":"01 · Analyze","st1.h":"We find the problem.","st1.p":"We sit inside your business and watch how a day actually goes: what's done by hand, where documents pile up, which customers never get an answer. You get a list: which tasks can run in a system, and how many hours a week that gives back. Not a generic fix — a diagnosis of your business.",
@@ -1255,7 +1361,7 @@ function makeJourney(svg,o){
 /* ── Pipe: talep akışı. Paket noktadan noktaya gider, geçtiği yer gradyanla dolar,
    vardığı nokta bir kez atar. Konumlar ölçülür; yatay/dikey fark etmez. ── */
 function makePipe(rail,o){
-  o=Object.assign({dwell:.95,travel:1.25,tail:.9},o);
+  o=Object.assign({dwell:.95,travel:1.25,tail:.9,phase:0},o);
   const nodes=$$('.pipe-node',rail),dots=nodes.map(n=>$('.pipe-dot',n));
   const fill=$('.pipe-fill',rail),pk=$('.pipe-pk',rail),N=nodes.length;
   const T=N*o.dwell+(N-1)*o.travel+o.tail;
@@ -1272,7 +1378,7 @@ function makePipe(rail,o){
     if(t-tm>2){tm=t;measure();}
     if(!N)return;
     if(RM){fill.style.opacity=1;if(vert){fill.style.height='var(--rh)';fill.style.width='1px';}else{fill.style.width='var(--rw)';fill.style.height='1px';}pk.style.opacity=0;return;}
-    const u=t%T;let k=0,f=0,acc=0,tail=false;
+    const u=(t+o.phase*T)%T;let k=0,f=0,acc=0,tail=false;
     for(;;){
       if(u<acc+o.dwell){break;}
       acc+=o.dwell;
@@ -1306,6 +1412,9 @@ addStage($('#orbitStory'),makeJourney,{seed:23,stars:innerWidth<760?96:150,warp:
   return pS; });
 addStage($('#orbitEnd'),makeOrbit,{seed:5,points:18,late:8,pairs:12,spin:.5,alpha:.9},()=>1);
 addStage($('#pipeRail'),makePipe,{},()=>0);
+/* E-ticaret şeritleri: aynı ray, paketler yarım tur arayla (önce Amazon, sonra Shopify) */
+addStage($('#laneAmz'),makePipe,{dwell:.75,travel:1},()=>0);
+addStage($('#laneShp'),makePipe,{dwell:.75,travel:1,phase:.5},()=>0);
 
 const t0=performance.now();
 (function loop(now){ const t=RM?0:(now-t0)/1000; orbits.forEach(o=>{ if(!o.visible)return; o.api.update(o.getP(),t); }); requestAnimationFrame(loop); })(t0);

@@ -280,9 +280,9 @@
 
   /* 00 E-ticaret: Amazon + Shopify şeritleri. Ray ve paket makePipe'tan; şerit rengi --lc.
      Yalnız genel akış yazılır: ajan sayısı, araç adı, eşik yok. */
-  .ecom-head{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
-  .ecom-head h2{font-size:clamp(34px,4.6vw,72px);letter-spacing:-.035em;max-width:15ch}
-  .ecom-head p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px;justify-self:end}
+  .ecom-head,.day-head{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+  .ecom-head h2,.day-head h2{font-size:clamp(34px,4.6vw,72px);letter-spacing:-.035em;max-width:15ch}
+  .ecom-head p,.day-head p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px;justify-self:end}
   .ecom-head p b{color:var(--text);font-weight:500}
   .lanes{border-bottom:1px solid var(--line)}
   .lane{--lc:var(--cyan);display:grid;grid-template-columns:170px minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;padding:clamp(34px,4.5vw,56px) 0;border-top:1px solid var(--line)}
@@ -329,29 +329,31 @@
   .who-text p{color:var(--muted);font-size:clamp(16px,1.35vw,19px);max-width:560px}
   .who-text .btn{margin-top:28px}
 
-  /* 03 Proof */
-  .quote{font-family:var(--fd);font-weight:500;font-size:clamp(30px,4.6vw,68px);line-height:1.04;letter-spacing:-.035em;max-width:1160px}
-  .quote em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .proof-p{color:var(--muted);font-size:clamp(17px,1.4vw,19px);max-width:620px;margin:32px 0 clamp(56px,8vw,110px)}
-  .proof-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,6vw,96px);align-items:start}
-  .log{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .log-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:16px 20px;border-bottom:1px solid var(--line)}
-  .log-head .mono:first-child{color:var(--text)}
-  .log-lines{padding:14px 0 18px;font-family:var(--fm);font-size:13px;line-height:1.55}
-  .log-lines li{display:grid;grid-template-columns:82px 1fr auto;gap:18px;padding:9px 20px;opacity:0;transform:translateX(-8px);transition:opacity .5s,transform .5s var(--ease-out)}
-  .log.in li{opacity:1;transform:none}
-  .log-lines .t{color:var(--dim)}
-  .log-lines .e{color:var(--text)}
-  .log-lines .r{color:var(--muted);white-space:nowrap}
-  .log-lines .r.pink{color:var(--pink)}
-  .log-lines .r.cyan{color:var(--cyan)}
-  .log-lines li:last-child .e::after{content:"";display:inline-block;width:7px;height:14px;background:var(--cyan);vertical-align:-2px;margin-left:8px;animation:blink 1s steps(2) infinite}
-  @keyframes blink{to{opacity:0}}
-  .principles li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:26px 0;border-top:1px solid var(--line)}
-  .principles li:last-child{border-bottom:1px solid var(--line)}
-  .principles .mono{padding-top:6px;color:var(--pink)}
-  .principles h3{font-size:clamp(20px,2vw,28px);letter-spacing:-.02em;margin-bottom:10px}
-  .principles p{color:var(--muted);font-size:16px}
+  /* 03 Fark: aynı gün, iki hâli. Satır ekranın %62'sini geçince .on alır (JS, sırayla):
+     elle yapılan iş pembe çizgiyle üstü çizilir, sistem tarafı yanar, sayaçlar ilerler. */
+  .day{border-top:1px solid var(--line)}
+  .day-row{display:grid;grid-template-columns:96px minmax(0,1fr) 56px minmax(0,1fr);gap:0 24px;align-items:center;padding:clamp(20px,2.6vw,30px) 0;border-bottom:1px solid var(--line)}
+  .day-labels{padding:16px 0}
+  .day-labels .mono:nth-child(4){background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;justify-self:start}
+  .day-t{font-family:var(--fm);font-size:13px;letter-spacing:.04em;color:var(--dim)}
+  .day-man,.day-sys{font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,22px);letter-spacing:-.015em;line-height:1.25}
+  .day-man{color:var(--text);text-decoration:line-through;text-decoration-color:transparent;text-decoration-thickness:1.5px;transition:color .6s,text-decoration-color .6s}
+  .day-row.on .day-man{color:var(--dim);text-decoration-color:var(--pink)}
+  .day-arr{position:relative;display:block;height:1px;background:var(--line-2)}
+  .day-arr::after{content:"";position:absolute;inset:0;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-out)}
+  .day-arr::before{content:"";position:absolute;right:-3px;top:-3px;width:7px;height:7px;border-radius:50%;background:var(--line-3);transition:background .6s .3s}
+  .day-row.on .day-arr::after{transform:scaleX(1)}
+  .day-row.on .day-arr::before{background:var(--cyan)}
+  .day-sys{display:flex;align-items:flex-start;gap:12px;opacity:.14;transform:translateX(-10px);transition:opacity .6s .2s,transform .6s .2s var(--ease-out)}
+  .day-sys i{flex:none;display:grid;place-items:center;width:22px;height:22px;margin-top:2px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:11px;font-weight:700}
+  .day-row.on .day-sys{opacity:1;transform:none}
+  .day-end-a,.day-end-b{font-family:var(--fd);font-weight:700;font-size:clamp(26px,2.8vw,40px);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+  .day-end-a{color:var(--text);text-decoration:line-through;text-decoration-color:transparent;text-decoration-thickness:2px;transition:color .6s,text-decoration-color .6s}
+  .day-end.on .day-end-a{color:var(--dim);text-decoration-color:var(--pink)}
+  .day-end-b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .day-gain{display:flex;align-items:baseline;flex-wrap:wrap;gap:12px 28px;margin-top:clamp(36px,5vw,64px)}
+  .day-gain b{font-family:var(--fd);font-weight:700;font-size:clamp(56px,8vw,120px);line-height:.9;letter-spacing:-.05em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+  .day-gain>span{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,24px);line-height:1.3;color:var(--muted);max-width:24ch}
 
   /* 04 Process */
   .process .h2{margin-bottom:clamp(40px,6vw,80px)}
@@ -433,9 +435,10 @@
     .engine-b{padding-top:0}
     .engine-c{grid-template-columns:1fr;gap:28px;margin-top:0;padding-top:0;border-top:0}
     .flow-line{display:none}
+    .day-row{grid-template-columns:72px minmax(0,1fr) 36px minmax(0,1fr);gap:0 16px}
     .lane{grid-template-columns:1fr;gap:22px}
     .lane-brand{margin-top:0}
-    .proof-grid,.fit-grid,.contact-grid,.svc-top,.cases,.who{grid-template-columns:1fr}
+    .fit-grid,.contact-grid,.svc-top,.cases,.who{grid-template-columns:1fr}
     .who{max-width:640px}
     .svc-top p{justify-self:start}
     .fgrid{grid-template-columns:1fr 1fr}
@@ -454,8 +457,12 @@
     .pstep{grid-template-columns:1fr;gap:8px;padding-left:22px}
     .pstep .pw{padding-top:0}
     .row2{grid-template-columns:1fr}
-    .log-lines li{grid-template-columns:70px 1fr;gap:4px 14px}
-    .log-lines .r{grid-column:2;white-space:normal}
+    .day-row{grid-template-columns:1fr;gap:8px;padding:22px 0}
+    .day-labels{display:none}
+    .day-row>.day-arr{display:none}
+    .day-end{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+    .day-end>.day-arr{display:block;width:28px;align-self:center}
+    .day-end .mono{width:100%}
     .fgrid{grid-template-columns:1fr}
     .ch-head .mono:last-child{display:none}
     .form .btn{width:100%}
@@ -471,8 +478,8 @@
     .pipe-dot{left:-34px;top:3px}
     .pipe-node h4,.pipe-node p{max-width:none}
     .pipe-seg{position:static;transform:none;display:block;margin-top:14px}
-    .ecom-head{grid-template-columns:1fr;gap:18px}
-    .ecom-head p{justify-self:start}
+    .ecom-head,.day-head{grid-template-columns:1fr;gap:18px}
+    .ecom-head p,.day-head p{justify-self:start}
     .lane.in .pipe-rail::before{transform:scaleY(1)}
     .lane .pipe-list{grid-template-columns:1fr}
     .lane-logo{height:28px}
@@ -483,13 +490,13 @@
   }
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .rv,.split .wi,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.ch-head .ch-line,.log-lines li,.menu-links a{transition:none!important;opacity:1!important;transform:none!important}
-    .marquee-track,.scroll-cue i::after,.log-lines li:last-child .e::after,.pipe-node.hit .pipe-dot,.lane .pipe-node.hit .pipe-dot,.lane-logo{animation:none!important}
+    .rv,.split .wi,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.ch-head .ch-line,.menu-links a,.day-man,.day-sys,.day-end-a,.day-arr::after,.day-arr::before{transition:none!important;opacity:1!important;transform:none!important}
+    .marquee-track,.scroll-cue i::after,.pipe-node.hit .pipe-dot,.lane .pipe-node.hit .pipe-dot,.lane-logo{animation:none!important}
     .pipe-rail::before{transform:none!important}
     .nav{transition:none}
   }
 </style>
-<noscript><style>.rv,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.log-lines li,.step{opacity:1;transform:none}.ch-head .ch-line{transform:none}.stage-meta{display:none}</style></noscript>
+<noscript><style>.rv,.hero-title .li,.hero-lead,.hero-cta,.hero-meta,.hero-foot,.step,.day-sys{opacity:1;transform:none}.ch-head .ch-line{transform:none}.stage-meta{display:none}</style></noscript>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -503,7 +510,7 @@
     <div class="nav-links">
       <a href="#model" data-i18n="nav.model">Model</a>
       <a href="#hizmetler" data-i18n="nav.services">Services</a>
-      <a href="#neden" data-i18n="nav.proof">Proof</a>
+      <a href="#neden" data-i18n="nav.proof">Difference</a>
       <a href="#surec" data-i18n="nav.process">Process</a>
       <a href="#isinden-bahset" data-i18n="nav.contact">Contact</a>
     </div>
@@ -530,7 +537,7 @@
   <nav class="menu-links" aria-label="Mobile">
     <a href="#model"><span class="mono">01</span><span data-i18n="nav.model">Model</span></a>
     <a href="#hizmetler"><span class="mono">02</span><span data-i18n="nav.services">Services</span></a>
-    <a href="#neden"><span class="mono">03</span><span data-i18n="nav.proof">Proof</span></a>
+    <a href="#neden"><span class="mono">03</span><span data-i18n="nav.proof">Difference</span></a>
     <a href="#surec"><span class="mono">04</span><span data-i18n="nav.process">Process</span></a>
     <a href="#isinden-bahset"><span class="mono">06</span><span data-i18n="nav.contact">Contact</span></a>
   </nav>
@@ -722,12 +729,14 @@
   </div>
 </section>
 
-<!-- ── 03 PROOF ── -->
+<!-- ── 03 FARK: aynı gün, iki hâli (sistemsiz / sistemle). Satırlar kaydırdıkça sırayla döner. ── -->
 <section id="neden" class="chapter proof">
   <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="ch3.num">03 — Proof</span><span class="ch-line"></span><span class="mono" data-i18n="ch3.tag">Practitioners, not theorists</span></div>
-    <blockquote class="quote rv" data-i18n-html="ch3.quote">“The systems we build for you, we run <em>on our own business first.</em>”</blockquote>
-    <p class="proof-p rv" data-i18n="ch3.p">We run our own e-commerce brands and our own B2B outreach on these systems. Every automation and every ad structure we build for you has run in our business, with our money, before it reaches yours. Not theory. The field.</p>
+    <div class="ch-head"><span class="mono" data-i18n="ch3.num">03 — The difference</span><span class="ch-line"></span><span class="mono" data-i18n="ch3.tag">Same day, two versions</span></div>
+    <div class="day-head">
+      <h2 class="split" data-i18n="ch3.h2">Same day. Now with the system.</h2>
+      <p class="rv" data-i18n="ch3.p">Most owners know the day on the left. The one on the right is the same day after that work moves into a system.</p>
+    </div>
     <!-- ══ VAKA ANALİZİ ══ Şu an YORUMDA. Gerçek veri gelince açılacak.
          Vaka başına gereken: marka veya sektör, dönem, 2-3 ölçülebilir sonuç (önce → sonra),
          ne yapıldığını anlatan 1-2 cümle, 1 ekran görüntüsü (webp). CSS hazır (.cases); metinler
@@ -771,24 +780,16 @@
       </div>
     </div>
     ══ KİM SONU ══ -->
-    <div class="proof-grid">
-      <div class="log">
-        <div class="log-head"><span class="mono" data-i18n="log.h">What the system does on an ordinary Tuesday</span><span class="mono" data-i18n="log.k">Illustrative run · local time</span></div>
-        <ol class="log-lines">
-          <li style="transition-delay:.05s"><span class="t">09:41:07</span><span class="e" data-i18n="log.e1">Quote request received · email</span><span class="r pink" data-i18n="log.r1">parsed</span></li>
-          <li style="transition-delay:.25s"><span class="t">09:41:08</span><span class="e" data-i18n="log.e2">Product, quantity and price extracted</span><span class="r cyan" data-i18n="log.r2">auto</span></li>
-          <li style="transition-delay:.45s"><span class="t">09:41:30</span><span class="e" data-i18n="log.e3">Quote PDF generated · sent to customer</span><span class="r" data-i18n="log.r3">1.8 s</span></li>
-          <li style="transition-delay:.65s"><span class="t">09:45:12</span><span class="e" data-i18n="log.e4">Logged to accounting &amp; CRM</span><span class="r cyan" data-i18n="log.r4">synced</span></li>
-          <li style="transition-delay:.85s"><span class="t">10:02:00</span><span class="e" data-i18n="log.e5">Follow-up scheduled</span><span class="r" data-i18n="log.r5">+48 h</span></li>
-          <li style="transition-delay:1.05s"><span class="t">18:00:00</span><span class="e" data-i18n="log.e6">Daily summary → owner's inbox</span><span class="r pink" data-i18n="log.r6">quotes · orders · payments</span></li>
-        </ol>
-      </div>
-      <ul class="principles rv">
-        <li><span class="mono">✦ 01</span><div><h3 data-i18n="pr1.h">One team</h3><p data-i18n="pr1.p">No juggling a developer, an ad agency and a consultant. From analysis to launch, one team owns it.</p></div></li>
-        <li><span class="mono">✦ 02</span><div><h3 data-i18n="pr2.h">Clear numbers</h3><p data-i18n="pr2.p">No jargon. How many hours a task used to take and how many minutes it takes now; what was spent and what it earned. In plain language.</p></div></li>
-        <li><span class="mono">✦ 03</span><div><h3 data-i18n="pr3.h">Set it, let it run</h3><p data-i18n="pr3.p">We build the system once. The busywork runs itself; your time goes to the business, not the paperwork.</p></div></li>
-      </ul>
+    <div class="day" id="day">
+      <div class="day-row day-labels" aria-hidden="true"><span class="mono" data-i18n="d.k">Sample day</span><span class="mono" data-i18n="d.l1">Without the system</span><span></span><span class="mono" data-i18n="d.l2">With the system</span></div>
+      <div class="day-row" data-save="1"><span class="day-t">09:00</span><p class="day-man" data-i18n="d.m1">You read every email one by one.</p><i class="day-arr" aria-hidden="true"></i><p class="day-sys"><i aria-hidden="true">✓</i><span data-i18n="d.s1">The system read and sorted them.</span></p></div>
+      <div class="day-row" data-save="1.5"><span class="day-t">10:30</span><p class="day-man" data-i18n="d.m2">You build the quote in Excel from scratch.</p><i class="day-arr" aria-hidden="true"></i><p class="day-sys"><i aria-hidden="true">✓</i><span data-i18n="d.s2">The quote reached the customer in 2 minutes.</span></p></div>
+      <div class="day-row" data-save="0.5"><span class="day-t">14:00</span><p class="day-man" data-i18n="d.m3">You issue the invoice and send it to accounting.</p><i class="day-arr" aria-hidden="true"></i><p class="day-sys"><i aria-hidden="true">✓</i><span data-i18n="d.s3">The invoice was logged on its own.</span></p></div>
+      <div class="day-row" data-save="0.5"><span class="day-t">17:00</span><p class="day-man" data-i18n="d.m4">Who didn&#39;t I call back? You check the list.</p><i class="day-arr" aria-hidden="true"></i><p class="day-sys"><i aria-hidden="true">✓</i><span data-i18n="d.s4">Follow-ups run in the system. Nobody slips.</span></p></div>
+      <div class="day-row" data-save="1"><span class="day-t">20:00</span><p class="day-man" data-i18n="d.m5">You put the report together at home.</p><i class="day-arr" aria-hidden="true"></i><p class="day-sys"><i aria-hidden="true">✓</i><span data-i18n="d.s5">The report is waiting in your inbox as one morning summary.</span></p></div>
+      <div class="day-row day-end"><span class="mono" data-i18n="d.endk">Day ends</span><span class="day-end-a">21:30</span><i class="day-arr" aria-hidden="true"></i><span class="day-end-b" id="dayEnd">21:30</span></div>
     </div>
+    <div class="day-gain rv"><b><span id="dayGain">+0</span> <span data-i18n="d.unit">hours</span></b><span data-i18n="d.gain">Back every day. For sales, for customers, or for home.</span></div>
   </div>
 </section>
 
@@ -948,7 +949,7 @@ const I18N={
   tr:{
     "meta.title":"astra-meta — Analiz. Sistem. Büyüme.",
     "meta.desc":"İşletmene özel problem analizi yapar, sana özel otomasyon sistemi kurarız. Evrak, teklif, takip ve tekrar eden işler sistemde döner; sen işini büyütürsün. Reklam, web sitesi ve B2B müşteri bulma da bizde.",
-    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Kanıt","nav.process":"Süreç","nav.contact":"İletişim","nav.cta":"İletişime geç",
+    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.cta":"İletişime geç",
     "hero.k1":"B2B işletmeler ve e-ticaret markaları için iş sistemleri","hero.k2":"Analiz · Otomasyon · Büyüme · Tek ekip",
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analiz.</span></span><span class=\"line grad\"><span class=\"li\">Sistem.</span></span><span class=\"line\"><span class=\"li\">Büyüme.</span></span>",
     "hero.lead":"Önce işletmene bakarız: vaktin ve paran nereye akıyor? Sonra <b>sana özel bir sistem</b> kurarız. Evrak, teklif, takip, tekrar eden ne varsa sistem yapar. <b>Sen işini büyütmeye bak.</b>",
@@ -994,19 +995,16 @@ const I18N={
     "pipe.a3":"Sistem","pipe.t3":"WhatsApp'tan dönüş yapılır.","pipe.n3":"İşine göre eğitilmiş asistan sorularını yanıtlar","pipe.s3":"dakikalar içinde",
     "pipe.a4":"Sistem","pipe.t4":"Randevu takvimine düşer.","pipe.n4":"Uygun saati seçer, CRM'e işler","pipe.s4":"aynı gün",
     "pipe.a5":"Sen","pipe.t5":"Görüşmeye girersin.","pipe.n5":"Sabah özetinde kim, ne istiyor, hazır",
-    "ch3.num":"03 — Kanıt","ch3.tag":"Anlatan değil, yapan",
-    "ch3.quote":"“Sana kurduğumuz sistemi <em>önce kendi işimizde</em> çalıştırıyoruz.”",
-    "ch3.p":"Kendi e-ticaret markalarımızı ve B2B müşteri bulma işimizi bu sistemlerle yönetiyoruz. Sana kurduğumuz her otomasyon ve her reklam yapısı, sana gelmeden önce bizim işimizde, bizim paramızla denenmiş oluyor. Kitaptan değil, sahadan.",
-    "log.h":"Sıradan bir salı günü sistem ne yapıyor","log.k":"Örnek akış · yerel saat",
-    "log.e1":"Teklif talebi geldi · e-posta","log.r1":"okundu",
-    "log.e2":"Ürün, adet ve fiyat çekildi","log.r2":"otomatik",
-    "log.e3":"Teklif PDF'i hazırlandı · müşteriye gitti","log.r3":"1,8 sn",
-    "log.e4":"Muhasebeye ve CRM'e işlendi","log.r4":"kayıt",
-    "log.e5":"Takibe alındı","log.r5":"+48 sa",
-    "log.e6":"Günlük özet → senin mailine","log.r6":"teklif · sipariş · tahsilat",
-    "pr1.h":"Tek elden","pr1.p":"Ayrı ayrı yazılımcı, reklam ajansı ve danışman peşinde koşmana gerek yok. Analizden kuruluma, hepsi tek ekipte.",
-    "pr2.h":"Net rakam","pr2.p":"Süslü laf yok. Hangi iş kaç saat alıyordu, şimdi kaç dakika; ne harcandı, ne kazandırdı — açık açık yazarız.",
-    "pr3.h":"Kur, çalışsın","pr3.p":"Sistemi bir kez kurarız, tekrar eden işler kendi kendine yürür. Vaktin evrak ve takiple değil, işinle geçer.",
+    "ch3.num":"03 — Fark","ch3.tag":"Aynı gün, iki farklı hâli",
+    "ch3.h2":"Aynı gün. Bir de sistemle.",
+    "ch3.p":"Soldaki gün çoğu patrona tanıdık gelir. Sağdaki, aynı işler sisteme geçtikten sonraki hâli.",
+    "d.k":"Örnek gün","d.l1":"Sistemsiz","d.l2":"Sistemle",
+    "d.m1":"Gelen mailleri tek tek okursun.","d.s1":"Sistem okudu, ayırdı.",
+    "d.m2":"Teklifi Excel'de baştan hazırlarsın.","d.s2":"Teklif 2 dakikada müşteride.",
+    "d.m3":"Faturayı kesip muhasebeye yollarsın.","d.s3":"Fatura kendiliğinden işlendi.",
+    "d.m4":"Kimi aramadım? Takip listesine bakarsın.","d.s4":"Takip sistemde, kimse unutulmadı.",
+    "d.m5":"Akşam evde rapor hazırlarsın.","d.s5":"Rapor sabah tek özet olarak mailinde.",
+    "d.endk":"Mesai biter","d.unit":"saat","d.gain":"Her gün geri gelir. Satışa, müşteriye ya da eve.",
     "ch4.num":"04 — Süreç","ch4.tag":"İlk mesajdan çalışan sisteme",
     "ch4.h2":"Nasıl başlıyoruz.",
     "ps1.w":"Gün 0","ps1.h":"İşinden bahset","ps1.p":"Birkaç cümle yeter: ne satıyorsun, nerede tıkandın, nereye varmak istiyorsun.",
@@ -1037,7 +1035,7 @@ const I18N={
   en:{
     "meta.title":"astra-meta — Analyze. Systemize. Grow.",
     "meta.desc":"We analyze how your business actually runs, then build a custom system that takes paperwork, quotes, follow-ups and repetitive work off your plate. Ads, websites and B2B customer acquisition on top. One team.",
-    "nav.model":"Model","nav.services":"Services","nav.proof":"Proof","nav.process":"Process","nav.contact":"Contact","nav.cta":"Let's talk",
+    "nav.model":"Model","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.cta":"Let's talk",
     "hero.k1":"Business systems for B2B companies & e-commerce brands","hero.k2":"Analysis · Automation · Growth · One team",
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analyze.</span></span><span class=\"line grad\"><span class=\"li\">Systemize.</span></span><span class=\"line\"><span class=\"li\">Grow.</span></span>",
     "hero.lead":"First we look at how your business actually runs and where time and money leak. Then we build <b>a system made for it</b>: paperwork, quotes, follow-ups and every repetitive task run on their own. <b>You focus on growing.</b>",
@@ -1083,19 +1081,16 @@ const I18N={
     "pipe.a3":"System","pipe.t3":"Replies on WhatsApp.","pipe.n3":"An assistant trained on your business answers their questions","pipe.s3":"within minutes",
     "pipe.a4":"System","pipe.t4":"Books the call into your calendar.","pipe.n4":"Picks a free slot, logs it to the CRM","pipe.s4":"same day",
     "pipe.a5":"You","pipe.t5":"Take the call.","pipe.n5":"Morning summary: who they are, what they want",
-    "ch3.num":"03 — Proof","ch3.tag":"Practitioners, not theorists",
-    "ch3.quote":"“The systems we build for you, we run <em>on our own business first.</em>”",
-    "ch3.p":"We run our own e-commerce brands and our own B2B outreach on these systems. Every automation and every ad structure we build for you has run in our business, with our money, before it reaches yours. Not theory. The field.",
-    "log.h":"What the system does on an ordinary Tuesday","log.k":"Illustrative run · local time",
-    "log.e1":"Quote request received · email","log.r1":"parsed",
-    "log.e2":"Product, quantity and price extracted","log.r2":"auto",
-    "log.e3":"Quote PDF generated · sent to customer","log.r3":"1.8 s",
-    "log.e4":"Logged to accounting & CRM","log.r4":"synced",
-    "log.e5":"Follow-up scheduled","log.r5":"+48 h",
-    "log.e6":"Daily summary → owner's inbox","log.r6":"quotes · orders · payments",
-    "pr1.h":"One team","pr1.p":"No juggling a developer, an ad agency and a consultant. From analysis to launch, one team owns it.",
-    "pr2.h":"Clear numbers","pr2.p":"No jargon. How many hours a task used to take and how many minutes it takes now; what was spent and what it earned. In plain language.",
-    "pr3.h":"Set it, let it run","pr3.p":"We build the system once. The busywork runs itself; your time goes to the business, not the paperwork.",
+    "ch3.num":"03 — The difference","ch3.tag":"Same day, two versions",
+    "ch3.h2":"Same day. Now with the system.",
+    "ch3.p":"Most owners know the day on the left. The one on the right is the same day after that work moves into a system.",
+    "d.k":"Sample day","d.l1":"Without the system","d.l2":"With the system",
+    "d.m1":"You read every email one by one.","d.s1":"The system read and sorted them.",
+    "d.m2":"You build the quote in Excel from scratch.","d.s2":"The quote reached the customer in 2 minutes.",
+    "d.m3":"You issue the invoice and send it to accounting.","d.s3":"The invoice was logged on its own.",
+    "d.m4":"Who didn't I call back? You check the list.","d.s4":"Follow-ups run in the system. Nobody slips.",
+    "d.m5":"You put the report together at home.","d.s5":"The report is waiting in your inbox as one morning summary.",
+    "d.endk":"Day ends","d.unit":"hours","d.gain":"Back every day. For sales, for customers, or for home.",
     "ch4.num":"04 — Process","ch4.tag":"From first message to a running system",
     "ch4.h2":"How we start.",
     "ps1.w":"Day 0","ps1.h":"Tell us about your business","ps1.p":"A few sentences: what you sell, where you're stuck, where you want to go.",
@@ -1134,7 +1129,7 @@ function splitAll(){ $$('.split').forEach(split); }
 
 /* ── Reveal observer ── */
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-function observeAll(){ $$('.rv,.split,.ch-head,.log').forEach(el=>{ if(!el.classList.contains('in')) io.observe(el); }); }
+function observeAll(){ $$('.rv,.split,.ch-head').forEach(el=>{ if(!el.classList.contains('in')) io.observe(el); }); }
 
 let currentLang='en';
 function applyLang(lang,persist){
@@ -1423,6 +1418,31 @@ const t0=performance.now();
 const steps=$$('.step');
 const stepIO=new IntersectionObserver(es=>{es.forEach(e=>{ if(e.isIntersecting){steps.forEach(s=>s.classList.toggle('on',s===e.target));} });},{rootMargin:innerWidth<=1024?'-50% 0px -30% 0px':'-42% 0px -42% 0px',threshold:0});
 steps.forEach(s=>stepIO.observe(s));
+
+/* ── 03 Fark: satır ekranın %62'sini geçince döner. Birkaçı birden geçtiyse 170 ms arayla
+   sırayla; mesai bitişi ve kazanılan saat sayacı dönen satırların data-save toplamını izler. ── */
+const day=$('#day');
+if(day){
+  const rows=$$('.day-row:not(.day-labels)',day),endEl=$('#dayEnd'),gainEl=$('#dayGain');
+  const save=rows.map(r=>+(r.dataset.save||0)),END=21.5*60;
+  let shown=0,gain=0,goal=0,lastStep=-1e9,raf=0;
+  const hm=m=>{m=Math.round(m/5)*5;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
+  const num=v=>(Math.round(v*10)/10).toLocaleString(currentLang==='tr'?'tr-TR':'en-US');
+  function frame(now){
+    raf=0;
+    let want=rows.length;
+    if(!RM){const line=innerHeight*.62;want=0;rows.forEach(r=>{if(r.getBoundingClientRect().top<line)want++;});}
+    if(want!==shown&&(RM||now-lastStep>170)){lastStep=now;shown=RM?want:shown+(want>shown?1:-1);
+      rows.forEach((r,i)=>r.classList.toggle('on',i<shown));goal=save.slice(0,shown).reduce((a,b)=>a+b,0);}
+    gain=RM?goal:gain+(goal-gain)*.14;if(Math.abs(goal-gain)<.01)gain=goal;
+    gainEl.textContent='+'+num(gain);endEl.textContent=hm(END-gain*60);
+    if(want!==shown||gain!==goal)raf=requestAnimationFrame(frame);
+  }
+  const kick=()=>{if(!raf)raf=requestAnimationFrame(frame);};
+  addEventListener('scroll',kick,{passive:true});addEventListener('resize',kick);
+  $$('[data-lang]').forEach(b=>b.addEventListener('click',()=>setTimeout(kick,0)));
+  kick();
+}
 
 /* ── Scroll: nav, progress ring, parallax, drawn lines ── */
 const nav=$('#nav'),ringP=$('#ringP'),heroOrbit=$('#heroOrbit'),plist=$('#plist'),pline=$('#pline'),engines=$('.engines'),flowFill=$('#flowFill');

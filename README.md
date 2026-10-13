@@ -13,7 +13,10 @@ Bölümler: Hero → 01 Model (kaydırmaya bağlı yörünge hikâyesi) → 02 H
 - `index.html` — tüm site (HTML + CSS + JS tek dosyada; sözlükler `I18N` nesnesinde)
 - `logo-nav.webp` — nav/footer wordmark · `logo.jpg` — favicon · `og.jpg` — paylaşım görseli
 - `privacy.html`, `terms.html`, `refund.html` — politika sayfaları
-- `uk/` — ayrı landing page · `pay/` — ayrı ödeme servisi (Coolify'da ayrı app)
+- `ai-automation/index.html` — AI Otomasyon sayfası (Amazon + Shopify şeritleri, 2026-10-13'te ana sayfadan taşındı).
+  Nav, footer, dil sistemi ve `makePipe` ana sayfadan kopyadır; ana sayfada değişirse burada da değiştir.
+- `uk/` — eski UK landing page 2026-10-13'te kaldırıldı, `uk/index.html` sadece ana sayfaya yönlendirir
+- `pay/` — ayrı ödeme servisi (Coolify'da ayrı app)
 - `Dockerfile` — Coolify/Docker için nginx ile yayınlar (port 80)
 
 ## Eski siteye dönmek

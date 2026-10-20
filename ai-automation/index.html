@@ -195,7 +195,7 @@
   .proof-head .mono{display:block;margin-bottom:16px;color:var(--pink)}
   .proof-head h2{font-size:clamp(30px,3.8vw,56px);letter-spacing:-.03em;max-width:16ch}
   .proof-head p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px;justify-self:end}
-  .shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.2vw,32px);align-items:center}
+  .shots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(16px,2.2vw,32px);align-items:center}
   .shot{margin:0}
   .shot button{display:block;width:100%;padding:0;border-radius:18px;overflow:hidden;border:1px solid var(--line-2);background:var(--surface);
     box-shadow:0 24px 60px -30px rgba(0,0,0,.8);cursor:zoom-in;transition:transform .5s var(--ease-out),border-color .3s,box-shadow .5s}
@@ -204,9 +204,9 @@
   .shot figcaption{margin-top:16px}
   .shot figcaption .mono{display:block;margin-bottom:6px;color:var(--text)}
   .shot figcaption span:last-child{font-size:15px;line-height:1.45;color:var(--muted)}
-  .shot.wide{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.2vw,32px);align-items:center;margin-top:clamp(8px,1.6vw,24px)}
-  .shot.wide button{grid-column:3/span 2;grid-row:1}
-  .shot.wide figcaption{grid-column:1/span 2;grid-row:1;margin-top:0;justify-self:end;text-align:right;max-width:36ch}
+  .shot.wide{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.2vw,32px);align-items:center;margin-top:clamp(8px,1.6vw,24px)}
+  .shot.wide button{grid-column:2;grid-row:1}
+  .shot.wide figcaption{grid-column:1;grid-row:1;margin-top:0;justify-self:end;text-align:right;max-width:36ch}
   .shot.wide figcaption span:last-child{font-size:clamp(17px,1.45vw,20px)}
   .lb{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(8,8,12,.94);
     backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
@@ -236,10 +236,13 @@
   @media(max-width:1024px){
     .lane{grid-template-columns:1fr;gap:22px}
     .lane-brand{margin-top:0}
-    .shots{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .shot.wide{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .shot.wide button{grid-column:2/span 1}
-    .shot.wide figcaption{grid-column:1/span 1}
+    .shots{display:flex;align-items:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+      margin:0 calc(var(--gx)*-1);padding:0 var(--gx) 6px;scroll-padding:0 var(--gx)}
+    .shots::-webkit-scrollbar{display:none}
+    .shot{flex:0 0 38%;scroll-snap-align:start}
+    .shot.wide{display:block;flex-basis:62%;margin-top:0}
+    .shot.wide figcaption{margin-top:16px;text-align:left;max-width:none}
+    .shot.wide figcaption span:last-child{font-size:15px}
     .fgrid{grid-template-columns:1fr 1fr}
   }
   @media(max-width:820px){
@@ -262,13 +265,8 @@
     .lane-logo{height:28px}
     .proof-head{grid-template-columns:1fr;gap:18px}
     .proof-head p{justify-self:start}
-    .shots{display:flex;align-items:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-      margin:0 calc(var(--gx)*-1);padding:0 var(--gx) 6px;scroll-padding:0 var(--gx)}
-    .shots::-webkit-scrollbar{display:none}
-    .shot{flex:0 0 76%;scroll-snap-align:start}
-    .shot.wide{display:block;flex-basis:88%;margin-top:0}
-    .shot.wide figcaption{margin-top:16px;text-align:left;max-width:none}
-    .shot.wide figcaption span:last-child{font-size:15px}
+    .shot{flex-basis:76%}
+    .shot.wide{flex-basis:88%}
     .lb-prev,.lb-next{display:none}
   }
   @media(prefers-reduced-motion:reduce){
@@ -383,12 +381,14 @@
         <figure class="shot rv"><button type="button" data-lb="0"><img src="gece-raporu-amazon.webp" width="1000" height="1575" loading="lazy" decoding="async" data-i18n-alt="pr.a0" alt="Telegram messages from the system: overnight scan report and new Amazon orders"></button>
           <figcaption><span class="mono" data-i18n="pr.c0k">Amazon · Overnight report</span><span data-i18n="pr.c0">The system scans overnight, lists products and reports the margin. 2 orders the same night.</span></figcaption></figure>
         <figure class="shot rv"><button type="button" data-lb="1"><img src="siparis-amazon.webp" width="1000" height="1858" loading="lazy" decoding="async" data-i18n-alt="pr.a1" alt="Amazon order notifications on a phone lock screen"></button>
-          <figcaption><span class="mono" data-i18n="pr.c1k">Amazon · Oct 13</span><span data-i18n="pr.c1">4 orders in one day, 1,786 CAD in total.</span></figcaption></figure>
-        <figure class="shot rv"><button type="button" data-lb="2"><img src="siparis-iki-magaza.webp" width="1000" height="946" loading="lazy" decoding="async" data-i18n-alt="pr.a2" alt="Amazon and Shopify order notifications on a phone lock screen"></button>
-          <figcaption><span class="mono" data-i18n="pr.c2k">Amazon + Shopify · Oct 10</span><span data-i18n="pr.c2">Orders from both stores on the same day.</span></figcaption></figure>
-        <figure class="shot rv"><button type="button" data-lb="3"><img src="satis-ozeti-shopify.webp" width="1000" height="1904" loading="lazy" decoding="async" data-i18n-alt="pr.a3" alt="Shopify sales breakdown and sessions chart"></button>
+          <figcaption><span class="mono" data-i18n="pr.c1k">Amazon · Oct&nbsp;13</span><span data-i18n="pr.c1">4 orders in one day, 1,786 CAD in total.</span></figcaption></figure>
+        <figure class="shot rv"><button type="button" data-lb="2"><img src="siparis-bildirim-amazon.webp" width="1000" height="1044" loading="lazy" decoding="async" data-i18n-alt="pr.a5" alt="Two Amazon orders and a return alert in the phone's notification center"></button>
+          <figcaption><span class="mono" data-i18n="pr.c5k">Amazon · Oct&nbsp;19</span><span data-i18n="pr.c5">2 orders in one evening, 2,199 CAD in total. Pending returns come in as alerts too.</span></figcaption></figure>
+        <figure class="shot rv"><button type="button" data-lb="3"><img src="siparis-iki-magaza.webp" width="1000" height="946" loading="lazy" decoding="async" data-i18n-alt="pr.a2" alt="Amazon and Shopify order notifications on a phone lock screen"></button>
+          <figcaption><span class="mono" data-i18n="pr.c2k">Amazon + Shopify · Oct&nbsp;10</span><span data-i18n="pr.c2">Orders from both stores on the same day.</span></figcaption></figure>
+        <figure class="shot rv"><button type="button" data-lb="4"><img src="satis-ozeti-shopify.webp" width="1000" height="1904" loading="lazy" decoding="async" data-i18n-alt="pr.a3" alt="Shopify sales breakdown and sessions chart"></button>
           <figcaption><span class="mono" data-i18n="pr.c3k">Shopify · Sales summary</span><span data-i18n="pr.c3">Straight from the store dashboard.</span></figcaption></figure>
-        <figure class="shot wide rv"><button type="button" data-lb="4"><img src="donusum-shopify.webp" width="1074" height="698" loading="lazy" decoding="async" data-i18n-alt="pr.a4" alt="Shopify conversion funnel: sessions, added to cart, reached checkout, completed orders"></button>
+        <figure class="shot wide rv"><button type="button" data-lb="5"><img src="donusum-shopify.webp" width="1074" height="698" loading="lazy" decoding="async" data-i18n-alt="pr.a4" alt="Shopify conversion funnel: sessions, added to cart, reached checkout, completed orders"></button>
           <figcaption><span class="mono" data-i18n="pr.c4k">Shopify · Conversion funnel</span><span data-i18n="pr.c4">4 orders from 66 sessions. 6.06% conversion, up 318% on the previous period.</span></figcaption></figure>
       </div>
     </div>
@@ -402,11 +402,11 @@
 </main>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Screenshot" aria-hidden="true">
-  <img src="gece-raporu-amazon.webp" alt="" class="on"><img src="siparis-amazon.webp" alt=""><img src="siparis-iki-magaza.webp" alt=""><img src="satis-ozeti-shopify.webp" alt=""><img src="donusum-shopify.webp" alt="">
+  <img src="gece-raporu-amazon.webp" alt="" class="on"><img src="siparis-amazon.webp" alt=""><img src="siparis-bildirim-amazon.webp" alt=""><img src="siparis-iki-magaza.webp" alt=""><img src="satis-ozeti-shopify.webp" alt=""><img src="donusum-shopify.webp" alt="">
   <button class="lb-btn lb-x" type="button" aria-label="Close">✕</button>
   <button class="lb-btn lb-prev" type="button" aria-label="Previous">‹</button>
   <button class="lb-btn lb-next" type="button" aria-label="Next">›</button>
-  <span class="mono lb-n">1 / 5</span>
+  <span class="mono lb-n">1 / 6</span>
 </div>
 
 <footer>
@@ -472,11 +472,12 @@ const I18N={
     "pr.k":"Canlı sistemden","pr.h":"Gerçek mağaza, gerçek sipariş.",
     "pr.p":"Bu ekranlar kendi Amazon ve Shopify mağazalarımızdan. Her yeni sipariş ve her gece raporu telefona bildirim olarak düşer. Ürün adları ve sipariş numaraları gizlendi.",
     "pr.c0k":"Amazon · Gece raporu","pr.c0":"Sistem gece tarar, ürün listeler, kârı raporlar. Aynı gece 2 sipariş.",
-    "pr.c1k":"Amazon · 13 Ekim","pr.c1":"Tek günde 4 sipariş, toplam 1.786 CAD.",
-    "pr.c2k":"Amazon + Shopify · 10 Ekim","pr.c2":"Aynı gün iki mağazadan sipariş.",
+    "pr.c1k":"Amazon · 13\u00a0Ekim","pr.c1":"Tek günde 4 sipariş, toplam 1.786 CAD.",
+    "pr.c2k":"Amazon + Shopify · 10\u00a0Ekim","pr.c2":"Aynı gün iki mağazadan sipariş.",
     "pr.c3k":"Shopify · Satış özeti","pr.c3":"Doğrudan mağaza panelinden.",
     "pr.a0":"Sistemin Telegram mesajları: gece tarama raporu ve yeni Amazon siparişleri","pr.a1":"Telefon kilit ekranında Amazon sipariş bildirimleri","pr.a2":"Telefon kilit ekranında Amazon ve Shopify sipariş bildirimleri","pr.a3":"Shopify satış özeti ve ziyaret grafiği",
     "pr.c4k":"Shopify · Dönüşüm hunisi","pr.c4":"66 ziyaretten 4 sipariş. Dönüşüm %6,06, önceki döneme göre %318 artış.","pr.a4":"Shopify dönüşüm hunisi: ziyaret, sepete ekleme, ödeme ve tamamlanan sipariş",
+    "pr.c5k":"Amazon · 19\u00a0Ekim","pr.c5":"Aynı akşam 2 sipariş, toplam 2.199 CAD. Bekleyen iade de uyarı olarak gelir.","pr.a5":"Telefon bildirim merkezinde iki Amazon siparişi ve bir iade uyarısı",
     "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Analiz et. Sistem kur. Ölçekle.","foot.top":"Başa dön"
   },
   en:{
@@ -500,11 +501,12 @@ const I18N={
     "pr.k":"From the live system","pr.h":"Real stores. Real orders.",
     "pr.p":"These screens come from our own Amazon and Shopify stores. Every new order and every overnight report lands on the phone as a notification. Product names and order numbers are hidden.",
     "pr.c0k":"Amazon · Overnight report","pr.c0":"The system scans overnight, lists products and reports the margin. 2 orders the same night.",
-    "pr.c1k":"Amazon · Oct 13","pr.c1":"4 orders in one day, 1,786 CAD in total.",
-    "pr.c2k":"Amazon + Shopify · Oct 10","pr.c2":"Orders from both stores on the same day.",
+    "pr.c1k":"Amazon · Oct\u00a013","pr.c1":"4 orders in one day, 1,786 CAD in total.",
+    "pr.c2k":"Amazon + Shopify · Oct\u00a010","pr.c2":"Orders from both stores on the same day.",
     "pr.c3k":"Shopify · Sales summary","pr.c3":"Straight from the store dashboard.",
     "pr.a0":"Telegram messages from the system: overnight scan report and new Amazon orders","pr.a1":"Amazon order notifications on a phone lock screen","pr.a2":"Amazon and Shopify order notifications on a phone lock screen","pr.a3":"Shopify sales breakdown and sessions chart",
     "pr.c4k":"Shopify · Conversion funnel","pr.c4":"4 orders from 66 sessions. 6.06% conversion, up 318% on the previous period.","pr.a4":"Shopify conversion funnel: sessions, added to cart, reached checkout, completed orders",
+    "pr.c5k":"Amazon · Oct\u00a019","pr.c5":"2 orders in one evening, 2,199 CAD in total. Pending returns come in as alerts too.","pr.a5":"Two Amazon orders and a return alert in the phone's notification center",
     "foot.contact":"Contact","foot.legal":"Legal","foot.lang":"Language","foot.copy":"© 2026 astra-meta LLC · Analyze. Systemize. Scale.","foot.top":"Back to top"
   }
 };

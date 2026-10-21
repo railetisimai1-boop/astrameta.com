@@ -1,0 +1,55 @@
+# main'e her push'tan sonra değişen sayfaları IndexNow'a bildirir (Bing, Yandex, Seznam, Naver, Yep).
+# Sadece sitemap.xml'deki adresler gönderilir; sitemap değişirse ya da elle çalıştırılırsa hepsi gider.
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    env:
+      HOST: astra-meta.com
+      KEY: cafc2c10fd4973969aa9dfdebbd94836
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bildirilecek adresleri bul
+        id: urls
+        run: |
+          grep -oE '<loc>[^<]+</loc>' sitemap.xml | sed -E 's#</?loc>##g' > all.txt
+
+          BEFORE="${{ github.event.before }}"
+          if [ "${{ github.event_name }}" != "push" ] || ! git cat-file -e "$BEFORE" 2>/dev/null \
+             || git diff --name-only "$BEFORE" HEAD | grep -qx 'sitemap.xml'; then
+            cp all.txt send.txt
+          else
+            # index.html -> /, klasor/index.html -> /klasor/, sayfa.html -> /sayfa.html
+            git diff --name-only --diff-filter=AM "$BEFORE" HEAD | grep -E '\.html$' \
+              | sed -E 's#(^|/)index\.html$#\1#; s#^#https://'"$HOST"'/#' \
+              | grep -Fxf all.txt > send.txt || true
+          fi
+
+          echo "count=$(wc -l < send.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          cat send.txt
+
+      - name: Coolify yayınını bekle
+        if: steps.urls.outputs.count != '0'
+        run: |
+          sleep 90
+          LIVE=$(curl -fsS "https://$HOST/$KEY.txt")
+          [ "$LIVE" = "$KEY" ] || { echo "Anahtar dosyası canlıda yok ya da farklı"; exit 1; }
+
+      - name: IndexNow'a gönder
+        if: steps.urls.outputs.count != '0'
+        run: |
+          BODY=$(jq -Rn --arg host "$HOST" --arg key "$KEY" \
+            '{host: $host, key: $key, keyLocation: "https://\($host)/\($key).txt", urlList: [inputs]}' < send.txt)
+          CODE=$(curl -sS -o resp.txt -w '%{http_code}' -X POST https://api.indexnow.org/indexnow \
+            -H 'Content-Type: application/json; charset=utf-8' -d "$BODY")
+          echo "HTTP $CODE"; cat resp.txt
+          [ "$CODE" = "200" ] || [ "$CODE" = "202" ]

@@ -84,6 +84,7 @@
   .nav-links a:hover{color:var(--text)}
   .nav-links a:hover::after{transform:scaleX(1)}
   .nav-links .nav-ai::before{content:"✦";color:var(--pink);font-size:10px;margin-right:7px;vertical-align:1px}
+  @media(max-width:1180px){.nav-links{gap:22px}.nav-links a{font-size:13px}}
   .nav-links a[aria-current="page"]{color:var(--text)}
   .nav-links a[aria-current="page"]::after{transform:scaleX(1);background:var(--grad)}
   .nav-right{display:flex;align-items:center;gap:10px}
@@ -123,7 +124,7 @@
   .menu.open .menu-links a{transform:none;opacity:1}
   .menu.open .menu-links a:nth-child(2){transition-delay:.05s}.menu.open .menu-links a:nth-child(3){transition-delay:.1s}
   .menu.open .menu-links a:nth-child(4){transition-delay:.15s}.menu.open .menu-links a:nth-child(5){transition-delay:.2s}
-  .menu.open .menu-links a:nth-child(6){transition-delay:.25s}
+  .menu.open .menu-links a:nth-child(6){transition-delay:.25s}.menu.open .menu-links a:nth-child(7){transition-delay:.3s}
   .menu-foot{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
   .menu-foot a{font-size:16px;color:var(--muted);padding:6px 0}
 
@@ -290,7 +291,8 @@
     <a class="brand" href="/" aria-label="astra-meta · home"><img src="/logo-nav.webp" alt="astra-meta" width="219" height="96"></a>
     <div class="nav-links">
       <a href="/#model" data-i18n="nav.model">Model</a>
-      <a href="/#hizmetler" data-i18n="nav.services">Services</a>
+      <a href="/#musteri-bulma" data-i18n="nav.product">Product</a>
+      <a href="/hizmetler/" data-i18n="nav.services">Services</a>
       <a href="/#neden" data-i18n="nav.proof">Difference</a>
       <a href="/#surec" data-i18n="nav.process">Process</a>
       <a href="/#isinden-bahset" data-i18n="nav.contact">Contact</a>
@@ -318,9 +320,10 @@
 <div class="menu" id="menu">
   <nav class="menu-links" aria-label="Mobile">
     <a href="/#model"><span class="mono">01</span><span data-i18n="nav.model">Model</span></a>
-    <a href="/#hizmetler"><span class="mono">02</span><span data-i18n="nav.services">Services</span></a>
-    <a href="/#neden"><span class="mono">03</span><span data-i18n="nav.proof">Difference</span></a>
-    <a href="/#surec"><span class="mono">04</span><span data-i18n="nav.process">Process</span></a>
+    <a href="/#musteri-bulma"><span class="mono">02</span><span data-i18n="nav.product">Product</span></a>
+    <a href="/hizmetler/"><span class="mono">03</span><span data-i18n="nav.services">Services</span></a>
+    <a href="/#neden"><span class="mono">04</span><span data-i18n="nav.proof">Difference</span></a>
+    <a href="/#surec"><span class="mono">05</span><span data-i18n="nav.process">Process</span></a>
     <a href="/#isinden-bahset"><span class="mono">06</span><span data-i18n="nav.contact">Contact</span></a>
     <a href="/ai-automation/" aria-current="page"><span class="mono">✦</span><span data-i18n="nav.ai">AI Automation</span></a>
   </nav>
@@ -454,7 +457,7 @@ const I18N={
   tr:{
     "meta.title":"AI Otomasyon · Amazon ve Shopify | astra-meta",
     "meta.desc":"Kendi Amazon ve Shopify mağazalarımızı her gün yöneten sistemi senin mağazana kuruyoruz: ürün bulma, eleme, listeleme, fiyat ve stok takibi, reklam. Para çıkan her adım senin onayınla.",
-    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
+    "nav.model":"Model","nav.product":"Ürün","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
     "ec.num":"✦ Yeni · Amazon ve Shopify","ec.tag":"E-ticaret otomasyonu",
     "ec.h":"Ürünü sistem bulur, mağazayı sistem yönetir.",
     "ec.p":"Kendi Amazon ve Shopify mağazalarımızı her gün bu sistemle yönetiyoruz. Aynısını senin mağazana kuruyoruz. <b>Sen sadece onaylarsın.</b>",
@@ -483,7 +486,7 @@ const I18N={
   en:{
     "meta.title":"AI Automation · Amazon & Shopify | astra-meta",
     "meta.desc":"The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval.",
-    "nav.model":"Model","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
+    "nav.model":"Model","nav.product":"Product","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
     "ec.num":"✦ New · Amazon & Shopify","ec.tag":"E-commerce automation",
     "ec.h":"The system finds the product. The system runs the store.",
     "ec.p":"We run our own Amazon and Shopify stores on this system every day. We build the same for yours. <b>You just approve.</b>",

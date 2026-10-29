@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>astra-meta — Analyze. Systemize. Scale.</title>
-<meta name="description" content="We analyze how your business actually runs, then build a custom system that takes paperwork, quotes, follow-ups and repetitive work off your plate. Ads, websites and B2B customer acquisition on top. One team.">
+<meta name="description" content="We make your website show up on Google on its own, then reach the customers in your sector with Google and Meta ads and AI-driven email outreach. Workflow automation, proforma invoicing and store automation as separate services.">
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta — tek dosya statik site (HTML + CSS + JS)
@@ -15,16 +15,18 @@
      • Dil: TR/EN. Türkiye'den girenler Türkçe (IP'ye göre), diğerleri İngilizce;
        sağ üstteki TR/EN düğmesiyle elle değişir, seçim hatırlanır (localStorage).
      • Form: Web3Forms; mesajlar railetisimai1@gmail.com'a düşer.
-     • Bölümler: Hero → 01 Model (kaydırmalı sistem hikâyesi) → 02 Hizmetler
-       (başında "reklamdan randevuya" örnek akış: makePipe) → 03 Kanıt → 04 Süreç →
-       05 Uyum → 06 İletişim → Final → Footer
+     • Bölümler: Hero → 01 Model (kaydırmalı sistem hikâyesi) → 02 Ana ürün: müşteri bulma
+       sistemi (organik web sitesi + Google/Meta reklam + yapay zekâ mail; "müşterinin yolu"
+       akışı: makePipe) → 03 Fark → 04 Süreç → 05 Uyum → 06 İletişim → Final → Footer
+     • Hizmetler (rutin otomasyonu, proforma fatura, mağaza) 2026-10-29'da ayrı sayfaya
+       taşındı: /hizmetler/ (menüde "Hizmetler"). Nav/footer değişirse orada da değiştir.
      • 03 Kanıt içinde YORUMDA bekleyen iki blok: vaka analizi (.cases) ve
        "karşında kim var" (.who). Gerçek veri/fotoğraf gelince açılacak.
      • Eski site yedeği: git tag "yedek-2026-09-16-eski-site" / branch "eski-site-2026-09-16"
      ════════════════════════════════════════════════════════════════ -->
 
 <meta property="og:title" content="astra-meta — Analyze. Systemize. Scale.">
-<meta property="og:description" content="We analyze how your business actually runs, then build a custom system that takes paperwork, quotes, follow-ups and repetitive work off your plate. Ads, websites and B2B customer acquisition on top. One team.">
+<meta property="og:description" content="Your website finds customers on its own; Google and Meta ads and AI-driven email reach the rest. One system, one team.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://astra-meta.com">
 <meta property="og:image" content="https://astra-meta.com/og.jpg">
@@ -98,6 +100,7 @@
   .nav-links a:hover{color:var(--text)}
   .nav-links a:hover::after{transform:scaleX(1)}
   .nav-links .nav-ai::before{content:"✦";color:var(--pink);font-size:10px;margin-right:7px;vertical-align:1px}
+  @media(max-width:1180px){.nav-links{gap:22px}.nav-links a{font-size:13px}}
   .nav-right{display:flex;align-items:center;gap:10px}
   .ring{width:18px;height:18px;transform:rotate(-90deg);margin-right:8px;flex:none}
   .ring circle{fill:none;stroke-width:2}
@@ -134,7 +137,7 @@
   .menu.open .menu-links a{transform:none;opacity:1}
   .menu.open .menu-links a:nth-child(2){transition-delay:.05s}.menu.open .menu-links a:nth-child(3){transition-delay:.1s}
   .menu.open .menu-links a:nth-child(4){transition-delay:.15s}.menu.open .menu-links a:nth-child(5){transition-delay:.2s}
-  .menu.open .menu-links a:nth-child(6){transition-delay:.25s}
+  .menu.open .menu-links a:nth-child(6){transition-delay:.25s}.menu.open .menu-links a:nth-child(7){transition-delay:.3s}
   .menu-foot{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
   .menu-foot a{font-size:16px;color:var(--muted);padding:6px 0}
 
@@ -225,37 +228,23 @@
   .svc-top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(56px,8vw,120px)}
   .svc-intro{max-width:480px;justify-self:end}
   .svc-top p{color:var(--muted);font-size:clamp(17px,1.4vw,19px)}
+  .svc-top p b{color:var(--text);font-weight:500}
   .svc-note{margin-top:18px;padding-left:14px;border-left:2px solid var(--pink);font-size:14px!important;line-height:1.6;color:var(--dim)}
-  .engines{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);position:relative}
-  .engine-b{padding-top:clamp(0px,10vw,160px)}
-  .engine-head{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:end;margin-bottom:34px}
-  .engine-num{font-family:var(--fd);font-weight:700;font-size:clamp(88px,13vw,196px);line-height:.8;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px var(--line-3)}
-  .engine-a .engine-num{-webkit-text-stroke-color:rgba(237,58,162,.75)}
-  .engine-b .engine-num{-webkit-text-stroke-color:rgba(79,195,222,.75)}
-  .engine-head h3{font-size:clamp(22px,2.3vw,32px);letter-spacing:-.02em;margin-top:8px}
-  .engine-a .engine-head .mono{color:var(--pink)}
-  .engine-b .engine-head .mono{color:var(--cyan)}
-  .rows li{display:grid;grid-template-columns:34px 1fr;gap:6px 18px;padding:22px 0;border-top:1px solid var(--line);position:relative}
-  .rows li:last-child{border-bottom:1px solid var(--line)}
-  .rows li::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-out)}
-  .engine-b .rows li::before{background:var(--cyan)}
-  .rows li:hover::before{transform:scaleX(1)}
-  .rows .ri{font-family:var(--fm);font-size:12px;color:var(--dim);padding-top:5px}
-  .rows .rt{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,23px);letter-spacing:-.015em;line-height:1.2;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
-  .rows .rt .arr{opacity:0;transform:translateX(-8px);transition:.4s var(--ease-out);color:var(--pink);font-weight:400;flex:none}
-  .engine-b .rows .rt .arr{color:var(--cyan)}
-  .rows li:hover .rt .arr{opacity:1;transform:none}
-  .rows .rn{grid-column:2;font-size:11px}
-  .flow-line{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line);transform:translateX(-50%)}
-  .flow-line i{position:absolute;inset:0;background:linear-gradient(180deg,var(--pink),var(--cyan));transform:scaleY(0);transform-origin:top}
-  .engine-c{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,120px);align-items:start;margin-top:clamp(24px,5vw,80px);padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
-  .engine-c .engine-num{-webkit-text-stroke-color:rgba(243,243,248,.6)}
-  .engine-c .engine-head{margin-bottom:22px}
-  .engine-c .engine-head .mono{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .engine-p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px}
-  .engine-c .rows li::before{background:var(--grad)}
-  .engine-c .rows .rt .arr{color:var(--cyan)}
-  .engine-c .rows .rn{color:var(--dim)}
+  .svc-note a{color:var(--text);border-bottom:1px solid var(--line-3);transition:border-color .25s,color .25s}
+  .svc-note a:hover{color:var(--pink);border-color:var(--pink)}
+  /* 02 Ana ürün: üç ayak (site, reklam, yapay zekâ mail) */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0 clamp(28px,4vw,64px)}
+  .pillar{border-top:1px solid var(--line);padding:26px 0 8px}
+  .pillar .k{display:block;margin-bottom:20px}
+  .pillar:nth-child(1) .k{color:var(--pink)}
+  .pillar:nth-child(2) .k{color:var(--cyan)}
+  .pillar:nth-child(3) .k{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pillar h3{font-size:clamp(22px,2.3vw,32px);letter-spacing:-.02em;line-height:1.1;margin-bottom:14px;max-width:16ch}
+  .pillar p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:36ch}
+  .pillar .n{display:block;margin-top:20px;font-size:11px}
+  .urun-foot{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:clamp(40px,6vw,88px);padding-top:clamp(28px,4vw,48px);border-top:1px solid var(--line)}
+  .urun-you{display:flex;align-items:center;gap:16px;font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;line-height:1.3;max-width:640px}
+  .urun-you i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:16px;font-weight:700}
 
   /* 02b Pipe: reklamdan randevuya örnek akış (talep paketi çizgide ilerler) */
   .pipe{margin:0 0 clamp(72px,9vw,140px);padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
@@ -409,10 +398,7 @@
     .steps{position:relative;z-index:1;margin-top:-100vh;margin-top:-100svh}
     .step{padding:0 0 13vh;justify-content:flex-end}
     .step p{max-width:560px}
-    .engines{grid-template-columns:1fr;gap:64px}
-    .engine-b{padding-top:0}
-    .engine-c{grid-template-columns:1fr;gap:28px;margin-top:0;padding-top:0;border-top:0}
-    .flow-line{display:none}
+    .pillars{grid-template-columns:1fr;gap:0}
     .day-row{grid-template-columns:72px minmax(0,1fr) 36px minmax(0,1fr);gap:0 16px}
     .fit-grid,.contact-grid,.svc-top,.cases,.who{grid-template-columns:1fr}
     .who{max-width:640px}
@@ -442,7 +428,6 @@
     .fgrid{grid-template-columns:1fr}
     .ch-head .mono:last-child{display:none}
     .form .btn{width:100%}
-    .engine-head{grid-template-columns:1fr;gap:10px}
     .pipe-head{grid-template-columns:1fr;gap:18px}
     .pipe-head p{justify-self:start}
     .pipe-rail::before{width:1px;height:var(--rh,100%);transform:scaleY(0);transform-origin:top}
@@ -482,7 +467,8 @@
     <a class="brand" href="#top" aria-label="astra-meta — home"><img src="logo-nav.webp" alt="astra-meta" width="219" height="96"></a>
     <div class="nav-links">
       <a href="#model" data-i18n="nav.model">Model</a>
-      <a href="#hizmetler" data-i18n="nav.services">Services</a>
+      <a href="#musteri-bulma" data-i18n="nav.product">Product</a>
+      <a href="/hizmetler/" data-i18n="nav.services">Services</a>
       <a href="#neden" data-i18n="nav.proof">Difference</a>
       <a href="#surec" data-i18n="nav.process">Process</a>
       <a href="#isinden-bahset" data-i18n="nav.contact">Contact</a>
@@ -510,9 +496,10 @@
 <div class="menu" id="menu">
   <nav class="menu-links" aria-label="Mobile">
     <a href="#model"><span class="mono">01</span><span data-i18n="nav.model">Model</span></a>
-    <a href="#hizmetler"><span class="mono">02</span><span data-i18n="nav.services">Services</span></a>
-    <a href="#neden"><span class="mono">03</span><span data-i18n="nav.proof">Difference</span></a>
-    <a href="#surec"><span class="mono">04</span><span data-i18n="nav.process">Process</span></a>
+    <a href="#musteri-bulma"><span class="mono">02</span><span data-i18n="nav.product">Product</span></a>
+    <a href="/hizmetler/"><span class="mono">03</span><span data-i18n="nav.services">Services</span></a>
+    <a href="#neden"><span class="mono">04</span><span data-i18n="nav.proof">Difference</span></a>
+    <a href="#surec"><span class="mono">05</span><span data-i18n="nav.process">Process</span></a>
     <a href="#isinden-bahset"><span class="mono">06</span><span data-i18n="nav.contact">Contact</span></a>
     <a href="/ai-automation/"><span class="mono">✦</span><span data-i18n="nav.ai">AI Automation</span></a>
   </nav>
@@ -534,12 +521,12 @@
   <div class="hero-orbit" id="heroOrbit" aria-hidden="true"><svg id="orbitHero"></svg></div>
   <div class="wrap hero-grid">
     <div class="hero-meta mono">
-      <span data-i18n="hero.k1">Business systems for B2B companies &amp; e-commerce brands</span>
-      <span data-i18n="hero.k2">Analysis · Automation · Growth · One team</span>
+      <span data-i18n="hero.k1">Customer acquisition systems for B2B companies &amp; e-commerce brands</span>
+      <span data-i18n="hero.k2">Website · Ads · AI email · One team</span>
     </div>
     <h1 class="hero-title" data-i18n-html="hero.h1"><span class="line"><span class="li">Analyze.</span></span><span class="line grad"><span class="li">Systemize.</span></span><span class="line"><span class="li">Scale.</span></span></h1>
     <div class="hero-row">
-      <p class="hero-lead" data-i18n-html="hero.lead">First we look at how your business actually runs and where time and money leak. Then we build <b>a system made for it</b>: paperwork, quotes, follow-ups and every repetitive task run on their own. <b>You focus on growing.</b></p>
+      <p class="hero-lead" data-i18n-html="hero.lead">First we look at your business: where customers come from, where they slip away. Then we build <b>a system that finds customers</b>: your website shows up on Google on its own, ads reach the right people, AI reaches out by email. <b>You take the calls.</b></p>
       <div class="hero-cta">
         <a class="btn btn-primary magnet" href="#isinden-bahset"><span data-i18n="hero.cta1">Tell us about your business</span><span class="arr">→</span></a>
         <a class="btn btn-ghost" href="#model" data-i18n="hero.cta2">See how it works</a>
@@ -559,7 +546,7 @@
 <section id="model" class="chapter model">
   <div class="wrap">
     <div class="ch-head"><span class="mono" data-i18n="ch1.num">01 — The model</span><span class="ch-line"></span><span class="mono" data-i18n="ch1.tag">Analysis + System = Growth</span></div>
-    <p class="model-intro rv" data-i18n-html="ch1.intro">How many times did you write the same email today? How often did you update that spreadsheet, or build a quote from scratch? Work that repeats every day eats half the day, and there's no time left to grow. We find it piece by piece and hand it to a system. <em>We set it up once. After that, it does the work for you every day.</em></p>
+    <p class="model-intro rv" data-i18n-html="ch1.intro">Automate the routine, <em>scale the work.</em></p>
     <div class="story" id="story">
       <div class="stage">
         <svg id="orbitStory" aria-hidden="true"></svg>
@@ -586,77 +573,59 @@
   </div>
 </section>
 
-<!-- ── 02 SERVICES ── -->
-<section id="hizmetler" class="chapter services">
+<!-- ── 02 ANA ÜRÜN: müşteri bulma sistemi (organik site + Google/Meta reklam + yapay zekâ mail) ── -->
+<section id="musteri-bulma" class="chapter services">
   <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="ch2.num">02 — Services</span><span class="ch-line"></span><span class="mono" data-i18n="ch2.tag">What we do</span></div>
+    <div class="ch-head"><span class="mono" data-i18n="ch2.num">02 — The product</span><span class="ch-line"></span><span class="mono" data-i18n="ch2.tag">Customer acquisition system</span></div>
     <div class="svc-top">
-      <h2 class="h2 split" data-i18n="ch2.h2">From analysis to scale. One team.</h2>
+      <h2 class="h2 split" data-i18n="ch2.h2">Customers find you. The system finds the rest.</h2>
       <div class="svc-intro rv">
-        <p data-i18n="ch2.p">First the system that takes the load off your business, then the growth side, and finally what all of it gives back to you. One team — no separate developer, agency and consultant to chase.</p>
-        <p class="svc-note" data-i18n="ch2.note">Services are optional. After the analysis we pick together what your business actually needs; the scope differs from one business to the next.</p>
+        <p data-i18n-html="ch2.p">First we make your whole digital presence fit for finding customers: a website that <b>shows up on Google on its own</b> and a brand that reads clearly. Then we go after the customers who haven't found you yet: Google and Meta ads, and an AI-driven email system that reaches the right companies in your sector.</p>
+        <p class="svc-note" data-i18n-html="ch2.note">One system, one team. Workflow automation, proforma invoicing and store automation sit next to it as <a href="/hizmetler/">separate services</a>.</p>
       </div>
     </div>
     <div class="pipe rv" id="pipe">
       <div class="pipe-head">
         <div>
-          <span class="mono" data-i18n="pipe.k">Example run · From ad click to booked call</span>
-          <h3 data-i18n="pipe.h">What happens when a lead comes in?</h3>
+          <span class="mono" data-i18n="pipe.k">The customer's path · From search to a call</span>
+          <h3 data-i18n="pipe.h">How does a customer reach you?</h3>
         </div>
-        <p data-i18n-html="pipe.p">A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b></p>
+        <p data-i18n-html="pipe.p">Some find you on Google. The ones who don't, the system finds. Both end up in the same place: <b>a call on your calendar.</b></p>
       </div>
       <div class="pipe-rail" id="pipeRail">
         <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
         <ol class="pipe-list">
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pipe.a1">Customer</span><h4 data-i18n="pipe.t1">Sees the ad, clicks.</h4><p data-i18n="pipe.n1">Meta · Google · your website</p></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pipe.a2">Customer</span><h4 data-i18n="pipe.t2">Fills in the form.</h4><p data-i18n="pipe.n2">Name, phone, what they need</p><span class="mono pipe-seg" data-i18n="pipe.s2">within seconds</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pipe.a3">System</span><h4 data-i18n="pipe.t3">Replies on WhatsApp.</h4><p data-i18n="pipe.n3">An assistant trained on your business answers their questions</p><span class="mono pipe-seg" data-i18n="pipe.s3">within minutes</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pipe.a4">System</span><h4 data-i18n="pipe.t4">Books the call into your calendar.</h4><p data-i18n="pipe.n4">Picks a free slot, logs it to the CRM</p><span class="mono pipe-seg" data-i18n="pipe.s4">same day</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pipe.a1">System</span><h4 data-i18n="pipe.t1">Gets your site ready.</h4><p data-i18n="pipe.n1">Brand, SEO, pages that sell</p></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pipe.a2">Customer</span><h4 data-i18n="pipe.t2">Searches on Google, finds you.</h4><p data-i18n="pipe.n2">Organic result or Google Ads</p><span class="mono pipe-seg" data-i18n="pipe.s2">first weeks</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pipe.a3">System</span><h4 data-i18n="pipe.t3">Goes after the ones who didn't.</h4><p data-i18n="pipe.n3">Target list, a personal email written by AI</p><span class="mono pipe-seg" data-i18n="pipe.s3">every day</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pipe.a4">Customer</span><h4 data-i18n="pipe.t4">Replies, books a slot.</h4><p data-i18n="pipe.n4">Form, WhatsApp or email</p><span class="mono pipe-seg" data-i18n="pipe.s4">within days</span></li>
           <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="pipe.a5">You</span><h4 data-i18n="pipe.t5">Take the call.</h4><p data-i18n="pipe.n5">Morning summary: who they are, what they want</p></li>
         </ol>
       </div>
     </div>
-    <div class="engines">
-      <div class="flow-line" aria-hidden="true"><i id="flowFill"></i></div>
-      <div class="engine engine-a rv">
-        <div class="engine-head">
-          <span class="engine-num" aria-hidden="true">01</span>
-          <div><span class="mono" data-i18n="en1.k">Systemize</span><h3 data-i18n="en1.h">Problem analysis &amp; custom automation</h3></div>
-        </div>
-        <ul class="rows">
-          <li><span class="ri">01</span><span class="rt"><span data-i18n="en1.r1">Problem analysis for your business</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n1">Who · what · why by hand</span></li>
-          <li><span class="ri">02</span><span class="rt"><span data-i18n="en1.r2">Paperwork, quote &amp; invoice automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n2">Documents · quotes · invoices</span></li>
-          <li><span class="ri">03</span><span class="rt"><span data-i18n="en1.r3">Your existing tools, connected</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n3">Email · sheets · accounting · CRM</span></li>
-          <li><span class="ri">04</span><span class="rt"><span data-i18n="en1.r4">Messaging &amp; follow-up automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en1.n4">WhatsApp · email · 24/7</span></li>
-        </ul>
-      </div>
-      <div class="engine engine-b rv">
-        <div class="engine-head">
-          <span class="engine-num" aria-hidden="true">02</span>
-          <div><span class="mono" data-i18n="en2.k">Grow</span><h3 data-i18n="en2.h">Ads, website &amp; customer acquisition</h3></div>
-        </div>
-        <ul class="rows">
-          <li><span class="ri">01</span><span class="rt"><span data-i18n="en2.r1">Meta &amp; Google ads consulting</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n1">Campaign · creative · budget</span></li>
-          <li><span class="ri">02</span><span class="rt"><span data-i18n="en2.r2">Website setup that sells</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n2">Company site · store · landing page</span></li>
-          <li><span class="ri">03</span><span class="rt"><span data-i18n="en2.r3">B2B customer acquisition</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n3">Target list · outreach · follow-up</span></li>
-          <li><span class="ri">04</span><span class="rt"><span data-i18n="en2.r4">Plain-language reporting</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en2.n4">Monthly · spent vs. earned</span></li>
-        </ul>
-      </div>
-      <div class="engine engine-c rv">
-        <div class="engine-head-wrap">
-          <div class="engine-head">
-            <span class="engine-num" aria-hidden="true">03</span>
-            <div><span class="mono" data-i18n="en3.k">Scale</span><h3 data-i18n="en3.h">Your day once the system is running</h3></div>
-          </div>
-          <p class="engine-p" data-i18n="en3.p">Built once, runs every day. Everything you used to do by hand now runs in the system; the time you get back goes into growing.</p>
-        </div>
-        <ul class="rows">
-          <li><span class="ri">01</span><span class="rt"><span data-i18n="en3.r1">Quotes reach the customer in minutes</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n1">Before: half a day</span></li>
-          <li><span class="ri">02</span><span class="rt"><span data-i18n="en3.r2">Invoices and paperwork handle themselves</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n2">Before: evening overtime</span></li>
-          <li><span class="ri">03</span><span class="rt"><span data-i18n="en3.r3">No customer ever goes unfollowed</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n3">Before: forgotten messages</span></li>
-          <li><span class="ri">04</span><span class="rt"><span data-i18n="en3.r4">One summary every morning, whole business in view</span><span class="arr">→</span></span><span class="rn mono" data-i18n="en3.n4">Before: five different screens</span></li>
-        </ul>
-      </div>
+    <div class="pillars">
+      <article class="pillar rv">
+        <span class="mono k" data-i18n="p1.k">01 · Website</span>
+        <h3 data-i18n="p1.h">A website that finds customers on its own</h3>
+        <p data-i18n="p1.p">Brand identity, page structure and copy are set up so Google shows you when your customer searches. Built so the person who lands there writes to you.</p>
+        <span class="mono n" data-i18n="p1.n">Brand identity · SEO · pages that sell</span>
+      </article>
+      <article class="pillar rv">
+        <span class="mono k" data-i18n="p2.k">02 · Ads</span>
+        <h3 data-i18n="p2.h">Google and Meta ads that bring the right people</h3>
+        <p data-i18n="p2.p">Campaigns aimed at the people already searching in your sector. Budget, creative and measurement are ours; every month you see what was spent and what came back.</p>
+        <span class="mono n" data-i18n="p2.n">Google Ads · Meta · monthly report</span>
+      </article>
+      <article class="pillar rv">
+        <span class="mono k" data-i18n="p3.k">03 · AI email</span>
+        <h3 data-i18n="p3.h">AI reaches the customers who don't come to you</h3>
+        <p data-i18n="p3.p">We build the target list in your sector and verify the addresses; AI writes a personal email to each company and sends it. Replies land in your inbox.</p>
+        <span class="mono n" data-i18n="p3.n">Target list · verified addresses · personal email</span>
+      </article>
+    </div>
+    <div class="urun-foot rv">
+      <p class="urun-you"><i aria-hidden="true">✓</i><span data-i18n="ch2.you">Built once. The site, the ads and the emails keep working every day; you only take the calls.</span></p>
+      <a class="btn btn-primary magnet" href="#isinden-bahset"><span data-i18n="ch2.cta">Tell us about your business</span><span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -880,39 +849,33 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const I18N={
   tr:{
     "meta.title":"astra-meta — Analiz et. Sistem kur. Ölçekle.",
-    "meta.desc":"İşletmene özel problem analizi yapar, sana özel otomasyon sistemi kurarız. Evrak, teklif, takip ve tekrar eden işler sistemde döner; sen işini büyütürsün. Reklam, web sitesi ve B2B müşteri bulma da bizde.",
-    "nav.model":"Model","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
-    "hero.k1":"B2B işletmeler ve e-ticaret markaları için iş sistemleri","hero.k2":"Analiz · Otomasyon · Büyüme · Tek ekip",
+    "meta.desc":"Web siteni Google'da kendiliğinden bulunur hâle getirir, Google ve Meta reklamı ve yapay zekâ destekli mail ile sektöründeki müşterilere ulaştırırız. Rutin otomasyonu, proforma fatura ve mağaza otomasyonu ayrı hizmet.",
+    "nav.model":"Model","nav.product":"Ürün","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
+    "hero.k1":"B2B işletmeler ve e-ticaret markaları için müşteri bulma sistemi","hero.k2":"Web sitesi · Reklam · Yapay zekâ mail · Tek ekip",
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analiz et.</span></span><span class=\"line grad\"><span class=\"li\">Sistem kur.</span></span><span class=\"line\"><span class=\"li\">Ölçekle.</span></span>",
-    "hero.lead":"Önce işletmene bakarız: vaktin ve paran nereye akıyor? Sonra <b>sana özel bir sistem</b> kurarız. Evrak, teklif, takip, tekrar eden ne varsa sistem yapar. <b>Sen işini büyütmeye bak.</b>",
+    "hero.lead":"Önce işine bakarız: müşteri nereden geliyor, nerede kaçıyor? Sonra <b>müşteri bulan bir sistem</b> kurarız: web siten Google'da kendiliğinden bulunur, reklam doğru kişiye gider, yapay zekâ mail ile ulaşır. <b>Sen görüşmeye girersin.</b>",
     "hero.cta1":"İşinden bahset","hero.cta2":"Nasıl çalışıyor?","hero.scroll":"Kaydır","hero.loc":"New York, NY · Dünyanın her yerinde",
-    "marquee":["Problem Analizi", "Amazon Otomasyonu", "Shopify Otomasyonu", "İş Süreci Otomasyonu", "Evrak ve Belge Otomasyonu", "Teklif ve Fatura Akışı", "Müşteri Takibi", "Reklam Danışmanlığı", "Web Sitesi Kurulumu", "B2B Müşteri Bulma"],
+    "marquee":["Müşteri Bulma Sistemi", "Organik Web Sitesi", "Google Ads", "Meta Reklam", "Yapay Zekâ Mail Otomasyonu", "Problem Analizi", "Rutin Otomasyonu", "Proforma Fatura Otomasyonu", "Amazon Otomasyonu", "Shopify Otomasyonu"],
     "ch1.num":"01 — Model","ch1.tag":"Analiz + Sistem = Büyüme",
-    "ch1.intro":"Bugün kaç kez aynı maili yazdın? Aynı Excel'i kaç kez güncelledin, kaç teklifi sıfırdan hazırladın? Her gün tekrar eden bu işler günün yarısını götürür, büyümeye vakit kalmaz. Biz o işleri tek tek bulup sisteme bağlarız. <em>Bir kez kurarız, sonra o işleri her gün senin yerine sistem yapar.</em>",
+    "ch1.intro":"Rutinleri otomatikleştir, <em>işleri ölçekle.</em>",
     "st1.k":"01 · Analiz","st1.h":"Problem analizi.","st1.p":"Bir gününe bakarız: hangi iş elle yapılıyor, vakit nereye gidiyor. Çıktı net bir liste: hangi işler sisteme geçer, haftada kaç saat geri kazanırsın.",
     "st2.k":"02 · Sistem","st2.h":"Sistem inşası.","st2.p":"Listedeki her işi sisteme bağlarız. Teklif, fatura, takip ve mesajlar kendiliğinden yürür. Sen elini sürmezsin.",
     "st3.k":"= Büyüme","st3.h":"Ölçekle.","st3.p":"Bu işler sistemde dönmeye başlayınca haftada saatler açılır. O saatleri doğru yere koyarız: reklamdan gelen talebi aynı sistem karşılar, web siten satar, B2B listeden yeni müşteri çıkar. Sistem arkada döner, sen büyütürsün.",
-    "ch2.num":"02 — Hizmetler","ch2.tag":"Ne yapıyoruz",
-    "ch2.h2":"Analizden ölçeğe. Tek ekip.",
-    "ch2.p":"Önce işini rahatlatan sistem, sonra büyüme tarafı, en sonda da bunun sana ne kazandırdığı. Hepsi tek ekipte; ayrı ayrı yazılımcı, ajans ve danışman aramazsın.",
-    "en1.k":"Sistem","en1.h":"Problem analizi ve otomasyon",
-    "en1.r1":"İşletmeye özel problem analizi","en1.n1":"Kim · ne · neden elle",
-    "en1.r2":"Evrak, teklif ve fatura otomasyonu","en1.n2":"Belge · teklif · fatura",
-    "en1.r3":"Mevcut araçların birbirine bağlanması","en1.n3":"E-posta · Excel · muhasebe · CRM",
-    "en1.r4":"Mesaj ve müşteri takibi otomasyonu","en1.n4":"WhatsApp · e-posta · 7/24",
-    "en2.k":"Büyüme","en2.h":"Reklam, web sitesi ve müşteri bulma",
-    "en2.r1":"Meta ve Google reklam danışmanlığı","en2.n1":"Kampanya · kreatif · bütçe",
-    "en2.r2":"Satan web sitesi kurulumu","en2.n2":"Kurumsal · e-ticaret · landing",
-    "en2.r3":"B2B müşteri bulma","en2.n3":"Hedef liste · e-posta · takip",
-    "en2.r4":"Sade raporlama","en2.n4":"Ayda bir · ne harcandı, ne kazandırdı",
-    "ch2.note":"Hizmetler opsiyoneldir. Analizden sonra işletmenin gerçekten ihtiyaç duyduklarını birlikte seçeriz; kapsam işletmeden işletmeye değişir.","en3.k":"Ölçekle","en3.h":"Sistem kurulunca günün böyle geçer","en3.p":"Bir kez kurulur, her gün çalışır. Elle yaptığın ne varsa sistemde döner; kalan vakit işi büyütmeye gider.","en3.r1":"Teklif dakikalar içinde müşteride","en3.n1":"Eskiden: yarım gün","en3.r2":"Fatura ve evrak kendi kendine işlenir","en3.n2":"Eskiden: akşam mesaisi","en3.r3":"Hiçbir müşteri takipsiz kalmaz","en3.n3":"Eskiden: unutulan mesajlar","en3.r4":"Her sabah tek özet, tüm iş önünde","en3.n4":"Eskiden: beş ayrı ekran",
-    "pipe.k":"Örnek akış · Reklamdan randevuya","pipe.h":"Bir talep geldiğinde ne olur?",
-    "pipe.p":"Gece üçte gelen talep de sabah dokuzda gelen de aynı yoldan geçer: reklam, form, mesaj ve takvim tek zincirdir. <b>Sen yalnızca son halkasın.</b>",
-    "pipe.a1":"Müşteri","pipe.t1":"Reklamı görür, tıklar.","pipe.n1":"Meta · Google · web siten",
-    "pipe.a2":"Müşteri","pipe.t2":"Formu doldurur.","pipe.n2":"Adı, telefonu, ne istediği","pipe.s2":"saniyeler içinde",
-    "pipe.a3":"Sistem","pipe.t3":"WhatsApp'tan dönüş yapılır.","pipe.n3":"İşine göre eğitilmiş asistan sorularını yanıtlar","pipe.s3":"dakikalar içinde",
-    "pipe.a4":"Sistem","pipe.t4":"Randevu takvimine düşer.","pipe.n4":"Uygun saati seçer, CRM'e işler","pipe.s4":"aynı gün",
+    "ch2.num":"02 — Ana ürün","ch2.tag":"Müşteri bulma sistemi",
+    "ch2.h2":"Müşteri seni bulsun. Bulmayanı sistem bulsun.",
+    "ch2.p":"Önce dijital varlığını müşteri bulmaya uygun hâle getiririz: <b>Google'da kendiliğinden çıkan</b> bir web sitesi, net okunan bir marka. Sonra seni henüz bulmamış müşteriye biz gideriz: Google ve Meta reklamları, sektöründeki doğru firmalara ulaşan yapay zekâ destekli mail sistemi.",
+    "ch2.note":"Tek sistem, tek ekip. Rutin otomasyonu, proforma fatura ve mağaza otomasyonu bunun yanında <a href=\"/hizmetler/\">ayrı hizmetlerdir</a>.",
+    "pipe.k":"Müşterinin yolu · Aramadan görüşmeye","pipe.h":"Müşteri sana nasıl gelir?",
+    "pipe.p":"Bir kısmı seni Google'da bulur. Bulmayanı sistem bulur. İkisi de aynı yere çıkar: <b>takvimindeki görüşme.</b>",
+    "pipe.a1":"Sistem","pipe.t1":"Siteni hazırlar.","pipe.n1":"Marka, SEO, satan sayfalar",
+    "pipe.a2":"Müşteri","pipe.t2":"Google'da arar, seni bulur.","pipe.n2":"Organik sonuç ya da Google Ads","pipe.s2":"ilk haftalar",
+    "pipe.a3":"Sistem","pipe.t3":"Bulmayana kendisi gider.","pipe.n3":"Hedef liste, yapay zekâ ile yazılmış kişiye özel mail","pipe.s3":"her gün",
+    "pipe.a4":"Müşteri","pipe.t4":"Cevap yazar, saat alır.","pipe.n4":"Form, WhatsApp ya da mail","pipe.s4":"günler içinde",
     "pipe.a5":"Sen","pipe.t5":"Görüşmeye girersin.","pipe.n5":"Sabah özetinde kim, ne istiyor, hazır",
+    "p1.k":"01 · Web sitesi","p1.h":"Kendi başına müşteri bulan web sitesi","p1.p":"Marka kimliği, sayfa yapısı ve metinler, müşterin aradığında Google seni göstersin diye kurulur. Siteye gelen kişi sana yazsın diye tasarlanır.","p1.n":"Marka kimliği · SEO · satan sayfa",
+    "p2.k":"02 · Reklam","p2.h":"Doğru kişiyi getiren Google ve Meta reklamları","p2.p":"Sektöründe zaten arayan kişiye kampanya. Bütçe, kreatif ve ölçüm bizde; her ay ne harcandığını, ne geri geldiğini görürsün.","p2.n":"Google Ads · Meta · aylık rapor",
+    "p3.k":"03 · Yapay zekâ mail","p3.h":"Sana gelmeyen müşteriye yapay zekâ ulaşır","p3.p":"Sektöründeki hedef listeyi çıkarır, adresleri doğrularız; yapay zekâ her firmaya kişiye özel maili yazar ve gönderir. Cevaplar senin kutuna düşer.","p3.n":"Hedef liste · doğrulanmış adres · kişiye özel mail",
+    "ch2.you":"Bir kez kurulur. Site, reklam ve mailler her gün çalışır; sen sadece görüşmelere girersin.","ch2.cta":"İşinden bahset",
     "ch3.num":"03 — Fark","ch3.tag":"Aynı gün, iki farklı hâli",
     "ch3.h2":"Aynı gün. Bir de sistemle.",
     "ch3.p":"Soldaki gün çoğu patrona tanıdık gelir. Sağdaki, aynı işler sisteme geçtikten sonraki hâli.",
@@ -952,39 +915,33 @@ const I18N={
   },
   en:{
     "meta.title":"astra-meta — Analyze. Systemize. Scale.",
-    "meta.desc":"We analyze how your business actually runs, then build a custom system that takes paperwork, quotes, follow-ups and repetitive work off your plate. Ads, websites and B2B customer acquisition on top. One team.",
-    "nav.model":"Model","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
-    "hero.k1":"Business systems for B2B companies & e-commerce brands","hero.k2":"Analysis · Automation · Growth · One team",
+    "meta.desc":"We make your website show up on Google on its own, then reach the customers in your sector with Google and Meta ads and AI-driven email outreach. Workflow automation, proforma invoicing and store automation as separate services.",
+    "nav.model":"Model","nav.product":"Product","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
+    "hero.k1":"Customer acquisition systems for B2B companies & e-commerce brands","hero.k2":"Website · Ads · AI email · One team",
     "hero.h1":"<span class=\"line\"><span class=\"li\">Analyze.</span></span><span class=\"line grad\"><span class=\"li\">Systemize.</span></span><span class=\"line\"><span class=\"li\">Scale.</span></span>",
-    "hero.lead":"First we look at how your business actually runs and where time and money leak. Then we build <b>a system made for it</b>: paperwork, quotes, follow-ups and every repetitive task run on their own. <b>You focus on growing.</b>",
+    "hero.lead":"First we look at your business: where customers come from, where they slip away. Then we build <b>a system that finds customers</b>: your website shows up on Google on its own, ads reach the right people, AI reaches out by email. <b>You take the calls.</b>",
     "hero.cta1":"Tell us about your business","hero.cta2":"See how it works","hero.scroll":"Scroll","hero.loc":"New York, NY · Working worldwide",
-    "marquee":["Problem Analysis", "Amazon Automation", "Shopify Automation", "Workflow Automation", "Document & Paperwork Automation", "Quotes & Invoicing Flow", "Customer Follow-up", "Ads Consulting", "Website Setup", "B2B Customer Acquisition"],
+    "marquee":["Customer Acquisition System", "Organic Website", "Google Ads", "Meta Ads", "AI Email Automation", "Problem Analysis", "Workflow Automation", "Proforma Invoice Automation", "Amazon Automation", "Shopify Automation"],
     "ch1.num":"01 — The model","ch1.tag":"Analysis + System = Growth",
-    "ch1.intro":"How many times did you write the same email today? How often did you update that spreadsheet, or build a quote from scratch? Work that repeats every day eats half the day, and there's no time left to grow. We find it piece by piece and hand it to a system. <em>We set it up once. After that, it does the work for you every day.</em>",
+    "ch1.intro":"Automate the routine, <em>scale the work.</em>",
     "st1.k":"01 · Analyze","st1.h":"Problem analysis.","st1.p":"We look at a day in your business: what's done by hand, where the time goes. You get a clear list: which tasks move into a system, and how many hours a week you win back.",
     "st2.k":"02 · Systemize","st2.h":"System build.","st2.p":"We connect every task on that list to a system. Quotes, invoices, follow-ups and messages run on their own. You don't touch them.",
     "st3.k":"= Grow","st3.h":"Scale.","st3.p":"Once that work runs in the system, hours open up every week. We put them where they pay: the same system catches the leads from your ads, your website sells, your B2B list turns into new customers. The system keeps running in the back; you grow the business.",
-    "ch2.num":"02 — Services","ch2.tag":"What we do",
-    "ch2.h2":"From analysis to scale. One team.",
-    "ch2.p":"First the system that takes the load off your business, then the growth side, and finally what all of it gives back to you. One team — no separate developer, agency and consultant to chase.",
-    "en1.k":"Systemize","en1.h":"Problem analysis & custom automation",
-    "en1.r1":"Problem analysis for your business","en1.n1":"Who · what · why by hand",
-    "en1.r2":"Paperwork, quote & invoice automation","en1.n2":"Documents · quotes · invoices",
-    "en1.r3":"Your existing tools, connected","en1.n3":"Email · sheets · accounting · CRM",
-    "en1.r4":"Messaging & follow-up automation","en1.n4":"WhatsApp · email · 24/7",
-    "en2.k":"Grow","en2.h":"Ads, website & customer acquisition",
-    "en2.r1":"Meta & Google ads consulting","en2.n1":"Campaign · creative · budget",
-    "en2.r2":"Website setup that sells","en2.n2":"Company site · store · landing page",
-    "en2.r3":"B2B customer acquisition","en2.n3":"Target list · outreach · follow-up",
-    "en2.r4":"Plain-language reporting","en2.n4":"Monthly · spent vs. earned",
-    "ch2.note":"Services are optional. After the analysis we pick together what your business actually needs; the scope differs from one business to the next.","en3.k":"Scale","en3.h":"Your day once the system is running","en3.p":"Built once, runs every day. Everything you used to do by hand now runs in the system; the time you get back goes into growing.","en3.r1":"Quotes reach the customer in minutes","en3.n1":"Before: half a day","en3.r2":"Invoices and paperwork handle themselves","en3.n2":"Before: evening overtime","en3.r3":"No customer ever goes unfollowed","en3.n3":"Before: forgotten messages","en3.r4":"One summary every morning, whole business in view","en3.n4":"Before: five different screens",
-    "pipe.k":"Example run · From ad click to booked call","pipe.h":"What happens when a lead comes in?",
-    "pipe.p":"A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b>",
-    "pipe.a1":"Customer","pipe.t1":"Sees the ad, clicks.","pipe.n1":"Meta · Google · your website",
-    "pipe.a2":"Customer","pipe.t2":"Fills in the form.","pipe.n2":"Name, phone, what they need","pipe.s2":"within seconds",
-    "pipe.a3":"System","pipe.t3":"Replies on WhatsApp.","pipe.n3":"An assistant trained on your business answers their questions","pipe.s3":"within minutes",
-    "pipe.a4":"System","pipe.t4":"Books the call into your calendar.","pipe.n4":"Picks a free slot, logs it to the CRM","pipe.s4":"same day",
+    "ch2.num":"02 — The product","ch2.tag":"Customer acquisition system",
+    "ch2.h2":"Customers find you. The system finds the rest.",
+    "ch2.p":"First we make your whole digital presence fit for finding customers: a website that <b>shows up on Google on its own</b> and a brand that reads clearly. Then we go after the customers who haven't found you yet: Google and Meta ads, and an AI-driven email system that reaches the right companies in your sector.",
+    "ch2.note":"One system, one team. Workflow automation, proforma invoicing and store automation sit next to it as <a href=\"/hizmetler/\">separate services</a>.",
+    "pipe.k":"The customer's path · From search to a call","pipe.h":"How does a customer reach you?",
+    "pipe.p":"Some find you on Google. The ones who don't, the system finds. Both end up in the same place: <b>a call on your calendar.</b>",
+    "pipe.a1":"System","pipe.t1":"Gets your site ready.","pipe.n1":"Brand, SEO, pages that sell",
+    "pipe.a2":"Customer","pipe.t2":"Searches on Google, finds you.","pipe.n2":"Organic result or Google Ads","pipe.s2":"first weeks",
+    "pipe.a3":"System","pipe.t3":"Goes after the ones who didn't.","pipe.n3":"Target list, a personal email written by AI","pipe.s3":"every day",
+    "pipe.a4":"Customer","pipe.t4":"Replies, books a slot.","pipe.n4":"Form, WhatsApp or email","pipe.s4":"within days",
     "pipe.a5":"You","pipe.t5":"Take the call.","pipe.n5":"Morning summary: who they are, what they want",
+    "p1.k":"01 · Website","p1.h":"A website that finds customers on its own","p1.p":"Brand identity, page structure and copy are set up so Google shows you when your customer searches. Built so the person who lands there writes to you.","p1.n":"Brand identity · SEO · pages that sell",
+    "p2.k":"02 · Ads","p2.h":"Google and Meta ads that bring the right people","p2.p":"Campaigns aimed at the people already searching in your sector. Budget, creative and measurement are ours; every month you see what was spent and what came back.","p2.n":"Google Ads · Meta · monthly report",
+    "p3.k":"03 · AI email","p3.h":"AI reaches the customers who don't come to you","p3.p":"We build the target list in your sector and verify the addresses; AI writes a personal email to each company and sends it. Replies land in your inbox.","p3.n":"Target list · verified addresses · personal email",
+    "ch2.you":"Built once. The site, the ads and the emails keep working every day; you only take the calls.","ch2.cta":"Tell us about your business",
     "ch3.num":"03 — The difference","ch3.tag":"Same day, two versions",
     "ch3.h2":"Same day. Now with the system.",
     "ch3.p":"Most owners know the day on the left. The one on the right is the same day after that work moves into a system.",
@@ -1346,7 +1303,7 @@ if(day){
 }
 
 /* ── Scroll: nav, progress ring, parallax, drawn lines ── */
-const nav=$('#nav'),ringP=$('#ringP'),heroOrbit=$('#heroOrbit'),plist=$('#plist'),pline=$('#pline'),engines=$('.engines'),flowFill=$('#flowFill');
+const nav=$('#nav'),ringP=$('#ringP'),heroOrbit=$('#heroOrbit'),plist=$('#plist'),pline=$('#pline');
 let lastY=scrollY,ticking=false,menuOpen=false;
 function onScroll(){
   if(ticking)return;ticking=true;
@@ -1360,7 +1317,6 @@ function onScroll(){
     ringP.style.strokeDashoffset=(50.27*(1-prog)).toFixed(2);
     if(FINE&&!RM&&y<innerHeight*1.3){heroOrbit.style.setProperty('--py',(y*.12).toFixed(1)+'px');heroOrbit.style.setProperty('--rot',(y*.02).toFixed(2)+'deg');}
     const r=plist.getBoundingClientRect();pline.style.transform='scaleY('+clamp((innerHeight*.72-r.top)/r.height,0,1).toFixed(3)+')';
-    const e=engines.getBoundingClientRect();flowFill.style.transform='scaleY('+clamp((innerHeight*.75-e.top)/e.height,0,1).toFixed(3)+')';
     ticking=false;
   });
 }

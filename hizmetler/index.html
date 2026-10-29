@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services · Workflow &amp; proforma automation | astra-meta</title>
+<meta name="description" content="Three services next to the customer acquisition system: workflow automation for paperwork, quotes and follow-ups; proforma invoice automation from order to payment; Amazon and Shopify store automation. Built once, runs every day.">
+
+<!-- ════════════════════════════════════════════════════════════════
+     astra-meta · Hizmetler sayfası (/hizmetler/)
+     Ana sayfadaki "02 Hizmetler" bölümü 2026-10-29'da buraya taşındı; ana sayfada o yerde
+     artık ana ürün (müşteri bulma sistemi) var.
+     • Üç hizmet: 01 Rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini
+       örneği), 02 Proforma fatura otomasyonu (siparişten ödemeye akış + eskiden/şimdi),
+       03 Mağaza otomasyonu (Amazon + Shopify, /ai-automation/ sayfasına bağlanır).
+     • Stil ve davranış ana sayfadan kopyadır (nav, dil, makePipe). Ana sayfada nav/footer
+       değişirse burada ve /ai-automation/ içinde de değiştir.
+     • Dil: ana sayfayla aynı localStorage anahtarı (astra_lang).
+     • Örnek rutin sayıları (6 teklif, 25 dk, 12 saat) örnek hesaptır, metinde öyle yazar.
+     ════════════════════════════════════════════════════════════════ -->
+
+<meta property="og:title" content="Services · Workflow &amp; proforma automation | astra-meta">
+<meta property="og:description" content="Workflow automation, proforma invoice automation and store automation. Each one takes a job you do by hand today and runs it every day.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://astra-meta.com/hizmetler/">
+<meta property="og:image" content="https://astra-meta.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#08080c">
+<link rel="icon" type="image/jpeg" href="/logo.jpg">
+<link rel="apple-touch-icon" href="/logo.jpg">
+<link rel="canonical" href="https://astra-meta.com/hizmetler/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#08080c;--surface:#0f0f17;--surface-2:#14141d;
+    --line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.15);--line-3:rgba(255,255,255,.3);
+    --text:#f3f3f8;--muted:#9a9bae;--dim:#6e6f82;
+    --pink:#ed3aa2;--cyan:#4fc3de;
+    --grad:linear-gradient(100deg,#ed3aa2,#4fc3de);
+    --wrap:1360px;--gx:clamp(20px,4.5vw,64px);
+    --ease:cubic-bezier(.2,.7,.2,1);--ease-out:cubic-bezier(.16,1,.3,1);
+    --fd:'Space Grotesk','Inter',system-ui,sans-serif;
+    --fb:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --fm:'Space Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --nav-h:72px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  html,body{overflow-x:clip}
+  @supports not (overflow-x:clip){html,body{overflow-x:hidden}}
+  body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  ::selection{background:var(--pink);color:#08080c}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  ul,ol{list-style:none}
+  img,svg{display:block;max-width:100%}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:2px}
+  .skip{position:absolute;left:16px;top:-80px;z-index:300;background:var(--text);color:var(--bg);padding:12px 18px;font-weight:600;border-radius:3px}
+  .skip:focus{top:16px}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gx)}
+  .mono{font-family:var(--fm);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);line-height:1.5}
+  h1,h2,h3{font-family:var(--fd);font-weight:700;letter-spacing:-.035em;line-height:.95}
+  .h2{font-size:clamp(40px,6.2vw,96px)}
+
+  /* ── Atmosphere ── */
+  .glow{position:fixed;inset:0;z-index:-2;pointer-events:none;
+    background:radial-gradient(900px 620px at 84% -12%,rgba(237,58,162,.15),transparent 70%),
+               radial-gradient(720px 540px at -4% 8%,rgba(79,195,222,.09),transparent 70%)}
+  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  /* ── Nav (ana sayfayla aynı) ── */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);border-bottom:1px solid transparent;
+    transition:transform .5s var(--ease),background .4s,border-color .4s}
+  .nav.solid{background:rgba(8,8,12,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-color:var(--line)}
+  .nav.hide{transform:translateY(-100%)}
+  .nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;min-height:44px}
+  .brand img{height:36px;width:auto}
+  .nav-links{display:flex;gap:34px}
+  .nav-links a{font-size:14px;color:var(--muted);position:relative;padding:10px 0;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:1px;background:var(--text);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out)}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-links .nav-ai::before{content:"✦";color:var(--pink);font-size:10px;margin-right:7px;vertical-align:1px}
+  .nav-links a[aria-current="page"]{color:var(--text)}
+  .nav-links a[aria-current="page"]::after{transform:scaleX(1);background:var(--grad)}
+  @media(max-width:1180px){.nav-links{gap:22px}.nav-links a{font-size:13px}}
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .ring{width:18px;height:18px;transform:rotate(-90deg);margin-right:8px;flex:none}
+  .ring circle{fill:none;stroke-width:2}
+  .ring .rp{stroke-dasharray:50.27;stroke-dashoffset:50.27}
+  .lang{font-family:var(--fm);font-size:12px;letter-spacing:.12em;padding:0 13px;min-height:44px;min-width:44px;border:1px solid var(--line-2);border-radius:3px;color:var(--text);transition:border-color .25s,color .25s}
+  .lang:hover{border-color:var(--pink);color:var(--pink)}
+  .lang-wrap{position:relative}
+  .lang{display:inline-flex;align-items:center;gap:8px}
+  .flag{width:18px;height:12px;border-radius:2px;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.12)}
+  .lang-wrap[data-cur="tr"] .lang>.flag-en,.lang-wrap[data-cur="en"] .lang>.flag-tr{display:none}
+  .lang-caret{font-size:9px;opacity:.6;transition:transform .2s}
+  .lang-wrap.open .lang-caret{transform:rotate(180deg)}
+  .lang-menu{position:absolute;top:calc(100% + 6px);right:0;min-width:150px;padding:4px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:6px;box-shadow:0 12px 32px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s,transform .18s,visibility .18s;z-index:5}
+  .lang-wrap.open .lang-menu{opacity:1;visibility:visible;transform:none}
+  .lang-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;font-size:14px;font-weight:500;color:var(--muted);border-radius:4px;text-align:left;transition:background .15s,color .15s}
+  .lang-menu button:hover{background:rgba(255,255,255,.06);color:var(--text)}
+  .lang-menu button[aria-selected="true"]{color:var(--text)}
+  .lang-menu button[aria-selected="true"]::after{content:"✓";margin-left:auto;font-size:12px;color:var(--pink)}
+  .menu-foot .lang-menu{right:auto;left:0;top:auto;bottom:calc(100% + 6px);transform:translateY(4px)}
+  .nav-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-size:14px;font-weight:600;border:1px solid var(--line-2);border-radius:3px;transition:border-color .25s,background .25s}
+  .nav-cta:hover{border-color:var(--pink);background:rgba(237,58,162,.1)}
+  .burger{display:none;width:44px;height:44px;position:relative;margin-right:-8px}
+  .burger span{position:absolute;left:11px;right:11px;height:1.5px;background:var(--text);transition:transform .35s var(--ease),top .35s var(--ease)}
+  .burger span:first-child{top:17px}.burger span:last-child{top:26px}
+  .burger[aria-expanded="true"] span:first-child{top:21px;transform:rotate(45deg)}
+  .burger[aria-expanded="true"] span:last-child{top:21px;transform:rotate(-45deg)}
+
+  .menu{position:fixed;inset:0;z-index:90;background:var(--bg);padding:calc(var(--nav-h) + 20px) var(--gx) 36px;
+    display:flex;flex-direction:column;justify-content:space-between;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+  .menu.open{opacity:1;visibility:visible}
+  .menu-links a{display:flex;align-items:baseline;gap:18px;font-family:var(--fd);font-weight:700;font-size:clamp(32px,8.5vw,46px);letter-spacing:-.03em;
+    padding:12px 0;border-bottom:1px solid var(--line);transform:translateY(16px);opacity:0;transition:transform .55s var(--ease-out),opacity .55s}
+  .menu-links a .mono{font-size:11px;min-width:24px}
+  .menu-links a[aria-current="page"] .mono{color:var(--pink)}
+  .menu.open .menu-links a{transform:none;opacity:1}
+  .menu.open .menu-links a:nth-child(2){transition-delay:.05s}.menu.open .menu-links a:nth-child(3){transition-delay:.1s}
+  .menu.open .menu-links a:nth-child(4){transition-delay:.15s}.menu.open .menu-links a:nth-child(5){transition-delay:.2s}
+  .menu.open .menu-links a:nth-child(6){transition-delay:.25s}.menu.open .menu-links a:nth-child(7){transition-delay:.3s}
+  .menu-foot{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+  .menu-foot a{font-size:16px;color:var(--muted);padding:6px 0}
+
+  /* ── Buttons ── */
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;
+    font-weight:600;font-size:15px;border-radius:3px;white-space:nowrap;
+    transition:transform .3s var(--ease-out),box-shadow .3s,border-color .3s,background .3s,color .3s}
+  .btn-primary{background:var(--grad);color:#08080c;box-shadow:0 10px 30px -10px rgba(237,58,162,.5)}
+  .btn-primary:hover{box-shadow:0 18px 44px -12px rgba(237,58,162,.7)}
+  .btn-primary:active{transform:scale(.98)}
+  .btn-ghost{border:1px solid var(--line-2);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--text)}
+  .btn .arr{display:inline-block;transition:transform .3s var(--ease-out)}
+  .btn:hover .arr{transform:translateX(4px)}
+
+  /* ── Reveal system ── */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease-out)}
+  .rv.in{opacity:1;transform:none}
+  .split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+  .split .wi{display:inline-block;transform:translateY(112%);transition:transform .95s var(--ease-out)}
+  .split.in .wi{transform:none}
+
+  /* ── Chapters ── */
+  .chapter{padding:clamp(96px,13vw,190px) 0;position:relative}
+  .ch-head{display:flex;align-items:center;gap:22px;margin-bottom:clamp(44px,7vw,96px)}
+  .ch-head .ch-line{flex:1;height:1px;background:var(--line-2);transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease-out)}
+  .ch-head.in .ch-line{transform:scaleX(1)}
+  .ch-head .mono{white-space:nowrap}
+  .ch-head .mono:first-child{color:var(--text)}
+
+  /* ── Sayfa başı ── */
+  .svc-hero{padding-top:calc(var(--nav-h) + clamp(56px,8vw,120px));padding-bottom:clamp(40px,6vw,80px)}
+  .svc-head-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(40px,6vw,80px)}
+  .svc-head-grid h1{font-size:clamp(38px,5.4vw,84px);letter-spacing:-.04em;max-width:13ch}
+  .svc-head-grid p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:460px;justify-self:end}
+  .svc-head-grid p b{color:var(--text);font-weight:500}
+  .svc-head-grid p a{color:var(--text);border-bottom:1px solid var(--line-3);transition:color .25s,border-color .25s}
+  .svc-head-grid p a:hover{color:var(--pink);border-color:var(--pink)}
+  .svc-index{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:1px solid var(--line)}
+  .svc-index a{display:flex;gap:16px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,21px);letter-spacing:-.015em;line-height:1.2;transition:color .25s}
+  .svc-index a:hover{color:var(--pink)}
+  .svc-index .mono{font-size:11px;flex:none}
+
+  /* ── Hizmet bölümü ortak ── */
+  .svc{border-top:1px solid var(--line)}
+  .svc-top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(48px,7vw,100px)}
+  .svc-top .h2{font-size:clamp(36px,5.2vw,80px);max-width:14ch}
+  .svc-intro{max-width:480px;justify-self:end}
+  .svc-top p{color:var(--muted);font-size:clamp(17px,1.4vw,19px)}
+  .svc-top p b{color:var(--text);font-weight:500}
+  .rows li{display:grid;grid-template-columns:34px 1fr;gap:6px 18px;padding:22px 0;border-top:1px solid var(--line);position:relative}
+  .rows li:last-child{border-bottom:1px solid var(--line)}
+  .rows li::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-out)}
+  .rows li:hover::before{transform:scaleX(1)}
+  .rows .ri{font-family:var(--fm);font-size:12px;color:var(--dim);padding-top:5px}
+  .rows .rt{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,23px);letter-spacing:-.015em;line-height:1.2;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .rows .rt .arr{opacity:0;transform:translateX(-8px);transition:.4s var(--ease-out);color:var(--pink);font-weight:400;flex:none}
+  .rows li:hover .rt .arr{opacity:1;transform:none}
+  .rows .rn{grid-column:2;font-size:11px}
+  .rows-2{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(32px,5vw,80px)}
+  .rows-2 li:nth-child(2){border-top:1px solid var(--line)}
+  .svc-foot{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:clamp(40px,6vw,88px);padding-top:clamp(28px,4vw,48px);border-top:1px solid var(--line)}
+  .svc-you{display:flex;align-items:center;gap:16px;font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;line-height:1.3;max-width:640px}
+  .svc-you i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:16px;font-weight:700}
+
+  /* ── Akış rayı (ana sayfadaki makePipe ile aynı) ── */
+  .pipe{margin:clamp(56px,8vw,120px) 0 0;padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+  .pipe-head{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(48px,6vw,84px)}
+  .pipe-head .mono{display:block;margin-bottom:16px;color:var(--pink)}
+  .pipe-head h3{font-size:clamp(28px,3.6vw,52px);letter-spacing:-.03em;max-width:16ch}
+  .pipe-head p{color:var(--muted);font-size:clamp(16px,1.3vw,18px);max-width:440px;justify-self:end}
+  .pipe-head p b{color:var(--text);font-weight:500}
+  .pipe-rail{position:relative}
+  .pipe-rail::before{content:"";position:absolute;left:5px;top:5px;height:1px;width:var(--rw,100%);background:var(--line-2);transform:scaleX(0);transform-origin:left;transition:transform 1.6s var(--ease-out)}
+  .pipe.in .pipe-rail::before{transform:scaleX(1)}
+  .pipe-fill{position:absolute;left:5px;top:5px;height:1px;width:0;background:var(--grad);pointer-events:none}
+  .pipe-pk{position:absolute;left:0;top:0;width:11px;height:11px;border-radius:50%;background:var(--text);box-shadow:0 0 0 4px rgba(243,243,248,.12),0 0 18px rgba(79,195,222,.85);opacity:0;pointer-events:none;will-change:transform}
+  .pipe-list{display:grid;grid-template-columns:repeat(5,1fr);gap:0 28px;padding-top:34px}
+  .pipe-node{position:relative;min-width:0}
+  .pipe-dot{position:absolute;left:0;top:-34px;width:11px;height:11px;border-radius:50%;border:1px solid var(--line-3);background:var(--bg)}
+  .pipe-node.hit .pipe-dot{animation:pipehit .9s var(--ease-out)}
+  @keyframes pipehit{0%{box-shadow:0 0 0 0 rgba(237,58,162,.7);border-color:var(--pink);background:var(--pink)}100%{box-shadow:0 0 0 16px rgba(237,58,162,0);border-color:var(--line-3);background:var(--bg)}}
+  .pipe-act{display:block;margin-bottom:10px;font-size:11px}
+  .pipe-act.c{color:var(--cyan)}.pipe-act.s{color:var(--pink)}.pipe-act.u{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .pipe-node h4{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.5vw,22px);letter-spacing:-.015em;line-height:1.2;margin-bottom:8px;max-width:15ch}
+  .pipe-node p{font-size:14px;line-height:1.5;color:var(--muted);max-width:24ch}
+  .pipe-seg{position:absolute;left:calc(50% + 14px);top:-58px;transform:translateX(-50%);white-space:nowrap;font-size:10px;color:var(--dim)}
+
+  /* ── Adım adım örnek (ana sayfadaki süreç listesiyle aynı dil) ── */
+  .ex{margin-top:clamp(56px,8vw,120px);padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+  .plist{position:relative;border-top:1px solid var(--line)}
+  .plist::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--line)}
+  .pline{position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--pink),var(--cyan));transform:scaleY(0);transform-origin:top}
+  .pstep{display:grid;grid-template-columns:110px 190px 1fr;gap:24px;padding:clamp(28px,4vw,48px) 0 clamp(28px,4vw,48px) clamp(24px,4vw,56px);border-bottom:1px solid var(--line)}
+  .pstep .pn{font-family:var(--fd);font-weight:700;font-size:clamp(40px,5vw,72px);line-height:.85;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px var(--line-3)}
+  .pstep .pw{padding-top:10px;color:var(--muted)}
+  .pstep h3{font-size:clamp(24px,2.8vw,40px);letter-spacing:-.025em;margin-bottom:12px;max-width:18ch}
+  .pstep p{color:var(--muted);max-width:560px}
+  .pstep:nth-child(3) h3{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+
+  /* ── Kapanış ── */
+  .cta-end{padding:clamp(96px,13vw,190px) 0;text-align:center;border-top:1px solid var(--line)}
+  .cta-end .mono{display:block;margin-bottom:22px}
+  .cta-end h2{font-size:clamp(36px,6vw,96px);letter-spacing:-.04em;max-width:16ch;margin:0 auto 34px}
+  .cta-end .note{margin-top:18px;font-size:14px;color:var(--dim)}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:56px 0 34px;color:var(--muted);font-size:14px}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+  .fbrand img{height:32px;width:auto;margin-bottom:18px}
+  .faddr{font-style:normal;line-height:1.7;font-size:13.5px}
+  .fcol .mono{margin-bottom:12px;display:block}
+  .fcol a,.fcol button{display:block;padding:6px 0;transition:color .25s;text-align:left}
+  .fcol a:hover,.fcol button:hover{color:var(--text)}
+  .fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
+  .totop{display:inline-flex;align-items:center;gap:8px;color:var(--muted);min-height:44px}
+  .totop:hover{color:var(--text)}
+
+  /* ── Responsive ── */
+  @media(max-width:1024px){
+    .svc-head-grid,.svc-top,.rows-2{grid-template-columns:1fr}
+    .svc-head-grid p,.svc-top p{justify-self:start}
+    .svc-intro{max-width:560px}
+    .svc-index{grid-template-columns:1fr}
+    .rows-2 li:nth-child(2){border-top:0}
+    .fgrid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:820px){
+    :root{--nav-h:64px}
+    .nav-links,.nav .ring,.nav-cta{display:none}
+    .burger{display:block}
+    .brand img{height:30px}
+    .fgrid{grid-template-columns:1fr}
+    .ch-head .mono:last-child{display:none}
+    .pipe-head{grid-template-columns:1fr;gap:18px}
+    .pipe-head p{justify-self:start}
+    .pipe-rail::before{width:1px;height:var(--rh,100%);transform:scaleY(0);transform-origin:top}
+    .pipe.in .pipe-rail::before{transform:scaleY(1)}
+    .pipe-fill{width:1px;height:0}
+    .pipe-list{grid-template-columns:1fr;gap:0;padding:0 0 0 34px}
+    .pipe-node{padding-bottom:40px}
+    .pipe-node:last-child{padding-bottom:0}
+    .pipe-dot{left:-34px;top:3px}
+    .pipe-node h4,.pipe-node p{max-width:none}
+    .pipe-seg{position:static;transform:none;display:block;margin-top:14px}
+    .pstep{grid-template-columns:1fr;gap:8px;padding-left:22px}
+    .pstep .pw{padding-top:0}
+    .svc-foot .btn{width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .rv,.split .wi,.ch-head .ch-line,.menu-links a{transition:none!important;opacity:1!important;transform:none!important}
+    .pipe-node.hit .pipe-dot{animation:none!important}
+    .pipe-rail::before,.pline{transform:none!important}
+    .nav{transition:none}
+  }
+</style>
+<noscript><style>.rv{opacity:1;transform:none}.ch-head .ch-line{transform:none}.pline{transform:none}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="glow" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ── NAV (ana sayfayla aynı; bölüm linkleri ana sayfaya gider) ── -->
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="astra-meta · home"><img src="/logo-nav.webp" alt="astra-meta" width="219" height="96"></a>
+    <div class="nav-links">
+      <a href="/#model" data-i18n="nav.model">Model</a>
+      <a href="/#musteri-bulma" data-i18n="nav.product">Product</a>
+      <a href="/hizmetler/" aria-current="page" data-i18n="nav.services">Services</a>
+      <a href="/#neden" data-i18n="nav.proof">Difference</a>
+      <a href="/#surec" data-i18n="nav.process">Process</a>
+      <a href="/#isinden-bahset" data-i18n="nav.contact">Contact</a>
+      <a class="nav-ai" href="/ai-automation/" data-i18n="nav.ai">AI Automation</a>
+    </div>
+    <div class="nav-right">
+      <svg class="ring" viewBox="0 0 24 24" aria-hidden="true">
+        <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ed3aa2"/><stop offset="1" stop-color="#4fc3de"/></linearGradient></defs>
+        <circle cx="12" cy="12" r="8" stroke="rgba(255,255,255,.15)"/>
+        <circle class="rp" id="ringP" cx="12" cy="12" r="8" stroke="url(#ringGrad)" stroke-linecap="round"/>
+      </svg>
+      <div class="lang-wrap" data-cur="en">
+        <button class="lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / Dil"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg><span class="lang-code">EN</span><span class="lang-caret" aria-hidden="true">▾</span></button>
+        <div class="lang-menu" role="listbox">
+          <button type="button" role="option" data-lang="tr" aria-selected="false"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg>Türkçe</button>
+          <button type="button" role="option" data-lang="en" aria-selected="true"><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg>English</button>
+        </div>
+      </div>
+      <a class="nav-cta" href="/#isinden-bahset" data-i18n="nav.cta">Let's talk</a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="menu" id="menu">
+  <nav class="menu-links" aria-label="Mobile">
+    <a href="/#model"><span class="mono">01</span><span data-i18n="nav.model">Model</span></a>
+    <a href="/#musteri-bulma"><span class="mono">02</span><span data-i18n="nav.product">Product</span></a>
+    <a href="/hizmetler/" aria-current="page"><span class="mono">03</span><span data-i18n="nav.services">Services</span></a>
+    <a href="/#neden"><span class="mono">04</span><span data-i18n="nav.proof">Difference</span></a>
+    <a href="/#surec"><span class="mono">05</span><span data-i18n="nav.process">Process</span></a>
+    <a href="/#isinden-bahset"><span class="mono">06</span><span data-i18n="nav.contact">Contact</span></a>
+    <a href="/ai-automation/"><span class="mono">✦</span><span data-i18n="nav.ai">AI Automation</span></a>
+  </nav>
+  <div class="menu-foot">
+    <div class="lang-wrap" data-cur="en">
+      <button class="lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language / Dil"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg><span class="lang-code">EN</span><span class="lang-caret" aria-hidden="true">▾</span></button>
+      <div class="lang-menu" role="listbox">
+        <button type="button" role="option" data-lang="tr" aria-selected="false"><svg class="flag flag-tr" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11.5" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#E30A17"/><polygon fill="#fff" points="19.2,10 15.9,8.9 17.9,11.8 17.9,8.2 15.9,11.1"/></svg>Türkçe</button>
+        <button type="button" role="option" data-lang="en" aria-selected="true"><svg class="flag flag-en" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect y="0" width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.31" width="30" height="1.54"/><rect y="15.38" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3C3B6E"/></svg>English</button>
+      </div>
+    </div>
+    <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
+  </div>
+</div>
+
+<main id="main">
+<!-- ── Sayfa başı ── -->
+<section id="top" class="chapter svc-hero">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="sv.num">Services</span><span class="ch-line"></span><span class="mono" data-i18n="sv.tag">Next to the main product</span></div>
+    <div class="svc-head-grid">
+      <h1 class="split" data-i18n="sv.h">Build it once. It runs every day.</h1>
+      <p class="rv" data-i18n-html="sv.p">Our main product is the <a href="/#musteri-bulma">customer acquisition system</a>. The three services below sit next to it or stand on their own: <b>each one takes a job you do by hand today and runs it for you every day.</b> After the analysis we pick together which ones you actually need.</p>
+    </div>
+    <ol class="svc-index rv">
+      <li><a href="#rutin"><span class="mono">01</span><span data-i18n="sv.i1">Workflow automation</span></a></li>
+      <li><a href="#proforma"><span class="mono">02</span><span data-i18n="sv.i2">Proforma invoice automation</span></a></li>
+      <li><a href="#magaza"><span class="mono">03</span><span data-i18n="sv.i3">Store automation · Amazon &amp; Shopify</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ── 01 RUTİN OTOMASYONU ── -->
+<section id="rutin" class="chapter svc">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="r.num">01 — Workflow automation</span><span class="ch-line"></span><span class="mono" data-i18n="r.tag">Paperwork · quotes · follow-up</span></div>
+    <div class="svc-top">
+      <h2 class="h2 split" data-i18n="r.h2">Do it by hand one last time. Then never again.</h2>
+      <div class="svc-intro rv">
+        <p data-i18n="r.p">We look at a day in your business and find what repeats: the same email, the same quote, the same invoice, the same follow-up, the same spreadsheet updated again. Each one is connected to the tools you already use; nothing new to learn.</p>
+      </div>
+    </div>
+    <ul class="rows rows-2 rv">
+      <li><span class="ri">01</span><span class="rt"><span data-i18n="r.r1">Problem analysis for your business</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n1">Who · what · why by hand</span></li>
+      <li><span class="ri">02</span><span class="rt"><span data-i18n="r.r2">Paperwork, quote &amp; invoice automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n2">Documents · quotes · invoices</span></li>
+      <li><span class="ri">03</span><span class="rt"><span data-i18n="r.r3">Your existing tools, connected</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n3">Email · sheets · accounting · CRM</span></li>
+      <li><span class="ri">04</span><span class="rt"><span data-i18n="r.r4">Messaging &amp; follow-up automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n4">WhatsApp · email · 24/7</span></li>
+    </ul>
+
+    <!-- Örnek akış: reklamdan randevuya (ana sayfadan taşındı) -->
+    <div class="pipe rv">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="rp.k">Example run · From ad click to booked call</span>
+          <h3 data-i18n="rp.h">What happens when a lead comes in?</h3>
+        </div>
+        <p data-i18n-html="rp.p">A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b></p>
+      </div>
+      <div class="pipe-rail" id="pipeRutin">
+        <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
+        <ol class="pipe-list">
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="rp.a1">Customer</span><h4 data-i18n="rp.t1">Sees the ad, clicks.</h4><p data-i18n="rp.n1">Meta · Google · your website</p></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="rp.a2">Customer</span><h4 data-i18n="rp.t2">Fills in the form.</h4><p data-i18n="rp.n2">Name, phone, what they need</p><span class="mono pipe-seg" data-i18n="rp.s2">within seconds</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="rp.a3">System</span><h4 data-i18n="rp.t3">Replies on WhatsApp.</h4><p data-i18n="rp.n3">An assistant trained on your business answers their questions</p><span class="mono pipe-seg" data-i18n="rp.s3">within minutes</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="rp.a4">System</span><h4 data-i18n="rp.t4">Books the call into your calendar.</h4><p data-i18n="rp.n4">Picks a free slot, logs it to the CRM</p><span class="mono pipe-seg" data-i18n="rp.s4">same day</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="rp.a5">You</span><h4 data-i18n="rp.t5">Take the call.</h4><p data-i18n="rp.n5">Morning summary: who they are, what they want</p></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Adım adım: bir rutin nasıl analiz edilir, kurulur, ne kazandırır, nasıl ölçekler -->
+    <div class="ex rv">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="ex.k">Step by step · The quote routine</span>
+          <h3 data-i18n="ex.h">How one routine moves into the system</h3>
+        </div>
+        <p data-i18n="ex.p">The numbers are an example; yours come out of the analysis. The logic is the same for every routine: measure, build, gain, scale.</p>
+      </div>
+      <div class="plist" id="plist"><ol>
+        <li class="pstep"><span class="pn" aria-hidden="true">01</span><span class="pw mono" data-i18n="ex1.w">Day 1</span><div><h3 data-i18n="ex1.h">Analysis: 6 quotes a day, 25 minutes each</h3><p data-i18n="ex1.p">Each one typed by hand from an old spreadsheet: price list, currency, lead time. 12 hours a week, plus the typos.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">02</span><span class="pw mono" data-i18n="ex2.w">Weeks 1–2</span><div><h3 data-i18n="ex2.h">Build: request in, quote out</h3><p data-i18n="ex2.p">The request arrives by form or email. The system pulls the price, fills the template, makes the PDF and sends it. You look only at the unusual ones.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">03</span><span class="pw mono" data-i18n="ex3.w">From week 3</span><div><h3 data-i18n="ex3.h">Gain: 2 minutes instead of 25. 12 hours a week back.</h3><p data-i18n="ex3.p">About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">04</span><span class="pw mono" data-i18n="ex4.w">Ongoing</span><div><h3 data-i18n="ex4.h">Scale: three times the quotes, same team</h3><p data-i18n="ex4.p">When the work grows, the hours don't. The time you get back goes into finding customers.</p></div></li>
+      </ol><div class="pline" id="pline" aria-hidden="true"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 02 PROFORMA FATURA OTOMASYONU ── -->
+<section id="proforma" class="chapter svc">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="pf.num">02 — Proforma invoice automation</span><span class="ch-line"></span><span class="mono" data-i18n="pf.tag">Order → proforma → payment</span></div>
+    <div class="svc-top">
+      <h2 class="h2 split" data-i18n="pf.h2">The proforma is ready before you open Excel.</h2>
+      <div class="svc-intro rv">
+        <p data-i18n="pf.p">For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. The system prepares it from the quote or the order, sends it, follows the payment and logs it in accounting. You approve.</p>
+      </div>
+    </div>
+    <div class="pipe rv" style="margin-top:0">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="pf.k">The flow · From order to payment</span>
+          <h3 data-i18n="pf.h">What happens when an order comes in?</h3>
+        </div>
+        <p data-i18n-html="pf.pp">Whichever channel the customer writes on, the path is the same: order, proforma, approval, payment and accounting are one chain. <b>You're only the approval link.</b></p>
+      </div>
+      <div class="pipe-rail" id="pipeProforma">
+        <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
+        <ol class="pipe-list">
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pf.a1">Customer</span><h4 data-i18n="pf.t1">Asks for a quote or places an order.</h4><p data-i18n="pf.n1">Email, WhatsApp, form or B2B portal</p></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pf.a2">System</span><h4 data-i18n="pf.t2">Prepares the proforma.</h4><p data-i18n="pf.n2">Product codes, quantity, price, currency, terms, incoterm</p><span class="mono pipe-seg" data-i18n="pf.s2">within minutes</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="pf.a3">You</span><h4 data-i18n="pf.t3">Approve with one click.</h4><p data-i18n="pf.n3">Standard ones can go out on their own</p><span class="mono pipe-seg" data-i18n="pf.s3">same day</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pf.a4">System</span><h4 data-i18n="pf.t4">Sends it and follows up.</h4><p data-i18n="pf.n4">PDF to the customer, reminder, payment notice</p></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pf.a5">System</span><h4 data-i18n="pf.t5">Logs it in accounting and stock.</h4><p data-i18n="pf.n5">ERP, spreadsheet or your accounting software</p></li>
+        </ol>
+      </div>
+    </div>
+    <div class="ex rv">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="pg.k">What changes</span>
+          <h3 data-i18n="pg.h">Before and after, document by document</h3>
+        </div>
+      </div>
+      <ul class="rows">
+        <li><span class="ri">01</span><span class="rt"><span data-i18n="pf.g1">Proforma ready in minutes, not an afternoon</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b1">Before: 20 minutes per document, Excel and Word side by side</span></li>
+        <li><span class="ri">02</span><span class="rt"><span data-i18n="pf.g2">Price, currency, terms and product codes without typos</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b2">Before: copy-paste errors the customer found</span></li>
+        <li><span class="ri">03</span><span class="rt"><span data-i18n="pf.g3">Payment followed on its own</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b3">Before: the “did you receive the proforma?” email</span></li>
+        <li><span class="ri">04</span><span class="rt"><span data-i18n="pf.g4">Accounting and stock updated once</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b4">Before: the same data typed in three places</span></li>
+        <li><span class="ri">05</span><span class="rt"><span data-i18n="pf.g5">Multi-language, multi-currency</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b5">EN · DE · FR · USD · EUR · TRY</span></li>
+      </ul>
+    </div>
+    <div class="svc-foot rv">
+      <p class="svc-you"><i aria-hidden="true">✓</i><span data-i18n="pf.you">Every proforma waits for your approval until you say otherwise.</span></p>
+      <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="pf.cta">Talk about your proforma flow</span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── 03 MAĞAZA OTOMASYONU (Amazon + Shopify, ayrıntı /ai-automation/) ── -->
+<section id="magaza" class="chapter svc">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="mg.num">03 — Store automation</span><span class="ch-line"></span><span class="mono" data-i18n="mg.tag">Amazon &amp; Shopify</span></div>
+    <div class="svc-top" style="margin-bottom:0">
+      <h2 class="h2 split" data-i18n="mg.h2">The system finds the product. The system runs the store.</h2>
+      <div class="svc-intro rv">
+        <p data-i18n="mg.p">The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.</p>
+        <a class="btn btn-ghost" href="/ai-automation/" style="margin-top:28px"><span data-i18n="mg.cta">See the store system</span><span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Kapanış ── -->
+<section class="cta-end" aria-label="Contact">
+  <div class="wrap">
+    <span class="mono rv" data-i18n="cta.k">Which one eats your day?</span>
+    <h2 class="rv" data-i18n="cta.h">Tell us about your business and we'll say where to start.</h2>
+    <a class="btn btn-primary rv" href="/#isinden-bahset"><span data-i18n="cta.btn">Tell us about your business</span><span class="arr">→</span></a>
+    <p class="note rv" data-i18n="cta.note">The first consultation is free. No commitment.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <img src="/logo-nav.webp" alt="astra-meta" width="219" height="96">
+        <address class="faddr">astra-meta LLC<br>169 Madison Ave STE 11534 Unit 180<br>New York, NY 10016 · USA</address>
+      </div>
+      <div class="fcol">
+        <span class="mono" data-i18n="foot.contact">Contact</span>
+        <a href="mailto:aydin@astra-meta.com">aydin@astra-meta.com</a>
+        <a href="mailto:info@astra-meta.com">info@astra-meta.com</a>
+        <a href="https://instagram.com/astrametamedia" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div class="fcol">
+        <span class="mono" data-i18n="foot.legal">Legal</span>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/refund.html">Refund &amp; Cancellation</a>
+      </div>
+      <div class="fcol">
+        <span class="mono" data-i18n="foot.lang">Language</span>
+        <button class="lang-text" type="button" data-lang="tr">Türkçe</button>
+        <button class="lang-text" type="button" data-lang="en">English</button>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span data-i18n="foot.copy">© 2026 astra-meta LLC · Analyze. Systemize. Scale.</span>
+      <a class="totop" href="#top"><span data-i18n="foot.top">Back to top</span> ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+const $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* ── i18n ── */
+const I18N={
+  tr:{
+    "meta.title":"Hizmetler · Rutin ve proforma otomasyonu | astra-meta",
+    "meta.desc":"Müşteri bulma sisteminin yanında üç hizmet: evrak, teklif ve takip için rutin otomasyonu; siparişten ödemeye proforma fatura otomasyonu; Amazon ve Shopify mağaza otomasyonu. Bir kez kurulur, her gün çalışır.",
+    "nav.model":"Model","nav.product":"Ürün","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
+    "sv.num":"Hizmetler","sv.tag":"Ana ürünün yanında",
+    "sv.h":"Bir kez kur, her gün çalışsın.",
+    "sv.p":"Ana ürünümüz <a href=\"/#musteri-bulma\">müşteri bulma sistemi</a>. Aşağıdaki üç hizmet onun yanına ya da tek başına kurulur: <b>her biri bugün elle yaptığın bir işi alır, her gün senin yerine yapar.</b> Hangisinin gerekli olduğunu analizden sonra birlikte seçeriz.",
+    "sv.i1":"Rutin otomasyonu","sv.i2":"Proforma fatura otomasyonu","sv.i3":"Mağaza otomasyonu · Amazon ve Shopify",
+    "r.num":"01 — Rutin otomasyonu","r.tag":"Evrak · teklif · takip",
+    "r.h2":"Son bir kez elle yap. Sonra bir daha hiç.",
+    "r.p":"Bir gününe bakarız ve tekrar edeni buluruz: aynı mail, aynı teklif, aynı fatura, aynı takip, yine güncellenen aynı Excel. Her birini zaten kullandığın araçlara bağlarız; yeni bir program öğrenmezsin.",
+    "r.r1":"İşletmeye özel problem analizi","r.n1":"Kim · ne · neden elle",
+    "r.r2":"Evrak, teklif ve fatura otomasyonu","r.n2":"Belge · teklif · fatura",
+    "r.r3":"Mevcut araçların birbirine bağlanması","r.n3":"E-posta · Excel · muhasebe · CRM",
+    "r.r4":"Mesaj ve müşteri takibi otomasyonu","r.n4":"WhatsApp · e-posta · 7/24",
+    "rp.k":"Örnek akış · Reklamdan randevuya","rp.h":"Bir talep geldiğinde ne olur?",
+    "rp.p":"Gece üçte gelen talep de sabah dokuzda gelen de aynı yoldan geçer: reklam, form, mesaj ve takvim tek zincirdir. <b>Sen yalnızca son halkasın.</b>",
+    "rp.a1":"Müşteri","rp.t1":"Reklamı görür, tıklar.","rp.n1":"Meta · Google · web siten",
+    "rp.a2":"Müşteri","rp.t2":"Formu doldurur.","rp.n2":"Adı, telefonu, ne istediği","rp.s2":"saniyeler içinde",
+    "rp.a3":"Sistem","rp.t3":"WhatsApp'tan dönüş yapılır.","rp.n3":"İşine göre eğitilmiş asistan sorularını yanıtlar","rp.s3":"dakikalar içinde",
+    "rp.a4":"Sistem","rp.t4":"Randevu takvimine düşer.","rp.n4":"Uygun saati seçer, CRM'e işler","rp.s4":"aynı gün",
+    "rp.a5":"Sen","rp.t5":"Görüşmeye girersin.","rp.n5":"Sabah özetinde kim, ne istiyor, hazır",
+    "ex.k":"Adım adım · Teklif rutini örneği","ex.h":"Bir rutin sisteme nasıl geçer?",
+    "ex.p":"Sayılar örnektir; seninkiler analizde çıkar. Mantık her rutinde aynı: ölç, kur, kazan, ölçekle.",
+    "ex1.w":"1. gün","ex1.h":"Analiz: günde 6 teklif, her biri 25 dakika","ex1.p":"Her biri eski bir Excel'den elle yazılıyor: fiyat listesi, kur, termin. Haftada 12 saat, üstüne yazım hataları.",
+    "ex2.w":"1–2. hafta","ex2.h":"Kurulum: talep girer, teklif çıkar","ex2.p":"Talep form ya da mailden gelir. Sistem fiyatı çeker, şablonu doldurur, PDF'i hazırlar ve gönderir. Sen yalnızca sıra dışı olana bakarsın.",
+    "ex3.w":"3. haftadan itibaren","ex3.h":"Kazanç: 25 dakika yerine 2. Haftada 12 saat geri.","ex3.p":"Ayda yaklaşık 48 saat, bir çalışanın mesaisinin dörtte biri. Kopyala yapıştır hatası sıfır, teklif takibi kendiliğinden.",
+    "ex4.w":"Sürekli","ex4.h":"Ölçek: aynı ekiple üç kat teklif","ex4.p":"İş büyüyünce saat büyümez. Geri gelen vakit müşteri bulmaya gider.",
+    "pf.num":"02 — Proforma fatura otomasyonu","pf.tag":"Sipariş → proforma → ödeme",
+    "pf.h2":"Sen Excel'i açmadan proforma hazır.",
+    "pf.p":"İhracatçı ve toptancıda işi bağlayan belge proformadır: yanlış kur, eksik vade ya da bir günlük gecikme siparişi götürür. Sistem proformayı tekliften ya da siparişten hazırlar, gönderir, ödemeyi takip eder ve muhasebeye işler. Sen onaylarsın.",
+    "pf.k":"Akış · Siparişten ödemeye","pf.h":"Bir sipariş geldiğinde ne olur?",
+    "pf.pp":"Müşteri hangi kanaldan yazarsa yazsın yol aynı: sipariş, proforma, onay, ödeme ve muhasebe tek zincirdir. <b>Sen yalnızca onay halkasısın.</b>",
+    "pf.a1":"Müşteri","pf.t1":"Teklif ister ya da sipariş verir.","pf.n1":"Mail, WhatsApp, form ya da B2B portal",
+    "pf.a2":"Sistem","pf.t2":"Proformayı hazırlar.","pf.n2":"Ürün kodu, adet, fiyat, kur, vade, teslim şekli","pf.s2":"dakikalar içinde",
+    "pf.a3":"Sen","pf.t3":"Tek tıkla onaylarsın.","pf.n3":"Standart olanlar istersen kendiliğinden gider","pf.s3":"aynı gün",
+    "pf.a4":"Sistem","pf.t4":"Gönderir, takip eder.","pf.n4":"PDF müşteriye, hatırlatma, ödeme bildirimi",
+    "pf.a5":"Sistem","pf.t5":"Muhasebeye ve stoğa işler.","pf.n5":"ERP, Excel ya da muhasebe programın",
+    "pg.k":"Ne değişir","pg.h":"Eskiden ve şimdi, belge belge",
+    "pf.g1":"Proforma bir öğleden sonra değil, dakikalar içinde hazır","pf.b1":"Eskiden: belge başı 20 dakika, Excel ve Word yan yana",
+    "pf.g2":"Fiyat, kur, vade ve ürün kodu hatasız","pf.b2":"Eskiden: müşterinin bulduğu kopyala yapıştır hatası",
+    "pf.g3":"Ödeme kendiliğinden takip edilir","pf.b3":"Eskiden: “proformayı aldınız mı?” maili",
+    "pf.g4":"Muhasebe ve stok bir kez güncellenir","pf.b4":"Eskiden: aynı veri üç yere elle",
+    "pf.g5":"Çok dilli, çok para birimli","pf.b5":"EN · DE · FR · USD · EUR · TRY",
+    "pf.you":"Sen aksini söyleyene kadar her proforma onayını bekler.","pf.cta":"Proforma akışını konuşalım",
+    "mg.num":"03 — Mağaza otomasyonu","mg.tag":"Amazon ve Shopify",
+    "mg.h2":"Ürünü sistem bulur, mağazayı sistem yönetir.",
+    "mg.p":"Kendi Amazon ve Shopify mağazalarımızı her gün yöneten sistemi senin mağazana kuruyoruz: ürün bulma, eleme, listeleme, fiyat ve stok takibi, reklam. Para çıkan her adım senin onayınla. Canlı sistemden gerçek sipariş ekranları ayrı sayfada.",
+    "mg.cta":"Mağaza sistemini gör",
+    "cta.k":"Hangisi senin gününü alıyor?","cta.h":"Bize işini anlat, nereden başlanacağını söyleyelim.","cta.btn":"İşinden bahset","cta.note":"İlk görüşme ücretsiz, taahhüt yok.",
+    "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Analiz et. Sistem kur. Ölçekle.","foot.top":"Başa dön"
+  },
+  en:{
+    "meta.title":"Services · Workflow & proforma automation | astra-meta",
+    "meta.desc":"Three services next to the customer acquisition system: workflow automation for paperwork, quotes and follow-ups; proforma invoice automation from order to payment; Amazon and Shopify store automation. Built once, runs every day.",
+    "nav.model":"Model","nav.product":"Product","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
+    "sv.num":"Services","sv.tag":"Next to the main product",
+    "sv.h":"Build it once. It runs every day.",
+    "sv.p":"Our main product is the <a href=\"/#musteri-bulma\">customer acquisition system</a>. The three services below sit next to it or stand on their own: <b>each one takes a job you do by hand today and runs it for you every day.</b> After the analysis we pick together which ones you actually need.",
+    "sv.i1":"Workflow automation","sv.i2":"Proforma invoice automation","sv.i3":"Store automation · Amazon & Shopify",
+    "r.num":"01 — Workflow automation","r.tag":"Paperwork · quotes · follow-up",
+    "r.h2":"Do it by hand one last time. Then never again.",
+    "r.p":"We look at a day in your business and find what repeats: the same email, the same quote, the same invoice, the same follow-up, the same spreadsheet updated again. Each one is connected to the tools you already use; nothing new to learn.",
+    "r.r1":"Problem analysis for your business","r.n1":"Who · what · why by hand",
+    "r.r2":"Paperwork, quote & invoice automation","r.n2":"Documents · quotes · invoices",
+    "r.r3":"Your existing tools, connected","r.n3":"Email · sheets · accounting · CRM",
+    "r.r4":"Messaging & follow-up automation","r.n4":"WhatsApp · email · 24/7",
+    "rp.k":"Example run · From ad click to booked call","rp.h":"What happens when a lead comes in?",
+    "rp.p":"A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b>",
+    "rp.a1":"Customer","rp.t1":"Sees the ad, clicks.","rp.n1":"Meta · Google · your website",
+    "rp.a2":"Customer","rp.t2":"Fills in the form.","rp.n2":"Name, phone, what they need","rp.s2":"within seconds",
+    "rp.a3":"System","rp.t3":"Replies on WhatsApp.","rp.n3":"An assistant trained on your business answers their questions","rp.s3":"within minutes",
+    "rp.a4":"System","rp.t4":"Books the call into your calendar.","rp.n4":"Picks a free slot, logs it to the CRM","rp.s4":"same day",
+    "rp.a5":"You","rp.t5":"Take the call.","rp.n5":"Morning summary: who they are, what they want",
+    "ex.k":"Step by step · The quote routine","ex.h":"How one routine moves into the system",
+    "ex.p":"The numbers are an example; yours come out of the analysis. The logic is the same for every routine: measure, build, gain, scale.",
+    "ex1.w":"Day 1","ex1.h":"Analysis: 6 quotes a day, 25 minutes each","ex1.p":"Each one typed by hand from an old spreadsheet: price list, currency, lead time. 12 hours a week, plus the typos.",
+    "ex2.w":"Weeks 1–2","ex2.h":"Build: request in, quote out","ex2.p":"The request arrives by form or email. The system pulls the price, fills the template, makes the PDF and sends it. You look only at the unusual ones.",
+    "ex3.w":"From week 3","ex3.h":"Gain: 2 minutes instead of 25. 12 hours a week back.","ex3.p":"About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.",
+    "ex4.w":"Ongoing","ex4.h":"Scale: three times the quotes, same team","ex4.p":"When the work grows, the hours don't. The time you get back goes into finding customers.",
+    "pf.num":"02 — Proforma invoice automation","pf.tag":"Order → proforma → payment",
+    "pf.h2":"The proforma is ready before you open Excel.",
+    "pf.p":"For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. The system prepares it from the quote or the order, sends it, follows the payment and logs it in accounting. You approve.",
+    "pf.k":"The flow · From order to payment","pf.h":"What happens when an order comes in?",
+    "pf.pp":"Whichever channel the customer writes on, the path is the same: order, proforma, approval, payment and accounting are one chain. <b>You're only the approval link.</b>",
+    "pf.a1":"Customer","pf.t1":"Asks for a quote or places an order.","pf.n1":"Email, WhatsApp, form or B2B portal",
+    "pf.a2":"System","pf.t2":"Prepares the proforma.","pf.n2":"Product codes, quantity, price, currency, terms, incoterm","pf.s2":"within minutes",
+    "pf.a3":"You","pf.t3":"Approve with one click.","pf.n3":"Standard ones can go out on their own","pf.s3":"same day",
+    "pf.a4":"System","pf.t4":"Sends it and follows up.","pf.n4":"PDF to the customer, reminder, payment notice",
+    "pf.a5":"System","pf.t5":"Logs it in accounting and stock.","pf.n5":"ERP, spreadsheet or your accounting software",
+    "pg.k":"What changes","pg.h":"Before and after, document by document",
+    "pf.g1":"Proforma ready in minutes, not an afternoon","pf.b1":"Before: 20 minutes per document, Excel and Word side by side",
+    "pf.g2":"Price, currency, terms and product codes without typos","pf.b2":"Before: copy-paste errors the customer found",
+    "pf.g3":"Payment followed on its own","pf.b3":"Before: the “did you receive the proforma?” email",
+    "pf.g4":"Accounting and stock updated once","pf.b4":"Before: the same data typed in three places",
+    "pf.g5":"Multi-language, multi-currency","pf.b5":"EN · DE · FR · USD · EUR · TRY",
+    "pf.you":"Every proforma waits for your approval until you say otherwise.","pf.cta":"Talk about your proforma flow",
+    "mg.num":"03 — Store automation","mg.tag":"Amazon & Shopify",
+    "mg.h2":"The system finds the product. The system runs the store.",
+    "mg.p":"The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.",
+    "mg.cta":"See the store system",
+    "cta.k":"Which one eats your day?","cta.h":"Tell us about your business and we'll say where to start.","cta.btn":"Tell us about your business","cta.note":"The first consultation is free. No commitment.",
+    "foot.contact":"Contact","foot.legal":"Legal","foot.lang":"Language","foot.copy":"© 2026 astra-meta LLC · Analyze. Systemize. Scale.","foot.top":"Back to top"
+  }
+};
+
+/* ── Split words (display headings) ── */
+function split(el){
+  const words=el.textContent.trim().split(/\s+/);
+  el.innerHTML=words.map((w,i)=>'<span class="w"><span class="wi" style="transition-delay:'+(i*45)+'ms">'+esc(w)+'</span></span>').join(' ');
+}
+function splitAll(){ $$('.split').forEach(split); }
+
+/* ── Reveal observer ── */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+function observeAll(){ $$('.rv,.split,.ch-head').forEach(el=>{ if(!el.classList.contains('in')) io.observe(el); }); }
+
+function applyLang(lang,persist){
+  const d=I18N[lang]||I18N.en;
+  document.documentElement.lang=lang;
+  $$('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k];});
+  $$('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(d[k]!=null)el.innerHTML=d[k];});
+  if(d["meta.title"])document.title=d["meta.title"];
+  const md=$('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
+  $$('.lang-wrap').forEach(w=>{w.dataset.cur=lang;const c=w.querySelector('.lang-code');if(c)c.textContent=lang.toUpperCase();w.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',b.dataset.lang===lang?'true':'false'));});
+  $$('.lang-text').forEach(b=>b.style.color=b.dataset.lang===lang?'var(--text)':'');
+  if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
+  splitAll(); observeAll();
+}
+/* Dil tespiti: kayıtlı tercih > IP ülkesi (TR -> Türkçe) > tarayıcı dili */
+(function initLang(){
+  let saved=null;try{saved=localStorage.getItem('astra_lang');}catch(e){}
+  if(saved){applyLang(saved,false);return;}
+  const nl=(navigator.language||'en').toLowerCase();
+  applyLang(nl.startsWith('tr')?'tr':'en',false);
+  fetch('https://ipapi.co/country/').then(r=>r.ok?r.text():Promise.reject()).then(c=>{
+    const cc=(c||'').trim().toUpperCase();
+    let stillAuto=true;try{stillAuto=!localStorage.getItem('astra_lang');}catch(e){}
+    if(cc.length===2&&stillAuto)applyLang(cc==='TR'?'tr':'en',false);
+  }).catch(()=>{});
+})();
+$$('.lang-wrap').forEach(w=>{
+  const btn=w.querySelector('.lang');
+  const setOpen=o=>{w.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');};
+  btn.addEventListener('click',e=>{e.stopPropagation();const o=!w.classList.contains('open');$$('.lang-wrap.open').forEach(x=>{if(x!==w){x.classList.remove('open');x.querySelector('.lang').setAttribute('aria-expanded','false');}});setOpen(o);});
+  w.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{applyLang(b.dataset.lang,true);setOpen(false);}));
+});
+document.addEventListener('click',()=>$$('.lang-wrap.open').forEach(w=>{w.classList.remove('open');w.querySelector('.lang').setAttribute('aria-expanded','false');}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.lang-wrap.open').forEach(w=>{w.classList.remove('open');w.querySelector('.lang').setAttribute('aria-expanded','false');});});
+$$('.lang-text').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang,true)));
+
+/* ── Pipe: paket noktadan noktaya gider, geçtiği yer dolar, vardığı nokta bir kez atar. (ana sayfadaki makePipe ile aynı) ── */
+function makePipe(rail,o){
+  o=Object.assign({dwell:.95,travel:1.25,tail:.9,phase:0},o);
+  const nodes=$$('.pipe-node',rail),dots=nodes.map(n=>$('.pipe-dot',n));
+  const fill=$('.pipe-fill',rail),pk=$('.pipe-pk',rail),N=nodes.length;
+  const T=N*o.dwell+(N-1)*o.travel+o.tail;
+  let pos=[],vert=false,last=-1,tm=-9;
+  function measure(){
+    const R=rail.getBoundingClientRect();
+    pos=dots.map(d=>{const r=d.getBoundingClientRect();return {x:r.left-R.left+r.width/2,y:r.top-R.top+r.height/2};});
+    vert=N>1&&Math.abs(pos[1].x-pos[0].x)<2;
+    const e=pos[N-1];
+    rail.style.setProperty('--rw',(e.x-pos[0].x).toFixed(1)+'px');rail.style.setProperty('--rh',(e.y-pos[0].y).toFixed(1)+'px');
+  }
+  const ease=e=>e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2;
+  function update(p,t){
+    if(t-tm>2){tm=t;measure();}
+    if(!N)return;
+    if(RM){fill.style.opacity=1;if(vert){fill.style.height='var(--rh)';fill.style.width='1px';}else{fill.style.width='var(--rw)';fill.style.height='1px';}pk.style.opacity=0;return;}
+    const u=(t+o.phase*T)%T;let k=0,f=0,acc=0,tail=false;
+    for(;;){
+      if(u<acc+o.dwell){break;}
+      acc+=o.dwell;
+      if(k===N-1){tail=true;break;}
+      if(u<acc+o.travel){f=ease((u-acc)/o.travel);break;}
+      acc+=o.travel;k++;
+    }
+    const a=pos[k],b=pos[Math.min(k+1,N-1)],x=a.x+(b.x-a.x)*f,y=a.y+(b.y-a.y)*f;
+    const op=tail?Math.max(0,1-(u-acc)/o.tail):1;
+    pk.style.transform='translate('+(x-5.5).toFixed(1)+'px,'+(y-5.5).toFixed(1)+'px)';
+    pk.style.opacity=op.toFixed(2);fill.style.opacity=op.toFixed(2);
+    if(vert){fill.style.height=(y-pos[0].y).toFixed(1)+'px';fill.style.width='1px';}else{fill.style.width=(x-pos[0].x).toFixed(1)+'px';fill.style.height='1px';}
+    if(f===0&&!tail&&k!==last){last=k;nodes[k].classList.remove('hit');void nodes[k].offsetWidth;nodes[k].classList.add('hit');}
+    if(tail)last=-1;
+  }
+  return {update};
+}
+
+const stages=[];
+function addStage(el,factory,cfg){ if(!el)return; const o={api:factory(el,cfg),visible:false}; stages.push(o);
+  new IntersectionObserver(es=>{es.forEach(e=>{o.visible=e.isIntersecting;});},{rootMargin:'12% 0px'}).observe(el); }
+addStage($('#pipeRutin'),makePipe,{});
+addStage($('#pipeProforma'),makePipe,{});
+const t0=performance.now();
+(function loop(now){ const t=RM?0:(now-t0)/1000; stages.forEach(o=>{ if(o.visible)o.api.update(0,t); }); requestAnimationFrame(loop); })(t0);
+
+/* ── Scroll: nav, progress ring, örnek adım çizgisi ── */
+const nav=$('#nav'),ringP=$('#ringP'),plist=$('#plist'),pline=$('#pline');
+let lastY=scrollY,ticking=false,menuOpen=false;
+function onScroll(){
+  if(ticking)return;ticking=true;
+  requestAnimationFrame(()=>{
+    const y=scrollY;
+    nav.classList.toggle('solid',y>30);
+    if(y>lastY+6&&y>220&&!menuOpen)nav.classList.add('hide');else if(y<lastY-6||y<=220)nav.classList.remove('hide');
+    lastY=y;
+    const doc=document.documentElement;
+    ringP.style.strokeDashoffset=(50.27*(1-clamp(y/Math.max(1,doc.scrollHeight-innerHeight),0,1))).toFixed(2);
+    if(plist&&pline){const r=plist.getBoundingClientRect();pline.style.transform='scaleY('+clamp((innerHeight*.72-r.top)/r.height,0,1).toFixed(3)+')';}
+    ticking=false;
+  });
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);onScroll();
+
+/* ── Mobile menu ── */
+const burger=$('.burger'),menu=$('#menu');
+function setMenu(o){menuOpen=o;burger.setAttribute('aria-expanded',o);menu.classList.toggle('open',o);document.body.style.overflow=o?'hidden':'';if(o)nav.classList.remove('hide');}
+burger.addEventListener('click',()=>setMenu(!menuOpen));
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen)setMenu(false);});
+matchMedia('(min-width:821px)').addEventListener('change',e=>{if(e.matches&&menuOpen)setMenu(false);});
+})();
+</script>
+</body>
+</html>

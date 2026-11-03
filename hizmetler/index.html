@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services · Custom automation &amp; proforma invoicing | astra-meta</title>
-<meta name="description" content="We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: proforma automation that reads the order and sends after your approval, workflow automation, Amazon and Shopify store automation.">
+<meta name="description" content="We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: proforma automation that reads the order and sends after your approval, workflow automation, Amazon and Shopify store automation, and AI SEO Agent so ChatGPT and Gemini can recommend you.">
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta · Hizmetler sayfası (/hizmetler/)
      Ana sayfadaki "02 Hizmetler" bölümü 2026-10-29'da buraya taşındı; ana sayfada o yerde
      artık ana ürün (müşteri bulma sistemi) var.
      • Sayfa başı: şirkete özel sistem (anlatırsın, görüşürüz, kurarız).
-     • Üç örnek: 01 Proforma fatura otomasyonu (kaydırdıkça ilerleyen sahne #pfx: mail ya da Excel,
+     • Dört örnek: 01 Proforma fatura otomasyonu (kaydırdıkça ilerleyen sahne #pfx: mail ya da Excel,
        proforma, packing list, onay, düzeltme, gönderim + eskiden/şimdi), 02 Rutin otomasyonu
        ("bir talep geldiğinde" akışı + adım adım teklif rutini örneği),
        03 Mağaza otomasyonu (Amazon + Shopify, /ai-automation/ sayfasına bağlanır).
@@ -173,7 +173,7 @@
   .svc-head-grid p b{color:var(--text);font-weight:500}
   .svc-head-grid p a{color:var(--text);border-bottom:1px solid var(--line-3);transition:color .25s,border-color .25s}
   .svc-head-grid p a:hover{color:var(--pink);border-color:var(--pink)}
-  .svc-index{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:1px solid var(--line)}
+  .svc-index{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;border-top:1px solid var(--line)}
   .svc-index a{display:flex;gap:16px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,21px);letter-spacing:-.015em;line-height:1.2;transition:color .25s}
   .svc-index li{display:flex}
   .svc-index a{flex:1;min-width:0}
@@ -183,6 +183,7 @@
   .pm-proforma{--pa:#f04fae;--pb:#a855f0}
   .pm-rutin{--pa:#4fc3de;--pb:#3d86f2}
   .pm-magaza{--pa:#f8c04e;--pb:#f07f3a}
+  .pm-aiseo{--pa:#6ee7a2;--pb:#14b57f}
   .pmark{flex:none;display:grid;place-items:center;width:var(--ps,46px);height:var(--ps,46px);border-radius:24%;background:linear-gradient(140deg,var(--pa),var(--pb));box-shadow:0 14px 34px -16px var(--pa)}
   .svc-index .pmark{transition:transform .25s var(--ease-out)}
   .pmark svg{width:72%;height:72%;fill:none;stroke:#08080c;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
@@ -192,6 +193,7 @@
   .svc[class*="pm-"] .pipe-head .mono,
   .svc[class*="pm-"] .rows .rt .arr{color:var(--pa)}
   .svc[class*="pm-"] .rows li::before{background:var(--pa)}
+  .svc[class*="pm-"] .svc-you i{background:linear-gradient(140deg,var(--pa),var(--pb))}
 
   /* ── Şirkete özel: sayfa başı ── */
   .svc-lead{justify-self:end;max-width:460px}
@@ -216,7 +218,7 @@
   .svc-intro{max-width:480px;justify-self:end}
   .svc-top p{color:var(--muted);font-size:clamp(17px,1.4vw,19px)}
   .svc-top p b{color:var(--text);font-weight:500}
-  .rows li{display:grid;grid-template-columns:34px 1fr;gap:6px 18px;padding:22px 0;border-top:1px solid var(--line);position:relative}
+  .rows li{display:grid;grid-template-columns:34px 1fr;align-content:start;gap:6px 18px;padding:22px 0;border-top:1px solid var(--line);position:relative}
   .rows li:last-child{border-bottom:1px solid var(--line)}
   .rows li::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-out)}
   .rows li:hover::before{transform:scaleX(1)}
@@ -233,6 +235,18 @@
   .pf-try-note{font-size:14px;color:var(--muted)}
   .svc-you{display:flex;align-items:center;gap:16px;font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;line-height:1.3;max-width:640px}
   .svc-you i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:16px;font-weight:700}
+  /* AI SEO Agent kanıtı: çubuk WhatsApp tıklamasını gösterir (12'ye 5), ziyaretler neredeyse eşit. */
+  .ai-proof{margin-top:clamp(40px,6vw,80px)}
+  .ai-proof-lead{margin:0 0 24px;font-size:15px;line-height:1.5;color:var(--muted)}
+  .ai-proof ul{list-style:none;margin:0;padding:0;display:grid;gap:24px}
+  .ai-proof li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 24px}
+  .ai-proof-name{font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;line-height:1.3}
+  .ai-proof-num{font-size:15px;color:var(--muted)}
+  .ai-proof-num b{color:var(--text);font-weight:600}
+  .ai-track{flex-basis:100%;display:block;height:8px;margin-top:6px;border-radius:4px;background:var(--line)}
+  .ai-fill{display:block;height:100%;width:var(--w);border-radius:inherit;background:linear-gradient(90deg,var(--pa),var(--pb));transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--ease-out) .3s}
+  .ai-fill.g{background:var(--dim)}
+  .ai-proof.in .ai-fill{transform:none}
 
   /* ── Akış rayı (ana sayfadaki makePipe ile aynı) ── */
   .pipe{margin:clamp(56px,8vw,120px) 0 0;padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
@@ -484,14 +498,14 @@
   }
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .rv,.split .wi,.ch-head .ch-line,.menu-links a{transition:none!important;opacity:1!important;transform:none!important}
+    .rv,.split .wi,.ch-head .ch-line,.menu-links a,.ai-fill{transition:none!important;opacity:1!important;transform:none!important}
     .pipe-node.hit .pipe-dot{animation:none!important}
     .pipe-rail::before,.pline{transform:none!important}
     .nav{transition:none}
     .pfx-canvas *,.pfx-step{transition:none!important;animation:none!important}
   }
 </style>
-<noscript><style>.rv{opacity:1;transform:none}.ch-head .ch-line{transform:none}.pline{transform:none}</style></noscript>
+<noscript><style>.rv{opacity:1;transform:none}.ch-head .ch-line{transform:none}.pline{transform:none}.ai-fill{transform:none}</style></noscript>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -558,9 +572,10 @@
   <symbol id="m-proforma" viewBox="0 0 48 48"><path d="M13 6h15l9 9v25a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M28 6v9h9"/><path d="M17 28l5 5 9-10"/></symbol>
   <symbol id="m-rutin" viewBox="0 0 48 48"><path d="M38.1 18.9A15 15 0 0 0 9.9 18.9"/><path d="M9.9 10.6v8.3h8.3"/><path d="M9.9 29.1A15 15 0 0 0 38.1 29.1"/><path d="M38.1 37.4v-8.3h-8.3"/><circle cx="24" cy="24" r="3.4" style="fill:#08080c;stroke:none"/></symbol>
   <symbol id="m-magaza" viewBox="0 0 48 48"><path d="M10 19l3.5-11h21L38 19"/><path d="M10 19a4.67 4.67 0 0 0 9.33 0a4.67 4.67 0 0 0 9.33 0a4.67 4.67 0 0 0 9.33 0"/><path d="M13 26v14h22V26"/><path d="M21 40v-8h6v8"/></symbol>
+  <symbol id="m-aiseo" viewBox="0 0 48 48"><path d="M10 7h28a4 4 0 0 1 4 4v19a4 4 0 0 1-4 4H23l-9 7.5V34h-4a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4z"/><path d="M24 12.5c1 5 3.5 7.5 8.5 8.5-5 1-7.5 3.5-8.5 8.5-1-5-3.5-7.5-8.5-8.5 5-1 7.5-3.5 8.5-8.5z" style="fill:#08080c;stroke:none"/></symbol>
 </svg>
 
-<!-- ── Sayfa başı: şirkete özel sistem + üç örnek ── -->
+<!-- ── Sayfa başı: şirkete özel sistem + dört örnek ── -->
 <section id="top" class="chapter svc-hero">
   <div class="wrap">
     <div class="ch-head"><span class="mono" data-i18n="sv.num">Services</span><span class="ch-line"></span><span class="mono" data-i18n="sv.tag">Built for your company</span></div>
@@ -580,11 +595,12 @@
       <li><span class="mono">2</span><h2 data-i18n="how.t2">We meet.</h2><p data-i18n="how.p2">We go through your work together and decide what moves into a system.</p></li>
       <li><span class="mono">3</span><h2 data-i18n="how.t3">We build it for you.</h2><p data-i18n="how.p3">Around your tools and your rules. Every step that matters comes to you for approval.</p></li>
     </ol>
-    <p class="svc-ex-lead rv" data-i18n-html="sv.ex">Three examples below. They sit next to the <a href="/#musteri-bulma">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.</p>
+    <p class="svc-ex-lead rv" data-i18n-html="sv.ex">Four examples below. They sit next to the <a href="/#musteri-bulma">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.</p>
     <ol class="svc-index rv">
       <li><a class="pm-proforma" href="#proforma"><span class="pmark" aria-hidden="true"><svg><use href="#m-proforma"/></svg></span><span data-i18n="sv.i2">Proforma invoice automation</span></a></li>
       <li><a class="pm-rutin" href="#rutin"><span class="pmark" aria-hidden="true"><svg><use href="#m-rutin"/></svg></span><span data-i18n="sv.i1">Workflow automation</span></a></li>
       <li><a class="pm-magaza" href="#magaza"><span class="pmark" aria-hidden="true"><svg><use href="#m-magaza"/></svg></span><span data-i18n="sv.i3">Store automation · Amazon &amp; Shopify</span></a></li>
+      <li><a class="pm-aiseo" href="#ai-seo"><span class="pmark" aria-hidden="true"><svg><use href="#m-aiseo"/></svg></span><span data-i18n="sv.i4">AI SEO Agent · ChatGPT, Gemini and Claude</span></a></li>
     </ol>
   </div>
 </section>
@@ -793,6 +809,36 @@
   </div>
 </section>
 
+<!-- ── 04 AI SEO AGENT (yapay zekâ önersin diye siteyi düzenleme; rakamlar gerçek ölçüm, müşteri adı yazılmaz, garanti verilmez) ── -->
+<section id="ai-seo" class="chapter svc pm-aiseo">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="ai.num">04 — AI SEO Agent</span><span class="ch-line"></span><span class="mono" data-i18n="ai.tag">Site · content · directories · reporting</span></div>
+    <div class="svc-top">
+      <div class="svc-title"><span class="pmark rv" aria-hidden="true"><svg><use href="#m-aiseo"/></svg></span><h2 class="h2 split" data-i18n="ai.h2">Buyers ask ChatGPT. We make your site worth recommending.</h2></div>
+      <div class="svc-intro rv">
+        <p data-i18n="ai.p">AI SEO Agent: we rework your website so ChatGPT, Gemini and Claude have a reason to recommend you. We spell out who you are, what you sell and the answers buyers want, so AI and Google get it right. Every month we measure what works.</p>
+      </div>
+    </div>
+    <ul class="rows rows-2 rv">
+      <li><span class="ri">01</span><span class="rt"><span data-i18n="ai.r1">Pages AI can read, in several languages</span><span class="arr">→</span></span><span class="rn mono" data-i18n="ai.n1">Titles · company · products · questions</span></li>
+      <li><span class="ri">02</span><span class="rt"><span data-i18n="ai.r2">Content that answers what your buyers ask</span><span class="arr">→</span></span><span class="rn mono" data-i18n="ai.n2">Categories · FAQs · blog</span></li>
+      <li><span class="ri">03</span><span class="rt"><span data-i18n="ai.r3">Off your site: social profiles, industry directories</span><span class="arr">→</span></span><span class="rn mono" data-i18n="ai.n3">We prepare · you submit</span></li>
+      <li><span class="ri">04</span><span class="rt"><span data-i18n="ai.r4">Every month: who came, who reached out</span><span class="arr">→</span></span><span class="rn mono" data-i18n="ai.n4">Google · AI · content gaps</span></li>
+    </ul>
+    <div class="ai-proof rv">
+      <p class="ai-proof-lead" data-i18n="ai.proof">Measured on a site we built and run, 6 October to 3 November 2026.</p>
+      <ul>
+        <li><span class="ai-proof-name" data-i18n="ai.pa">AI chats (almost all ChatGPT)</span><span class="ai-proof-num">104 <span data-i18n="ai.v">visits</span> · <b>12 <span data-i18n="ai.c">WhatsApp clicks</span></b></span><span class="ai-track" aria-hidden="true"><i class="ai-fill" style="--w:100%"></i></span></li>
+        <li><span class="ai-proof-name">Google</span><span class="ai-proof-num">109 <span data-i18n="ai.v">visits</span> · <b>5 <span data-i18n="ai.c">WhatsApp clicks</span></b></span><span class="ai-track" aria-hidden="true"><i class="ai-fill g" style="--w:41.67%"></i></span></li>
+      </ul>
+    </div>
+    <div class="svc-foot rv">
+      <p class="svc-you"><i aria-hidden="true">✓</i><span data-i18n="ai.you">Nothing on your site changes until you approve it.</span></p>
+      <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="ai.cta">Let's review your site</span><span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- ── Kapanış ── -->
 <section class="cta-end" aria-label="Contact">
   <div class="wrap">
@@ -846,7 +892,7 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const I18N={
   tr:{
     "meta.title":"Hizmetler · Şirkete özel otomasyon ve proforma | astra-meta",
-    "meta.desc":"Şirketine özel sistem kurarız: ne istediğini anlatırsın, görüşürüz, sistemi senin işine göre kurarız. Örnekler: siparişi okuyup onayınla gönderen proforma otomasyonu, rutin otomasyonu, Amazon ve Shopify mağaza otomasyonu.",
+    "meta.desc":"Şirketine özel sistem kurarız: ne istediğini anlatırsın, görüşürüz, sistemi senin işine göre kurarız. Örnekler: siparişi okuyup onayınla gönderen proforma otomasyonu, rutin otomasyonu, Amazon ve Shopify mağaza otomasyonu, ChatGPT ve Gemini seni önersin diye AI SEO Agent.",
     "nav.model":"Model","nav.product":"Ürün","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
     "sv.num":"Hizmetler","sv.tag":"Şirketine özel",
     "sv.h":"Şirketine özel sistem kurarız.",
@@ -854,8 +900,8 @@ const I18N={
     "how.t1":"Anlatırsın.","how.p1":"Neyin vaktini aldığını, ne istediğini söylersin.",
     "how.t2":"Görüşürüz.","how.p2":"İşini birlikte inceleriz, neyin sisteme geçeceğine karar veririz.",
     "how.t3":"Sana özel kurarız.","how.p3":"Kendi araçlarına, kendi kurallarına göre. Önemli her adım senin onayına gelir.",
-    "sv.ex":"Aşağıda üç örnek var. <a href=\"/#musteri-bulma\">Müşteri bulma sisteminin</a> yanına ya da tek başına kurulur. Seninki bunlardan biri de olabilir, bambaşka bir şey de.",
-    "sv.i1":"Rutin otomasyonu","sv.i2":"Proforma fatura otomasyonu","sv.i3":"Mağaza otomasyonu · Amazon ve Shopify",
+    "sv.ex":"Aşağıda dört örnek var. <a href=\"/#musteri-bulma\">Müşteri bulma sisteminin</a> yanına ya da tek başına kurulur. Seninki bunlardan biri de olabilir, bambaşka bir şey de.",
+    "sv.i1":"Rutin otomasyonu","sv.i2":"Proforma fatura otomasyonu","sv.i3":"Mağaza otomasyonu · Amazon ve Shopify","sv.i4":"AI SEO Agent · ChatGPT, Gemini ve Claude",
     "r.num":"02 — Rutin otomasyonu","r.tag":"Evrak · teklif · takip",
     "r.h2":"Son bir kez elle yap. Sonra bir daha hiç.",
     "r.p":"Bir gününe bakarız ve tekrar edeni buluruz: aynı mail, aynı teklif, aynı fatura, aynı takip, yine güncellenen aynı Excel. Her birini zaten kullandığın araçlara bağlarız; yeni bir program öğrenmezsin.",
@@ -914,12 +960,22 @@ const I18N={
     "mg.h2":"Ürünü sistem bulur, mağazayı sistem yönetir.",
     "mg.p":"Kendi Amazon ve Shopify mağazalarımızı her gün yöneten sistemi senin mağazana kuruyoruz: ürün bulma, eleme, listeleme, fiyat ve stok takibi, reklam. Para çıkan her adım senin onayınla. Canlı sistemden gerçek sipariş ekranları ayrı sayfada.",
     "mg.cta":"Mağaza sistemini gör",
+    "ai.num":"04 — AI SEO Agent","ai.tag":"Site · içerik · rehber · ölçüm",
+    "ai.h2":"Müşterin ChatGPT'ye sorar. Seni önermesi için siteni hazırlarız.",
+    "ai.p":"AI SEO Agent şu demek: ChatGPT, Gemini ve Claude gibi yapay zekâlar seni önersin diye web siteni düzenleriz. Firma bilgini, ürünlerini ve müşterinin sorduğu soruların cevabını sitene, yapay zekânın ve Google'ın doğru okuyacağı biçimde yazarız. Sonra neyin işe yaradığını her ay ölçeriz.",
+    "ai.r1":"Yapay zekânın okuyacağı, birkaç dilde aranabilir sayfalar","ai.n1":"Başlık · firma · ürün · soru",
+    "ai.r2":"Müşterinin sorusuna cevap veren içerik","ai.n2":"Kategori · sık soru · blog",
+    "ai.r3":"Sitenin dışı: sosyal profiller ve sektör rehberleri","ai.n3":"Paket bizden · kayıt senden",
+    "ai.r4":"Aylık ölçüm: kaç kişi geldi, kaçı ulaştı","ai.n4":"Google · yapay zekâ · eksikler",
+    "ai.proof":"Kurup yönettiğimiz bir sitede 6 Ekim ile 3 Kasım 2026 arasında ölçtük.",
+    "ai.pa":"Yapay zekâ sohbetleri (neredeyse tamamı ChatGPT)","ai.v":"ziyaret","ai.c":"WhatsApp tıklaması",
+    "ai.you":"Sen onaylamadan sitende hiçbir şey değişmez.","ai.cta":"Sitene bakalım",
     "cta.k":"Hangisi senin gününü alıyor?","cta.btn":"İşinden bahset","cta.note":"İlk görüşme ücretsiz, taahhüt yok.",
     "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Analiz et. Sistem kur. Ölçekle.","foot.top":"Başa dön"
   },
   en:{
     "meta.title":"Services · Custom automation & proforma invoicing | astra-meta",
-    "meta.desc":"We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: proforma automation that reads the order and sends after your approval, workflow automation, Amazon and Shopify store automation.",
+    "meta.desc":"We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: proforma automation that reads the order and sends after your approval, workflow automation, Amazon and Shopify store automation, and AI SEO Agent so ChatGPT and Gemini can recommend you.",
     "nav.model":"Model","nav.product":"Product","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
     "sv.num":"Services","sv.tag":"Built for your company",
     "sv.h":"We build the system your company needs.",
@@ -927,8 +983,8 @@ const I18N={
     "how.t1":"You tell us.","how.p1":"What eats your time, and what you want instead.",
     "how.t2":"We meet.","how.p2":"We go through your work together and decide what moves into a system.",
     "how.t3":"We build it for you.","how.p3":"Around your tools and your rules. Every step that matters comes to you for approval.",
-    "sv.ex":"Three examples below. They sit next to the <a href=\"/#musteri-bulma\">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.",
-    "sv.i1":"Workflow automation","sv.i2":"Proforma invoice automation","sv.i3":"Store automation · Amazon & Shopify",
+    "sv.ex":"Four examples below. They sit next to the <a href=\"/#musteri-bulma\">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.",
+    "sv.i1":"Workflow automation","sv.i2":"Proforma invoice automation","sv.i3":"Store automation · Amazon & Shopify","sv.i4":"AI SEO Agent · ChatGPT, Gemini and Claude",
     "r.num":"02 — Workflow automation","r.tag":"Paperwork · quotes · follow-up",
     "r.h2":"Do it by hand one last time. Then never again.",
     "r.p":"We look at a day in your business and find what repeats: the same email, the same quote, the same invoice, the same follow-up, the same spreadsheet updated again. Each one is connected to the tools you already use; nothing new to learn.",
@@ -987,6 +1043,16 @@ const I18N={
     "mg.h2":"The system finds the product. The system runs the store.",
     "mg.p":"The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.",
     "mg.cta":"See the store system",
+    "ai.num":"04 — AI SEO Agent","ai.tag":"Site · content · directories · reporting",
+    "ai.h2":"Buyers ask ChatGPT. We make your site worth recommending.",
+    "ai.p":"AI SEO Agent: we rework your website so ChatGPT, Gemini and Claude have a reason to recommend you. We spell out who you are, what you sell and the answers buyers want, so AI and Google get it right. Every month we measure what works.",
+    "ai.r1":"Pages AI can read, in several languages","ai.n1":"Titles · company · products · questions",
+    "ai.r2":"Content that answers what your buyers ask","ai.n2":"Categories · FAQs · blog",
+    "ai.r3":"Off your site: social profiles, industry directories","ai.n3":"We prepare · you submit",
+    "ai.r4":"Every month: who came, who reached out","ai.n4":"Google · AI · content gaps",
+    "ai.proof":"Measured on a site we built and run, 6 October to 3 November 2026.",
+    "ai.pa":"AI chats (almost all ChatGPT)","ai.v":"visits","ai.c":"WhatsApp clicks",
+    "ai.you":"Nothing on your site changes until you approve it.","ai.cta":"Let's review your site",
     "cta.k":"Which one eats your day?","cta.btn":"Tell us about your business","cta.note":"The first consultation is free. No commitment.",
     "foot.contact":"Contact","foot.legal":"Legal","foot.lang":"Language","foot.copy":"© 2026 astra-meta LLC · Analyze. Systemize. Scale.","foot.top":"Back to top"
   }

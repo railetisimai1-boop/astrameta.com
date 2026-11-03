@@ -182,6 +182,8 @@
   .svc-lead{justify-self:end;max-width:460px}
   .svc-lead p{justify-self:start}
   .svc-lead .btn{margin-top:26px}
+  .svc-lead-acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .svc-lead .svc-lead-acts .btn{margin-top:0}
   .svc-lead .note{margin-top:14px;font-size:14px;color:var(--dim)}
   .how{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:1px solid var(--line);margin-bottom:clamp(48px,7vw,96px)}
   .how li{padding-top:26px}
@@ -544,7 +546,10 @@
       <h1 class="split" data-i18n="sv.h">We build the system your company needs.</h1>
       <div class="svc-lead rv">
         <p data-i18n-html="sv.p">You tell us what you need, we meet, and we build the system around your company. <b>Built once, it runs every day.</b></p>
-        <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="cta.btn">Tell us about your business</span><span class="arr">→</span></a>
+        <div class="svc-lead-acts">
+          <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="cta.btn">Tell us about your business</span><span class="arr">→</span></a>
+          <a class="btn btn-ghost" data-demo href="https://demo.astra-meta.com/" target="_blank" rel="noopener"><span data-i18n="sv.demo">Try the proforma demo</span><span class="arr">→</span></a>
+        </div>
         <p class="note" data-i18n="cta.note">The first consultation is free. No commitment.</p>
       </div>
     </div>
@@ -628,7 +633,7 @@
       <div class="svc-intro rv">
         <p data-i18n="pf.p">For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.</p>
         <div class="pf-try">
-          <a class="btn btn-primary" data-demo href="/proforma-demo/" target="_blank" rel="noopener"><span data-i18n="pf.demo">Try the demo</span><span class="arr">→</span></a>
+          <a class="btn btn-primary" data-demo href="https://demo.astra-meta.com/" target="_blank" rel="noopener"><span data-i18n="pf.demo">Try the demo</span><span class="arr">→</span></a>
           <span class="pf-try-note" data-i18n="pf.demoNote">Runs on sample data. No sign up.</span>
         </div>
       </div>
@@ -745,7 +750,7 @@
     <div class="svc-foot rv">
       <p class="svc-you"><i aria-hidden="true">✓</i><span data-i18n="pf.you">No proforma goes out until you approve it.</span></p>
       <div class="pf-acts">
-        <a class="btn btn-primary" data-demo href="/proforma-demo/" target="_blank" rel="noopener"><span data-i18n="pf.demo">Try the demo</span><span class="arr">→</span></a>
+        <a class="btn btn-primary" data-demo href="https://demo.astra-meta.com/" target="_blank" rel="noopener"><span data-i18n="pf.demo">Try the demo</span><span class="arr">→</span></a>
         <a class="btn btn-ghost" href="/#isinden-bahset"><span data-i18n="pf.cta">Talk about your proforma flow</span><span class="arr">→</span></a>
       </div>
     </div>
@@ -882,7 +887,7 @@ const I18N={
     "pf.g4":"Ödeme takibi, muhasebe ve stok kaydı da eklenebilir","pf.b4":"Eskiden: aynı veri üç yere elle",
     "pf.g5":"Çok dilli, çok para birimli","pf.b5":"EN · DE · FR · USD · EUR · TRY",
     "pf.you":"Sen onaylamadan hiçbir proforma gitmez.","pf.cta":"Proforma akışını konuşalım",
-    "pf.demo":"Demoyu dene","pf.demoNote":"Örnek verilerle çalışır, kayıt istemez.",
+    "pf.demo":"Demoyu dene","pf.demoNote":"Örnek verilerle çalışır, kayıt istemez.","sv.demo":"Proforma demosunu dene",
     "mg.num":"03 — Mağaza otomasyonu","mg.tag":"Amazon ve Shopify",
     "mg.h2":"Ürünü sistem bulur, mağazayı sistem yönetir.",
     "mg.p":"Kendi Amazon ve Shopify mağazalarımızı her gün yöneten sistemi senin mağazana kuruyoruz: ürün bulma, eleme, listeleme, fiyat ve stok takibi, reklam. Para çıkan her adım senin onayınla. Canlı sistemden gerçek sipariş ekranları ayrı sayfada.",
@@ -955,7 +960,7 @@ const I18N={
     "pf.g4":"Payment follow-up, accounting and stock entries can be added","pf.b4":"Before: the same data typed in three places",
     "pf.g5":"Multi-language, multi-currency","pf.b5":"EN · DE · FR · USD · EUR · TRY",
     "pf.you":"No proforma goes out until you approve it.","pf.cta":"Talk about your proforma flow",
-    "pf.demo":"Try the demo","pf.demoNote":"Runs on sample data. No sign up.",
+    "pf.demo":"Try the demo","pf.demoNote":"Runs on sample data. No sign up.","sv.demo":"Try the proforma demo",
     "mg.num":"03 — Store automation","mg.tag":"Amazon & Shopify",
     "mg.h2":"The system finds the product. The system runs the store.",
     "mg.p":"The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.",
@@ -985,7 +990,7 @@ function applyLang(lang,persist){
   const md=$('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
   $$('.lang-wrap').forEach(w=>{w.dataset.cur=lang;const c=w.querySelector('.lang-code');if(c)c.textContent=lang.toUpperCase();w.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',b.dataset.lang===lang?'true':'false'));});
   $$('.lang-text').forEach(b=>b.style.color=b.dataset.lang===lang?'var(--text)':'');
-  $$('[data-demo]').forEach(a=>{a.href='/proforma-demo/?lang='+lang;});
+  $$('[data-demo]').forEach(a=>{a.href='https://demo.astra-meta.com/?lang='+lang;});
   if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
   splitAll(); observeAll();
 }

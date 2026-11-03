@@ -17,11 +17,12 @@ sistemi: organik web sitesi + Google/Meta reklam + yapay zekâ mail) → 03 Fark
 - `hizmetler/index.html` — Hizmetler sayfası (2026-10-29): başta şirkete özel sistem (anlatırsın, görüşürüz, kurarız),
   sonra örnekler: 01 rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini örneği), 02 proforma fatura
   otomasyonu (kaydırdıkça ilerleyen `#pfx` sahnesi: mail ya da Excel, proforma, packing list, onay, düzeltme, gönderim +
-  eskiden/şimdi), 03 mağaza otomasyonu (AI Otomasyon sayfasına bağlanır). Nav, footer, dil ve `makePipe` ana sayfadan kopyadır.
+  eskiden/şimdi; bölümün başında ve sonunda çalışan demoya bağlantı: `/proforma-demo/`), 03 mağaza otomasyonu (AI Otomasyon sayfasına bağlanır). Nav, footer, dil ve `makePipe` ana sayfadan kopyadır.
 - `ai-automation/index.html` — AI Otomasyon sayfası (Amazon + Shopify şeritleri, 2026-10-13'te ana sayfadan taşındı).
   Nav, footer, dil sistemi ve `makePipe` ana sayfadan kopyadır; ana sayfada değişirse burada da değiştir.
 - `uk/` — eski UK landing page 2026-10-13'te kaldırıldı, `uk/index.html` sadece ana sayfaya yönlendirir
 - `pay/` — ayrı ödeme servisi (Coolify'da ayrı app)
+- `/proforma-demo/` bu depoda DEĞİL: VPS'te ayrı konteyner (`proforma-demo`), Traefik yalnız bu yolu ona yollar. Kaynak Mac'te `ASTRA-META/proforma-otomasyonu/demo`, yayın `./deploy.sh`.
 - `Dockerfile` — Coolify/Docker için nginx ile yayınlar (port 80)
 
 ## Eski siteye dönmek

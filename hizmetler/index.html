@@ -211,6 +211,9 @@
   .rows-2{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(32px,5vw,80px)}
   .rows-2 li:nth-child(2){border-top:1px solid var(--line)}
   .svc-foot{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:clamp(40px,6vw,88px);padding-top:clamp(28px,4vw,48px);border-top:1px solid var(--line)}
+  .pf-acts{display:flex;flex-wrap:wrap;gap:12px}
+  .pf-try{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin-top:24px}
+  .pf-try-note{font-size:14px;color:var(--muted)}
   .svc-you{display:flex;align-items:center;gap:16px;font-family:var(--fd);font-weight:500;font-size:clamp(18px,1.6vw,22px);letter-spacing:-.015em;line-height:1.3;max-width:640px}
   .svc-you i{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:16px;font-weight:700}
 
@@ -439,6 +442,8 @@
     .pstep{grid-template-columns:1fr;gap:8px;padding-left:22px}
     .pstep .pw{padding-top:0}
     .svc-foot .btn{width:100%}
+    .pf-acts{width:100%}
+    .pf-try .btn{width:100%}
     .how{grid-template-columns:1fr;gap:0}
     .how li{padding:22px 0;border-bottom:1px solid var(--line)}
     .how p{max-width:none}
@@ -622,6 +627,10 @@
       <h2 class="h2 split" data-i18n="pf.h2">The order comes in, the proforma gets ready, you press approve.</h2>
       <div class="svc-intro rv">
         <p data-i18n="pf.p">For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.</p>
+        <div class="pf-try">
+          <a class="btn btn-primary" data-demo href="/proforma-demo/" target="_blank" rel="noopener"><span data-i18n="pf.demo">Try the demo</span><span class="arr">→</span></a>
+          <span class="pf-try-note" data-i18n="pf.demoNote">Runs on sample data. No sign up.</span>
+        </div>
       </div>
     </div>
     <div class="pfx-wrap">
@@ -735,7 +744,10 @@
     </div>
     <div class="svc-foot rv">
       <p class="svc-you"><i aria-hidden="true">✓</i><span data-i18n="pf.you">No proforma goes out until you approve it.</span></p>
-      <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="pf.cta">Talk about your proforma flow</span><span class="arr">→</span></a>
+      <div class="pf-acts">
+        <a class="btn btn-primary" data-demo href="/proforma-demo/" target="_blank" rel="noopener"><span data-i18n="pf.demo">Try the demo</span><span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="/#isinden-bahset"><span data-i18n="pf.cta">Talk about your proforma flow</span><span class="arr">→</span></a>
+      </div>
     </div>
   </div>
 </section>
@@ -870,6 +882,7 @@ const I18N={
     "pf.g4":"Ödeme takibi, muhasebe ve stok kaydı da eklenebilir","pf.b4":"Eskiden: aynı veri üç yere elle",
     "pf.g5":"Çok dilli, çok para birimli","pf.b5":"EN · DE · FR · USD · EUR · TRY",
     "pf.you":"Sen onaylamadan hiçbir proforma gitmez.","pf.cta":"Proforma akışını konuşalım",
+    "pf.demo":"Demoyu dene","pf.demoNote":"Örnek verilerle çalışır, kayıt istemez.",
     "mg.num":"03 — Mağaza otomasyonu","mg.tag":"Amazon ve Shopify",
     "mg.h2":"Ürünü sistem bulur, mağazayı sistem yönetir.",
     "mg.p":"Kendi Amazon ve Shopify mağazalarımızı her gün yöneten sistemi senin mağazana kuruyoruz: ürün bulma, eleme, listeleme, fiyat ve stok takibi, reklam. Para çıkan her adım senin onayınla. Canlı sistemden gerçek sipariş ekranları ayrı sayfada.",
@@ -942,6 +955,7 @@ const I18N={
     "pf.g4":"Payment follow-up, accounting and stock entries can be added","pf.b4":"Before: the same data typed in three places",
     "pf.g5":"Multi-language, multi-currency","pf.b5":"EN · DE · FR · USD · EUR · TRY",
     "pf.you":"No proforma goes out until you approve it.","pf.cta":"Talk about your proforma flow",
+    "pf.demo":"Try the demo","pf.demoNote":"Runs on sample data. No sign up.",
     "mg.num":"03 — Store automation","mg.tag":"Amazon & Shopify",
     "mg.h2":"The system finds the product. The system runs the store.",
     "mg.p":"The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.",
@@ -971,6 +985,7 @@ function applyLang(lang,persist){
   const md=$('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
   $$('.lang-wrap').forEach(w=>{w.dataset.cur=lang;const c=w.querySelector('.lang-code');if(c)c.textContent=lang.toUpperCase();w.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',b.dataset.lang===lang?'true':'false'));});
   $$('.lang-text').forEach(b=>b.style.color=b.dataset.lang===lang?'var(--text)':'');
+  $$('[data-demo]').forEach(a=>{a.href='/proforma-demo/?lang='+lang;});
   if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
   splitAll(); observeAll();
 }

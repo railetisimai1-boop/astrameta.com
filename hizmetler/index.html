@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services · Custom automation &amp; proforma invoicing | astra-meta</title>
-<meta name="description" content="We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: workflow automation, proforma automation that reads the order and sends after your approval, Amazon and Shopify store automation.">
+<meta name="description" content="We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: proforma automation that reads the order and sends after your approval, workflow automation, Amazon and Shopify store automation.">
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta · Hizmetler sayfası (/hizmetler/)
      Ana sayfadaki "02 Hizmetler" bölümü 2026-10-29'da buraya taşındı; ana sayfada o yerde
      artık ana ürün (müşteri bulma sistemi) var.
      • Sayfa başı: şirkete özel sistem (anlatırsın, görüşürüz, kurarız).
-     • Üç örnek: 01 Rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini
-       örneği), 02 Proforma fatura otomasyonu (kaydırdıkça ilerleyen sahne #pfx: mail ya da Excel,
-       proforma, packing list, onay, düzeltme, gönderim + eskiden/şimdi),
+     • Üç örnek: 01 Proforma fatura otomasyonu (kaydırdıkça ilerleyen sahne #pfx: mail ya da Excel,
+       proforma, packing list, onay, düzeltme, gönderim + eskiden/şimdi), 02 Rutin otomasyonu
+       ("bir talep geldiğinde" akışı + adım adım teklif rutini örneği),
        03 Mağaza otomasyonu (Amazon + Shopify, /ai-automation/ sayfasına bağlanır).
      • #pfx sahnesi: JS tuvale p1..p7 (ulaşıldı) ve at1..at7 (şu an) sınıflarını yazar, geri kalanı CSS.
        Firma ve fiyatlar örnektir, sahnenin altında öyle yazar. Tutarlar: 72x2,40 + 240x5,85 + 120x9,60 =
@@ -174,9 +174,24 @@
   .svc-head-grid p a{color:var(--text);border-bottom:1px solid var(--line-3);transition:color .25s,border-color .25s}
   .svc-head-grid p a:hover{color:var(--pink);border-color:var(--pink)}
   .svc-index{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:1px solid var(--line)}
-  .svc-index a{display:flex;gap:16px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,21px);letter-spacing:-.015em;line-height:1.2;transition:color .25s}
-  .svc-index a:hover{color:var(--pink)}
-  .svc-index .mono{font-size:11px;flex:none}
+  .svc-index a{display:flex;gap:16px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,21px);letter-spacing:-.015em;line-height:1.2;transition:color .25s}
+  .svc-index li{display:flex}
+  .svc-index a{flex:1;min-width:0}
+  .svc-index a:hover{color:var(--pa)}
+  .svc-index a:hover .pmark{transform:translateY(-2px)}
+  /* Her hizmetin kendi simgesi ve rengi var: üçü aynı aileden ama ayrı ürün gibi okunur. */
+  .pm-proforma{--pa:#f04fae;--pb:#a855f0}
+  .pm-rutin{--pa:#4fc3de;--pb:#3d86f2}
+  .pm-magaza{--pa:#f8c04e;--pb:#f07f3a}
+  .pmark{flex:none;display:grid;place-items:center;width:var(--ps,46px);height:var(--ps,46px);border-radius:24%;background:linear-gradient(140deg,var(--pa),var(--pb));box-shadow:0 14px 34px -16px var(--pa)}
+  .svc-index .pmark{transition:transform .25s var(--ease-out)}
+  .pmark svg{width:72%;height:72%;fill:none;stroke:#08080c;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+  .svc-title{min-width:0}
+  .svc-title .pmark{--ps:clamp(62px,5.6vw,88px);margin-bottom:clamp(20px,2.4vw,32px)}
+  .svc[class*="pm-"] .ch-head .mono:first-child,
+  .svc[class*="pm-"] .pipe-head .mono,
+  .svc[class*="pm-"] .rows .rt .arr{color:var(--pa)}
+  .svc[class*="pm-"] .rows li::before{background:var(--pa)}
 
   /* ── Şirkete özel: sayfa başı ── */
   .svc-lead{justify-self:end;max-width:460px}
@@ -538,6 +553,13 @@
 </div>
 
 <main id="main">
+<!-- ── Ürün işaretleri: üç hizmet üç ayrı ürün gibi görünsün diye. Renkler .pm-* sınıflarında. ── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="m-proforma" viewBox="0 0 48 48"><path d="M13 6h15l9 9v25a2 2 0 0 1-2 2H13a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/><path d="M28 6v9h9"/><path d="M17 28l5 5 9-10"/></symbol>
+  <symbol id="m-rutin" viewBox="0 0 48 48"><path d="M38.1 18.9A15 15 0 0 0 9.9 18.9"/><path d="M9.9 10.6v8.3h8.3"/><path d="M9.9 29.1A15 15 0 0 0 38.1 29.1"/><path d="M38.1 37.4v-8.3h-8.3"/><circle cx="24" cy="24" r="3.4" style="fill:#08080c;stroke:none"/></symbol>
+  <symbol id="m-magaza" viewBox="0 0 48 48"><path d="M10 19l3.5-11h21L38 19"/><path d="M10 19a4.67 4.67 0 0 0 9.33 0a4.67 4.67 0 0 0 9.33 0a4.67 4.67 0 0 0 9.33 0"/><path d="M13 26v14h22V26"/><path d="M21 40v-8h6v8"/></symbol>
+</svg>
+
 <!-- ── Sayfa başı: şirkete özel sistem + üç örnek ── -->
 <section id="top" class="chapter svc-hero">
   <div class="wrap">
@@ -560,76 +582,19 @@
     </ol>
     <p class="svc-ex-lead rv" data-i18n-html="sv.ex">Three examples below. They sit next to the <a href="/#musteri-bulma">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.</p>
     <ol class="svc-index rv">
-      <li><a href="#rutin"><span class="mono">01</span><span data-i18n="sv.i1">Workflow automation</span></a></li>
-      <li><a href="#proforma"><span class="mono">02</span><span data-i18n="sv.i2">Proforma invoice automation</span></a></li>
-      <li><a href="#magaza"><span class="mono">03</span><span data-i18n="sv.i3">Store automation · Amazon &amp; Shopify</span></a></li>
+      <li><a class="pm-proforma" href="#proforma"><span class="pmark" aria-hidden="true"><svg><use href="#m-proforma"/></svg></span><span data-i18n="sv.i2">Proforma invoice automation</span></a></li>
+      <li><a class="pm-rutin" href="#rutin"><span class="pmark" aria-hidden="true"><svg><use href="#m-rutin"/></svg></span><span data-i18n="sv.i1">Workflow automation</span></a></li>
+      <li><a class="pm-magaza" href="#magaza"><span class="pmark" aria-hidden="true"><svg><use href="#m-magaza"/></svg></span><span data-i18n="sv.i3">Store automation · Amazon &amp; Shopify</span></a></li>
     </ol>
   </div>
 </section>
 
-<!-- ── 01 RUTİN OTOMASYONU ── -->
-<section id="rutin" class="chapter svc">
+<!-- ── 01 PROFORMA FATURA OTOMASYONU ── -->
+<section id="proforma" class="chapter svc pm-proforma">
   <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="r.num">01 — Workflow automation</span><span class="ch-line"></span><span class="mono" data-i18n="r.tag">Paperwork · quotes · follow-up</span></div>
+    <div class="ch-head"><span class="mono" data-i18n="pf.num">01 — Proforma invoice automation</span><span class="ch-line"></span><span class="mono" data-i18n="pf.tag">Order → proforma → approval → sent</span></div>
     <div class="svc-top">
-      <h2 class="h2 split" data-i18n="r.h2">Do it by hand one last time. Then never again.</h2>
-      <div class="svc-intro rv">
-        <p data-i18n="r.p">We look at a day in your business and find what repeats: the same email, the same quote, the same invoice, the same follow-up, the same spreadsheet updated again. Each one is connected to the tools you already use; nothing new to learn.</p>
-      </div>
-    </div>
-    <ul class="rows rows-2 rv">
-      <li><span class="ri">01</span><span class="rt"><span data-i18n="r.r1">Problem analysis for your business</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n1">Who · what · why by hand</span></li>
-      <li><span class="ri">02</span><span class="rt"><span data-i18n="r.r2">Paperwork, quote &amp; invoice automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n2">Documents · quotes · invoices</span></li>
-      <li><span class="ri">03</span><span class="rt"><span data-i18n="r.r3">Your existing tools, connected</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n3">Email · sheets · accounting · CRM</span></li>
-      <li><span class="ri">04</span><span class="rt"><span data-i18n="r.r4">Messaging &amp; follow-up automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n4">WhatsApp · email · 24/7</span></li>
-    </ul>
-
-    <!-- Örnek akış: reklamdan randevuya (ana sayfadan taşındı) -->
-    <div class="pipe rv">
-      <div class="pipe-head">
-        <div>
-          <span class="mono" data-i18n="rp.k">Example run · From ad click to booked call</span>
-          <h3 data-i18n="rp.h">What happens when a lead comes in?</h3>
-        </div>
-        <p data-i18n-html="rp.p">A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b></p>
-      </div>
-      <div class="pipe-rail" id="pipeRutin">
-        <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
-        <ol class="pipe-list">
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="rp.a1">Customer</span><h4 data-i18n="rp.t1">Sees the ad, clicks.</h4><p data-i18n="rp.n1">Meta · Google · your website</p></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="rp.a2">Customer</span><h4 data-i18n="rp.t2">Fills in the form.</h4><p data-i18n="rp.n2">Name, phone, what they need</p><span class="mono pipe-seg" data-i18n="rp.s2">within seconds</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="rp.a3">System</span><h4 data-i18n="rp.t3">Replies on WhatsApp.</h4><p data-i18n="rp.n3">An assistant trained on your business answers their questions</p><span class="mono pipe-seg" data-i18n="rp.s3">within minutes</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="rp.a4">System</span><h4 data-i18n="rp.t4">Books the call into your calendar.</h4><p data-i18n="rp.n4">Picks a free slot, logs it to the CRM</p><span class="mono pipe-seg" data-i18n="rp.s4">same day</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="rp.a5">You</span><h4 data-i18n="rp.t5">Take the call.</h4><p data-i18n="rp.n5">Morning summary: who they are, what they want</p></li>
-        </ol>
-      </div>
-    </div>
-
-    <!-- Adım adım: bir rutin nasıl analiz edilir, kurulur, ne kazandırır, nasıl ölçekler -->
-    <div class="ex rv">
-      <div class="pipe-head">
-        <div>
-          <span class="mono" data-i18n="ex.k">Step by step · The quote routine</span>
-          <h3 data-i18n="ex.h">How one routine moves into the system</h3>
-        </div>
-        <p data-i18n="ex.p">The numbers are an example; yours come out of the analysis. The logic is the same for every routine: measure, build, gain, scale.</p>
-      </div>
-      <div class="plist" id="plist"><ol>
-        <li class="pstep"><span class="pn" aria-hidden="true">01</span><span class="pw mono" data-i18n="ex1.w">Day 1</span><div><h3 data-i18n="ex1.h">Analysis: 6 quotes a day, 25 minutes each</h3><p data-i18n="ex1.p">Each one typed by hand from an old spreadsheet: price list, currency, lead time. 12 hours a week, plus the typos.</p></div></li>
-        <li class="pstep"><span class="pn" aria-hidden="true">02</span><span class="pw mono" data-i18n="ex2.w">Weeks 1–2</span><div><h3 data-i18n="ex2.h">Build: request in, quote out</h3><p data-i18n="ex2.p">The request arrives by form or email. The system pulls the price, fills the template and makes the PDF. You check and approve; the system sends it.</p></div></li>
-        <li class="pstep"><span class="pn" aria-hidden="true">03</span><span class="pw mono" data-i18n="ex3.w">From week 3</span><div><h3 data-i18n="ex3.h">Gain: 2 minutes instead of 25. 12 hours a week back.</h3><p data-i18n="ex3.p">About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.</p></div></li>
-        <li class="pstep"><span class="pn" aria-hidden="true">04</span><span class="pw mono" data-i18n="ex4.w">Ongoing</span><div><h3 data-i18n="ex4.h">Scale: three times the quotes, same team</h3><p data-i18n="ex4.p">When the work grows, the hours don't. The time you get back goes into finding customers.</p></div></li>
-      </ol><div class="pline" id="pline" aria-hidden="true"></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── 02 PROFORMA FATURA OTOMASYONU ── -->
-<section id="proforma" class="chapter svc">
-  <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="pf.num">02 — Proforma invoice automation</span><span class="ch-line"></span><span class="mono" data-i18n="pf.tag">Order → proforma → approval → sent</span></div>
-    <div class="svc-top">
-      <h2 class="h2 split" data-i18n="pf.h2">The order comes in, the proforma gets ready, you press approve.</h2>
+      <div class="svc-title"><span class="pmark rv" aria-hidden="true"><svg><use href="#m-proforma"/></svg></span><h2 class="h2 split" data-i18n="pf.h2">The order comes in, the proforma gets ready, you press approve.</h2></div>
       <div class="svc-intro rv">
         <p data-i18n="pf.p">For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.</p>
         <div class="pf-try">
@@ -757,12 +722,69 @@
   </div>
 </section>
 
+<!-- ── 02 RUTİN OTOMASYONU ── -->
+<section id="rutin" class="chapter svc pm-rutin">
+  <div class="wrap">
+    <div class="ch-head"><span class="mono" data-i18n="r.num">02 — Workflow automation</span><span class="ch-line"></span><span class="mono" data-i18n="r.tag">Paperwork · quotes · follow-up</span></div>
+    <div class="svc-top">
+      <div class="svc-title"><span class="pmark rv" aria-hidden="true"><svg><use href="#m-rutin"/></svg></span><h2 class="h2 split" data-i18n="r.h2">Do it by hand one last time. Then never again.</h2></div>
+      <div class="svc-intro rv">
+        <p data-i18n="r.p">We look at a day in your business and find what repeats: the same email, the same quote, the same invoice, the same follow-up, the same spreadsheet updated again. Each one is connected to the tools you already use; nothing new to learn.</p>
+      </div>
+    </div>
+    <ul class="rows rows-2 rv">
+      <li><span class="ri">01</span><span class="rt"><span data-i18n="r.r1">Problem analysis for your business</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n1">Who · what · why by hand</span></li>
+      <li><span class="ri">02</span><span class="rt"><span data-i18n="r.r2">Paperwork, quote &amp; invoice automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n2">Documents · quotes · invoices</span></li>
+      <li><span class="ri">03</span><span class="rt"><span data-i18n="r.r3">Your existing tools, connected</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n3">Email · sheets · accounting · CRM</span></li>
+      <li><span class="ri">04</span><span class="rt"><span data-i18n="r.r4">Messaging &amp; follow-up automation</span><span class="arr">→</span></span><span class="rn mono" data-i18n="r.n4">WhatsApp · email · 24/7</span></li>
+    </ul>
+
+    <!-- Örnek akış: reklamdan randevuya (ana sayfadan taşındı) -->
+    <div class="pipe rv">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="rp.k">Example run · From ad click to booked call</span>
+          <h3 data-i18n="rp.h">What happens when a lead comes in?</h3>
+        </div>
+        <p data-i18n-html="rp.p">A lead that lands at 3 a.m. takes the same path as one at 9: ad, form, message and calendar are one chain. <b>You're only the last link.</b></p>
+      </div>
+      <div class="pipe-rail" id="pipeRutin">
+        <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
+        <ol class="pipe-list">
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="rp.a1">Customer</span><h4 data-i18n="rp.t1">Sees the ad, clicks.</h4><p data-i18n="rp.n1">Meta · Google · your website</p></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="rp.a2">Customer</span><h4 data-i18n="rp.t2">Fills in the form.</h4><p data-i18n="rp.n2">Name, phone, what they need</p><span class="mono pipe-seg" data-i18n="rp.s2">within seconds</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="rp.a3">System</span><h4 data-i18n="rp.t3">Replies on WhatsApp.</h4><p data-i18n="rp.n3">An assistant trained on your business answers their questions</p><span class="mono pipe-seg" data-i18n="rp.s3">within minutes</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="rp.a4">System</span><h4 data-i18n="rp.t4">Books the call into your calendar.</h4><p data-i18n="rp.n4">Picks a free slot, logs it to the CRM</p><span class="mono pipe-seg" data-i18n="rp.s4">same day</span></li>
+          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="rp.a5">You</span><h4 data-i18n="rp.t5">Take the call.</h4><p data-i18n="rp.n5">Morning summary: who they are, what they want</p></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Adım adım: bir rutin nasıl analiz edilir, kurulur, ne kazandırır, nasıl ölçekler -->
+    <div class="ex rv">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="ex.k">Step by step · The quote routine</span>
+          <h3 data-i18n="ex.h">How one routine moves into the system</h3>
+        </div>
+        <p data-i18n="ex.p">The numbers are an example; yours come out of the analysis. The logic is the same for every routine: measure, build, gain, scale.</p>
+      </div>
+      <div class="plist" id="plist"><ol>
+        <li class="pstep"><span class="pn" aria-hidden="true">01</span><span class="pw mono" data-i18n="ex1.w">Day 1</span><div><h3 data-i18n="ex1.h">Analysis: 6 quotes a day, 25 minutes each</h3><p data-i18n="ex1.p">Each one typed by hand from an old spreadsheet: price list, currency, lead time. 12 hours a week, plus the typos.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">02</span><span class="pw mono" data-i18n="ex2.w">Weeks 1–2</span><div><h3 data-i18n="ex2.h">Build: request in, quote out</h3><p data-i18n="ex2.p">The request arrives by form or email. The system pulls the price, fills the template and makes the PDF. You check and approve; the system sends it.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">03</span><span class="pw mono" data-i18n="ex3.w">From week 3</span><div><h3 data-i18n="ex3.h">Gain: 2 minutes instead of 25. 12 hours a week back.</h3><p data-i18n="ex3.p">About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">04</span><span class="pw mono" data-i18n="ex4.w">Ongoing</span><div><h3 data-i18n="ex4.h">Scale: three times the quotes, same team</h3><p data-i18n="ex4.p">When the work grows, the hours don't. The time you get back goes into finding customers.</p></div></li>
+      </ol><div class="pline" id="pline" aria-hidden="true"></div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ── 03 MAĞAZA OTOMASYONU (Amazon + Shopify, ayrıntı /ai-automation/) ── -->
-<section id="magaza" class="chapter svc">
+<section id="magaza" class="chapter svc pm-magaza">
   <div class="wrap">
     <div class="ch-head"><span class="mono" data-i18n="mg.num">03 — Store automation</span><span class="ch-line"></span><span class="mono" data-i18n="mg.tag">Amazon &amp; Shopify</span></div>
     <div class="svc-top" style="margin-bottom:0">
-      <h2 class="h2 split" data-i18n="mg.h2">The system finds the product. The system runs the store.</h2>
+      <div class="svc-title"><span class="pmark rv" aria-hidden="true"><svg><use href="#m-magaza"/></svg></span><h2 class="h2 split" data-i18n="mg.h2">The system finds the product. The system runs the store.</h2></div>
       <div class="svc-intro rv">
         <p data-i18n="mg.p">The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.</p>
         <a class="btn btn-ghost" href="/ai-automation/" style="margin-top:28px"><span data-i18n="mg.cta">See the store system</span><span class="arr">→</span></a>
@@ -824,7 +846,7 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const I18N={
   tr:{
     "meta.title":"Hizmetler · Şirkete özel otomasyon ve proforma | astra-meta",
-    "meta.desc":"Şirketine özel sistem kurarız: ne istediğini anlatırsın, görüşürüz, sistemi senin işine göre kurarız. Örnekler: rutin otomasyonu, siparişi okuyup onayınla gönderen proforma otomasyonu, Amazon ve Shopify mağaza otomasyonu.",
+    "meta.desc":"Şirketine özel sistem kurarız: ne istediğini anlatırsın, görüşürüz, sistemi senin işine göre kurarız. Örnekler: siparişi okuyup onayınla gönderen proforma otomasyonu, rutin otomasyonu, Amazon ve Shopify mağaza otomasyonu.",
     "nav.model":"Model","nav.product":"Ürün","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
     "sv.num":"Hizmetler","sv.tag":"Şirketine özel",
     "sv.h":"Şirketine özel sistem kurarız.",
@@ -834,7 +856,7 @@ const I18N={
     "how.t3":"Sana özel kurarız.","how.p3":"Kendi araçlarına, kendi kurallarına göre. Önemli her adım senin onayına gelir.",
     "sv.ex":"Aşağıda üç örnek var. <a href=\"/#musteri-bulma\">Müşteri bulma sisteminin</a> yanına ya da tek başına kurulur. Seninki bunlardan biri de olabilir, bambaşka bir şey de.",
     "sv.i1":"Rutin otomasyonu","sv.i2":"Proforma fatura otomasyonu","sv.i3":"Mağaza otomasyonu · Amazon ve Shopify",
-    "r.num":"01 — Rutin otomasyonu","r.tag":"Evrak · teklif · takip",
+    "r.num":"02 — Rutin otomasyonu","r.tag":"Evrak · teklif · takip",
     "r.h2":"Son bir kez elle yap. Sonra bir daha hiç.",
     "r.p":"Bir gününe bakarız ve tekrar edeni buluruz: aynı mail, aynı teklif, aynı fatura, aynı takip, yine güncellenen aynı Excel. Her birini zaten kullandığın araçlara bağlarız; yeni bir program öğrenmezsin.",
     "r.r1":"İşletmeye özel problem analizi","r.n1":"Kim · ne · neden elle",
@@ -854,7 +876,7 @@ const I18N={
     "ex2.w":"1–2. hafta","ex2.h":"Kurulum: talep girer, teklif çıkar","ex2.p":"Talep form ya da mailden gelir. Sistem fiyatı çeker, şablonu doldurur, PDF'i hazırlar. Sen bakar, onaylarsın; sistem gönderir.",
     "ex3.w":"3. haftadan itibaren","ex3.h":"Kazanç: 25 dakika yerine 2. Haftada 12 saat geri.","ex3.p":"Ayda yaklaşık 48 saat, bir çalışanın mesaisinin dörtte biri. Kopyala yapıştır hatası sıfır, teklif takibi kendiliğinden.",
     "ex4.w":"Sürekli","ex4.h":"Ölçek: aynı ekiple üç kat teklif","ex4.p":"İş büyüyünce saat büyümez. Geri gelen vakit müşteri bulmaya gider.",
-    "pf.num":"02 — Proforma fatura otomasyonu","pf.tag":"Sipariş → proforma → onay → gönderim",
+    "pf.num":"01 — Proforma fatura otomasyonu","pf.tag":"Sipariş → proforma → onay → gönderim",
     "pf.h2":"Sipariş gelir, proforma hazır olur, sen onaya basarsın.",
     "pf.p":"İhracatçı ve toptancıda işi bağlayan belge proformadır: yanlış kur, eksik vade ya da bir günlük gecikme siparişi götürür. Yapay zekâ siparişi okur, stoğa ve fiyat listene bakar, proformayı ve packing list'i hazırlar. Sen bakarsın, onaylarsın, kendisi gönderir.",
     "pf.k":"Akış · Siparişten gönderime","pf.h":"Bir sipariş geldiğinde ne olur?",
@@ -897,7 +919,7 @@ const I18N={
   },
   en:{
     "meta.title":"Services · Custom automation & proforma invoicing | astra-meta",
-    "meta.desc":"We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: workflow automation, proforma automation that reads the order and sends after your approval, Amazon and Shopify store automation.",
+    "meta.desc":"We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: proforma automation that reads the order and sends after your approval, workflow automation, Amazon and Shopify store automation.",
     "nav.model":"Model","nav.product":"Product","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
     "sv.num":"Services","sv.tag":"Built for your company",
     "sv.h":"We build the system your company needs.",
@@ -907,7 +929,7 @@ const I18N={
     "how.t3":"We build it for you.","how.p3":"Around your tools and your rules. Every step that matters comes to you for approval.",
     "sv.ex":"Three examples below. They sit next to the <a href=\"/#musteri-bulma\">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.",
     "sv.i1":"Workflow automation","sv.i2":"Proforma invoice automation","sv.i3":"Store automation · Amazon & Shopify",
-    "r.num":"01 — Workflow automation","r.tag":"Paperwork · quotes · follow-up",
+    "r.num":"02 — Workflow automation","r.tag":"Paperwork · quotes · follow-up",
     "r.h2":"Do it by hand one last time. Then never again.",
     "r.p":"We look at a day in your business and find what repeats: the same email, the same quote, the same invoice, the same follow-up, the same spreadsheet updated again. Each one is connected to the tools you already use; nothing new to learn.",
     "r.r1":"Problem analysis for your business","r.n1":"Who · what · why by hand",
@@ -927,7 +949,7 @@ const I18N={
     "ex2.w":"Weeks 1–2","ex2.h":"Build: request in, quote out","ex2.p":"The request arrives by form or email. The system pulls the price, fills the template and makes the PDF. You check and approve; the system sends it.",
     "ex3.w":"From week 3","ex3.h":"Gain: 2 minutes instead of 25. 12 hours a week back.","ex3.p":"About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.",
     "ex4.w":"Ongoing","ex4.h":"Scale: three times the quotes, same team","ex4.p":"When the work grows, the hours don't. The time you get back goes into finding customers.",
-    "pf.num":"02 — Proforma invoice automation","pf.tag":"Order → proforma → approval → sent",
+    "pf.num":"01 — Proforma invoice automation","pf.tag":"Order → proforma → approval → sent",
     "pf.h2":"The order comes in, the proforma gets ready, you press approve.",
     "pf.p":"For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.",
     "pf.k":"The flow · From order to sent","pf.h":"What happens when an order comes in?",

@@ -14,9 +14,10 @@ sistemi: organik web sitesi + Google/Meta reklam + yapay zekâ mail) → 03 Fark
 - `index.html` — tüm site (HTML + CSS + JS tek dosyada; sözlükler `I18N` nesnesinde)
 - `logo-nav.webp` — nav/footer wordmark · `logo.jpg` — favicon · `og.jpg` — paylaşım görseli
 - `privacy.html`, `terms.html`, `refund.html` — politika sayfaları
-- `hizmetler/index.html` — Hizmetler sayfası (2026-10-29): 01 rutin otomasyonu ("bir talep geldiğinde" akışı +
-  adım adım teklif rutini örneği), 02 proforma fatura otomasyonu (siparişten ödemeye akış + eskiden/şimdi),
-  03 mağaza otomasyonu (AI Otomasyon sayfasına bağlanır). Nav, footer, dil ve `makePipe` ana sayfadan kopyadır.
+- `hizmetler/index.html` — Hizmetler sayfası (2026-10-29): başta şirkete özel sistem (anlatırsın, görüşürüz, kurarız),
+  sonra örnekler: 01 rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini örneği), 02 proforma fatura
+  otomasyonu (kaydırdıkça ilerleyen `#pfx` sahnesi: mail ya da Excel, proforma, packing list, onay, düzeltme, gönderim +
+  eskiden/şimdi), 03 mağaza otomasyonu (AI Otomasyon sayfasına bağlanır). Nav, footer, dil ve `makePipe` ana sayfadan kopyadır.
 - `ai-automation/index.html` — AI Otomasyon sayfası (Amazon + Shopify şeritleri, 2026-10-13'te ana sayfadan taşındı).
   Nav, footer, dil sistemi ve `makePipe` ana sayfadan kopyadır; ana sayfada değişirse burada da değiştir.
 - `uk/` — eski UK landing page 2026-10-13'te kaldırıldı, `uk/index.html` sadece ana sayfaya yönlendirir

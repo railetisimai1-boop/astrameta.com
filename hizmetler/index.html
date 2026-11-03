@@ -3,24 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services · Workflow &amp; proforma automation | astra-meta</title>
-<meta name="description" content="Three services next to the customer acquisition system: workflow automation for paperwork, quotes and follow-ups; proforma invoice automation from order to payment; Amazon and Shopify store automation. Built once, runs every day.">
+<title>Services · Custom automation &amp; proforma invoicing | astra-meta</title>
+<meta name="description" content="We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: workflow automation, proforma automation that reads the order and sends after your approval, Amazon and Shopify store automation.">
 
 <!-- ════════════════════════════════════════════════════════════════
      astra-meta · Hizmetler sayfası (/hizmetler/)
      Ana sayfadaki "02 Hizmetler" bölümü 2026-10-29'da buraya taşındı; ana sayfada o yerde
      artık ana ürün (müşteri bulma sistemi) var.
-     • Üç hizmet: 01 Rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini
-       örneği), 02 Proforma fatura otomasyonu (siparişten ödemeye akış + eskiden/şimdi),
+     • Sayfa başı: şirkete özel sistem (anlatırsın, görüşürüz, kurarız).
+     • Üç örnek: 01 Rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini
+       örneği), 02 Proforma fatura otomasyonu (kaydırdıkça ilerleyen sahne #pfx: mail ya da Excel,
+       proforma, packing list, onay, düzeltme, gönderim + eskiden/şimdi),
        03 Mağaza otomasyonu (Amazon + Shopify, /ai-automation/ sayfasına bağlanır).
+     • #pfx sahnesi: JS tuvale p1..p7 (ulaşıldı) ve at1..at7 (şu an) sınıflarını yazar, geri kalanı CSS.
+       Firma ve fiyatlar örnektir, sahnenin altında öyle yazar. Tutarlar: 72x2,40 + 240x5,85 + 120x9,60 =
+       2.728,80; astarda %5 indirimle 120x9,12 = 1.094,40, toplam 2.671,20.
      • Stil ve davranış ana sayfadan kopyadır (nav, dil, makePipe). Ana sayfada nav/footer
        değişirse burada ve /ai-automation/ içinde de değiştir.
      • Dil: ana sayfayla aynı localStorage anahtarı (astra_lang).
      • Örnek rutin sayıları (6 teklif, 25 dk, 12 saat) örnek hesaptır, metinde öyle yazar.
      ════════════════════════════════════════════════════════════════ -->
 
-<meta property="og:title" content="Services · Workflow &amp; proforma automation | astra-meta">
-<meta property="og:description" content="Workflow automation, proforma invoice automation and store automation. Each one takes a job you do by hand today and runs it every day.">
+<meta property="og:title" content="Services · Custom automation &amp; proforma invoicing | astra-meta">
+<meta property="og:description" content="We build the system your company needs. You tell us what you want, we meet, we build it around your business. Nothing important happens until you approve it.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://astra-meta.com/hizmetler/">
 <meta property="og:image" content="https://astra-meta.com/og.jpg">
@@ -173,6 +178,20 @@
   .svc-index a:hover{color:var(--pink)}
   .svc-index .mono{font-size:11px;flex:none}
 
+  /* ── Şirkete özel: sayfa başı ── */
+  .svc-lead{justify-self:end;max-width:460px}
+  .svc-lead p{justify-self:start}
+  .svc-lead .btn{margin-top:26px}
+  .svc-lead .note{margin-top:14px;font-size:14px;color:var(--dim)}
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:0 28px;border-top:1px solid var(--line);margin-bottom:clamp(48px,7vw,96px)}
+  .how li{padding-top:26px}
+  .how .mono{display:block;margin-bottom:12px;color:var(--pink)}
+  .how h2{font-size:clamp(22px,2.2vw,32px);letter-spacing:-.02em;line-height:1.1;margin-bottom:10px}
+  .how p{color:var(--muted);font-size:15.5px;max-width:34ch}
+  .svc-ex-lead{color:var(--muted);max-width:640px;margin-bottom:22px}
+  .svc-ex-lead a{color:var(--text);border-bottom:1px solid var(--line-3);transition:color .25s,border-color .25s}
+  .svc-ex-lead a:hover{color:var(--pink);border-color:var(--pink)}
+
   /* ── Hizmet bölümü ortak ── */
   .svc{border-top:1px solid var(--line)}
   .svc-top{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:end;margin-bottom:clamp(48px,7vw,100px)}
@@ -230,11 +249,146 @@
   .pstep p{color:var(--muted);max-width:560px}
   .pstep:nth-child(3) h3{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
 
+  /* ── Proforma sahnesi: kaydırdıkça ilerleyen canlı örnek. Tek hareketli yer burası:
+        kâğıt koyu zeminde öne çıkar, onayda damga iner. ── */
+  .pfx-wrap{padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
+  .pfx{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(32px,5vw,88px);align-items:start}
+  .pfx-stage{position:sticky;top:max(calc(var(--nav-h) + 16px),calc(50svh - 350px));height:min(calc(100svh - var(--nav-h) - 32px),700px);display:flex;flex-direction:column;min-width:0}
+  .pfx-canvas{position:relative;flex:1;min-height:0}
+  .pfx-meta{display:flex;align-items:center;gap:14px;flex:none;padding-top:12px;font-size:11px}
+  #pfxNum{flex:none;white-space:nowrap}
+  .pfx-meta .bar{width:64px;height:1px;background:var(--line-2);position:relative;overflow:hidden;flex:none}
+  .pfx-meta .bar i{position:absolute;inset:0;background:var(--grad);transform:scaleX(.714);transform-origin:left;transition:transform .5s var(--ease-out)}
+  .pfx-note{margin-left:auto;font-family:var(--fb);font-size:12px;letter-spacing:0;text-transform:none;text-align:right}
+
+  .pfx-card{position:absolute;left:0;right:0;top:50%;max-width:500px;margin:0 auto;padding:22px 24px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 30px 70px -34px rgba(0,0,0,.9);opacity:0;transform:translateY(calc(-50% + 30px));transition:transform .7s var(--ease-out),opacity .45s}
+  .at1 .pfx-mail,.at2 .pfx-xls{opacity:1;transform:translateY(-50%)}
+  .p2 .pfx-mail,.p3 .pfx-xls{transform:translateY(calc(-50% - 34px)) scale(.97)}
+  .mail-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .mail-av{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--grad);color:#08080c;font-family:var(--fd);font-weight:700;font-size:14px}
+  .mail-from{font-weight:500;font-size:14px;line-height:1.3}
+  .mail-new{margin-left:auto;flex:none;font-size:10px;color:var(--cyan)}
+  .mail-subj{font-family:var(--fd);font-weight:500;font-size:clamp(16px,1.4vw,19px);letter-spacing:-.01em;line-height:1.25;margin-bottom:12px}
+  .mail-body{font-size:14px;line-height:1.55;color:var(--muted)}
+  .mail-lines{margin:10px 0;color:var(--text)}
+  .mail-lines li{opacity:0;transform:translateY(6px);transition:opacity .4s,transform .5s var(--ease-out)}
+  .at1 .mail-lines li{opacity:1;transform:none}
+  .at1 .mail-lines li:nth-child(1){transition-delay:.35s}
+  .at1 .mail-lines li:nth-child(2){transition-delay:.55s}
+  .at1 .mail-lines li:nth-child(3){transition-delay:.75s}
+
+  .xls-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-weight:500;font-size:14px}
+  .xls-tile{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:6px;background:#1c7a4d;color:#f3f3f8;font-family:var(--fd);font-weight:700;font-size:15px}
+  .xls-grid{border:1px solid var(--line-2);border-radius:6px;overflow:hidden;font-size:13px}
+  .xls-row{display:grid;grid-template-columns:30px 1.3fr .7fr .8fr;border-top:1px solid var(--line);opacity:0;transition:opacity .4s}
+  .xls-row>span{padding:7px 10px;border-left:1px solid var(--line);min-width:0}
+  .xls-row>span:first-child{border-left:0;color:var(--dim);text-align:center;padding:7px 0}
+  .xls-row.xh{border-top:0;background:rgba(255,255,255,.04);color:var(--muted);font-size:12px;opacity:1}
+  .xls-row .cd{font-family:var(--fm);font-size:12px}
+  .at2 .xls-row{opacity:1}
+  .at2 .xls-row:nth-child(2){transition-delay:.3s}
+  .at2 .xls-row:nth-child(3){transition-delay:.5s}
+  .at2 .xls-row:nth-child(4){transition-delay:.7s}
+  .xls-bar{height:2px;margin-top:16px;background:var(--line);overflow:hidden}
+  .xls-bar i{display:block;height:100%;background:var(--grad);transform:scaleX(0);transform-origin:left}
+  .at2 .xls-bar i{transform:scaleX(1);transition:transform 1s var(--ease) .9s}
+  .xls-done{margin-top:10px;font-size:13px;color:var(--muted);opacity:0}
+  .at2 .xls-done{opacity:1;transition:opacity .4s 1.8s}
+
+  .pfx-desk{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;pointer-events:none}
+  .pfx-chips{display:flex;flex-wrap:wrap;gap:6px 8px;min-height:30px;margin-bottom:12px;opacity:0;transition:opacity .4s}
+  .p3 .pfx-chips{opacity:1}
+  .p4 .pfx-chips{opacity:0}
+  .pfx-chips span{display:inline-flex;align-items:center;gap:7px;min-height:28px;padding:0 11px;border:1px solid var(--line-2);border-radius:99px;font-size:12px;color:var(--dim);transition:color .3s,border-color .3s}
+  .pfx-chips span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--line-3);transition:background .3s}
+  .p3 .pfx-chips span{color:var(--text);border-color:var(--line-3)}
+  .p3 .pfx-chips span::before{background:var(--cyan)}
+  .p3 .pfx-chips span:nth-child(1),.p3 .pfx-chips span:nth-child(1)::before{transition-delay:.3s}
+  .p3 .pfx-chips span:nth-child(2),.p3 .pfx-chips span:nth-child(2)::before{transition-delay:.8s}
+  .p3 .pfx-chips span:nth-child(3),.p3 .pfx-chips span:nth-child(3)::before{transition-delay:1.3s}
+
+  .pfx-papers{position:relative}
+  .paper{background:#f3f3f8;color:#15151d;border-radius:6px;padding:clamp(16px,2vw,26px);box-shadow:0 34px 80px -30px rgba(0,0,0,.95),0 0 60px -20px rgba(237,58,162,.22);font-size:13px;line-height:1.35}
+  .pfx-doc{position:relative;z-index:2;opacity:0;transform:translateY(34px);transition:transform .7s var(--ease-out),opacity .45s}
+  .p3 .pfx-doc{opacity:1;transform:none}
+  .at4 .pfx-doc{opacity:.45;transform:translateX(-2%) scale(.95)}
+  .at7 .pfx-doc{animation:stampHit .34s .3s}
+  @keyframes stampHit{35%{transform:translateY(3px) scale(.995)}}
+  .pfx-pack{position:absolute;left:0;right:0;top:0;z-index:1;opacity:0;transform:translateX(44px) rotate(2deg);transition:transform .7s var(--ease-out),opacity .45s}
+  .at4 .pfx-pack{z-index:3;opacity:1;transform:translate(8px,6px) rotate(.8deg)}
+  .p5 .pfx-pack{opacity:1;max-height:100%;overflow:hidden;transform:translate(10px,-12px) rotate(1.3deg) scale(.985)}
+  .doc-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+  .doc-title{font-family:var(--fd);font-weight:700;font-size:clamp(19px,1.9vw,26px);letter-spacing:-.025em;line-height:1}
+  .doc-no{font-family:var(--fm);font-size:11px;color:#5d5e70}
+  .doc-parties{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;font-size:12.5px}
+  .doc-parties b{display:block;font-weight:500;font-size:11px;color:#5d5e70}
+  .doc-row{display:grid;grid-template-columns:60px minmax(0,1fr) 36px 44px 66px;gap:8px;align-items:center;padding:8px 6px;border-top:1px solid rgba(8,8,12,.13)}
+  .doc-row .n{text-align:right;font-variant-numeric:tabular-nums}
+  .doc-code{font-family:var(--fm);font-size:11.5px}
+  .doc-head{border-top:0;padding-top:0;font-size:11px;color:#5d5e70}
+  .dr{clip-path:inset(0 100% 0 0);transition:clip-path .55s var(--ease),background .35s}
+  .p3 .dr{clip-path:inset(0 0 0 0)}
+  .p3 .dr:nth-of-type(n){transition-delay:0s}
+  .at3 .dr1{transition-delay:.5s,0s}
+  .at3 .dr2{transition-delay:.9s,0s}
+  .at3 .dr3{transition-delay:1.3s,0s}
+  .at6 .dr3{background:rgba(237,58,162,.16);transition-delay:0s,1.75s}
+  .flip{display:inline-grid;justify-items:end}
+  .flip>*{grid-area:1/1;transition:opacity .3s}
+  .flip .new{opacity:0}
+  .p6 .flip .old{opacity:0}
+  .p6 .flip .new{opacity:1}
+  .at6 .flip>*{transition-delay:1.75s}
+  .doc-sum{display:flex;justify-content:flex-end;align-items:baseline;gap:12px;padding:10px 6px 0;border-top:2px solid #15151d;opacity:0}
+  .p3 .doc-sum{opacity:1}
+  .at3 .doc-sum{transition:opacity .4s 1.8s}
+  .doc-sum b{font-family:var(--fd);font-weight:700;font-size:clamp(18px,1.7vw,22px);letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums}
+  .doc-foot{padding:6px 6px 0;font-size:11.5px;color:#5d5e70}
+  .stamp{position:absolute;right:18%;top:5%;padding:4px 12px;border:3px solid #d61f8b;border-radius:6px;color:#d61f8b;font-family:var(--fd);font-weight:700;font-size:clamp(18px,2vw,28px);letter-spacing:.05em;line-height:1.1;background:rgba(243,243,248,.72);opacity:0;transform:rotate(-7deg) scale(1.8)}
+  .p7 .stamp{opacity:1;transform:rotate(-7deg) scale(1);transition:transform .3s cubic-bezier(.2,1.5,.4,1) .15s,opacity .1s .15s}
+
+  .pack-row{display:grid;grid-template-columns:minmax(0,1fr) 72px 56px 66px;gap:8px;align-items:center;padding:8px 6px;border-top:1px solid rgba(8,8,12,.13);transition:background .35s}
+  .pack-row .n{text-align:right;font-variant-numeric:tabular-nums}
+  .pack-row.doc-head{border-top:0;padding-top:0}
+  .pack-sum{border-top:2px solid #15151d;font-weight:600}
+  .at4 .pack-row.hl{background:rgba(237,58,162,.16);transition-delay:.7s}
+  .pack-note{margin-top:14px;padding:10px 12px;border-radius:6px;background:#08080c;color:#f3f3f8;font-size:13px;line-height:1.4;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .5s var(--ease-out)}
+  .at4 .pack-note{opacity:1;transform:none;transition-delay:1s}
+
+  .pfx-ask{position:relative;z-index:4;display:grid;margin:-14px 0 0 clamp(14px,6%,44px);padding:15px 17px;background:var(--surface-2);border:1px solid var(--line-2);border-radius:10px;box-shadow:0 24px 60px -24px rgba(0,0,0,.95);opacity:0;transform:translateY(22px);transition:transform .6s var(--ease-out),opacity .4s}
+  .p5 .pfx-ask{opacity:1;transform:none}
+  .ask-v{grid-area:1/1;min-width:0;opacity:0;transition:opacity .35s}
+  .at5 .ask-a,.at6 .ask-b,.at7 .ask-c{opacity:1}
+  .ask-t{font-size:14px;line-height:1.45}
+  .ask-btns{display:flex;gap:8px;margin-top:11px}
+  .fakebtn{display:inline-flex;align-items:center;min-height:32px;padding:0 14px;border-radius:3px;font-size:13px;font-weight:600}
+  .fb-ok{background:var(--grad);color:#08080c}
+  .fb-ed{border:1px solid var(--line-2)}
+  .at5 .fb-ok{animation:okPulse 2.2s var(--ease) 1s infinite}
+  @keyframes okPulse{50%{box-shadow:0 0 0 7px rgba(237,58,162,.24)}}
+  .bub-u{width:max-content;max-width:100%;margin:0 0 9px auto;padding:6px 12px;border-radius:12px 12px 2px 12px;background:rgba(79,195,222,.16);font-size:13.5px}
+  .typed{display:inline-block;clip-path:inset(0 100% 0 0)}
+  .at6 .typed,.p7 .typed{clip-path:inset(0 0 0 0)}
+  .at6 .typed{transition:clip-path 1.1s steps(20) .35s}
+  .ask-b .later{opacity:0}
+  .at6 .ask-b .later{opacity:1;transition:opacity .4s 1.95s}
+  .ask-sent{display:flex;align-items:center;gap:11px;font-family:var(--fd);font-weight:500;font-size:clamp(17px,1.5vw,20px);letter-spacing:-.015em}
+  .ask-sent i{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--grad);color:#08080c;font-style:normal;font-size:13px;font-weight:700}
+  .ask-to{margin-top:8px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+  .ask-files{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .ask-files span{padding:3px 9px;border:1px solid var(--line-2);border-radius:4px;font-family:var(--fm);font-size:11px}
+
+  .pfx-steps{min-width:0;padding:8svh 0 24svh}
+  .pfx-step{display:flex;flex-direction:column;justify-content:center;min-height:min(70svh,620px);transition:opacity .45s}
+  .pfx.js .pfx-step{opacity:.24}
+  .pfx.js .pfx-step.on{opacity:1}
+  .pfx-step .pipe-act{align-self:flex-start;margin-bottom:14px;font-size:12px}
+  .pfx-step h3{font-size:clamp(26px,2.9vw,42px);letter-spacing:-.025em;line-height:1.04;margin-bottom:14px;max-width:16ch}
+  .pfx-step p{color:var(--muted);font-size:clamp(16px,1.25vw,18px);max-width:440px}
+
   /* ── Kapanış ── */
-  .cta-end{padding:clamp(96px,13vw,190px) 0;text-align:center;border-top:1px solid var(--line)}
-  .cta-end .mono{display:block;margin-bottom:22px}
-  .cta-end h2{font-size:clamp(36px,6vw,96px);letter-spacing:-.04em;max-width:16ch;margin:0 auto 34px}
-  .cta-end .note{margin-top:18px;font-size:14px;color:var(--dim)}
+  .cta-end{padding:clamp(72px,9vw,130px) 0;text-align:center;border-top:1px solid var(--line)}
+  .cta-end h2{font-size:clamp(30px,4.2vw,64px);letter-spacing:-.035em;margin:0 auto 30px}
 
   /* Footer */
   footer{border-top:1px solid var(--line);padding:56px 0 34px;color:var(--muted);font-size:14px}
@@ -251,7 +405,14 @@
   /* ── Responsive ── */
   @media(max-width:1024px){
     .svc-head-grid,.svc-top,.rows-2{grid-template-columns:1fr}
-    .svc-head-grid p,.svc-top p{justify-self:start}
+    .svc-head-grid p,.svc-top p,.svc-lead{justify-self:start}
+    .pfx{grid-template-columns:1fr;gap:0}
+    .pfx-stage{top:var(--nav-h);height:clamp(400px,54svh,440px);z-index:3}
+    .pfx-stage::before{content:"";position:absolute;z-index:-1;left:calc(-1*var(--gx));right:calc(-1*var(--gx));top:calc(-1*var(--nav-h));bottom:-30px;background:linear-gradient(180deg,var(--bg) calc(100% - 30px),rgba(8,8,12,0))}
+    .pfx-canvas,.pfx-meta{width:100%;max-width:560px;margin-left:auto;margin-right:auto}
+    .pfx-steps{padding:40px 0 34svh}
+    .pfx-step{justify-content:flex-start;min-height:52svh}
+    .pfx-step p{max-width:560px}
     .svc-intro{max-width:560px}
     .svc-index{grid-template-columns:1fr}
     .rows-2 li:nth-child(2){border-top:0}
@@ -278,6 +439,26 @@
     .pstep{grid-template-columns:1fr;gap:8px;padding-left:22px}
     .pstep .pw{padding-top:0}
     .svc-foot .btn{width:100%}
+    .how{grid-template-columns:1fr;gap:0}
+    .how li{padding:22px 0;border-bottom:1px solid var(--line)}
+    .how p{max-width:none}
+    .svc-lead .btn{width:100%}
+  }
+  @media(max-width:560px){
+    .paper{font-size:12px}
+    .pfx-card{padding:16px 18px}
+    .mail-body{font-size:13px}
+    .doc-parties,.doc-prod,.doc-foot{display:none}
+    .doc-row{grid-template-columns:minmax(0,1fr) 34px 44px 66px;padding:6px 4px}
+    .doc-top{margin-bottom:8px}
+    .stamp{right:21%;top:4%;padding:3px 8px;font-size:14px;border-width:2px}
+    .pack-row{grid-template-columns:minmax(0,1fr) 58px 46px 56px;padding:6px 4px}
+    .pack-note{margin-top:8px;padding:8px 10px;font-size:12px}
+    .pfx-chips span{padding:0 9px;font-size:11px}
+    .pfx-chips{gap:5px;margin-bottom:8px}
+    .ask-t{font-size:13px}
+    .pfx-ask{padding:11px 13px}
+    .pfx-note{font-size:11px}
   }
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -285,6 +466,7 @@
     .pipe-node.hit .pipe-dot{animation:none!important}
     .pipe-rail::before,.pline{transform:none!important}
     .nav{transition:none}
+    .pfx-canvas *,.pfx-step{transition:none!important;animation:none!important}
   }
 </style>
 <noscript><style>.rv{opacity:1;transform:none}.ch-head .ch-line{transform:none}.pline{transform:none}</style></noscript>
@@ -349,14 +531,24 @@
 </div>
 
 <main id="main">
-<!-- ── Sayfa başı ── -->
+<!-- ── Sayfa başı: şirkete özel sistem + üç örnek ── -->
 <section id="top" class="chapter svc-hero">
   <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="sv.num">Services</span><span class="ch-line"></span><span class="mono" data-i18n="sv.tag">Next to the main product</span></div>
+    <div class="ch-head"><span class="mono" data-i18n="sv.num">Services</span><span class="ch-line"></span><span class="mono" data-i18n="sv.tag">Built for your company</span></div>
     <div class="svc-head-grid">
-      <h1 class="split" data-i18n="sv.h">Build it once. It runs every day.</h1>
-      <p class="rv" data-i18n-html="sv.p">Our main product is the <a href="/#musteri-bulma">customer acquisition system</a>. The three services below sit next to it or stand on their own: <b>each one takes a job you do by hand today and runs it for you every day.</b> After the analysis we pick together which ones you actually need.</p>
+      <h1 class="split" data-i18n="sv.h">We build the system your company needs.</h1>
+      <div class="svc-lead rv">
+        <p data-i18n-html="sv.p">You tell us what you need, we meet, and we build the system around your company. <b>Built once, it runs every day.</b></p>
+        <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="cta.btn">Tell us about your business</span><span class="arr">→</span></a>
+        <p class="note" data-i18n="cta.note">The first consultation is free. No commitment.</p>
+      </div>
     </div>
+    <ol class="how rv">
+      <li><span class="mono">1</span><h2 data-i18n="how.t1">You tell us.</h2><p data-i18n="how.p1">What eats your time, and what you want instead.</p></li>
+      <li><span class="mono">2</span><h2 data-i18n="how.t2">We meet.</h2><p data-i18n="how.p2">We go through your work together and decide what moves into a system.</p></li>
+      <li><span class="mono">3</span><h2 data-i18n="how.t3">We build it for you.</h2><p data-i18n="how.p3">Around your tools and your rules. Every step that matters comes to you for approval.</p></li>
+    </ol>
+    <p class="svc-ex-lead rv" data-i18n-html="sv.ex">Three examples below. They sit next to the <a href="/#musteri-bulma">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.</p>
     <ol class="svc-index rv">
       <li><a href="#rutin"><span class="mono">01</span><span data-i18n="sv.i1">Workflow automation</span></a></li>
       <li><a href="#proforma"><span class="mono">02</span><span data-i18n="sv.i2">Proforma invoice automation</span></a></li>
@@ -414,7 +606,7 @@
       </div>
       <div class="plist" id="plist"><ol>
         <li class="pstep"><span class="pn" aria-hidden="true">01</span><span class="pw mono" data-i18n="ex1.w">Day 1</span><div><h3 data-i18n="ex1.h">Analysis: 6 quotes a day, 25 minutes each</h3><p data-i18n="ex1.p">Each one typed by hand from an old spreadsheet: price list, currency, lead time. 12 hours a week, plus the typos.</p></div></li>
-        <li class="pstep"><span class="pn" aria-hidden="true">02</span><span class="pw mono" data-i18n="ex2.w">Weeks 1–2</span><div><h3 data-i18n="ex2.h">Build: request in, quote out</h3><p data-i18n="ex2.p">The request arrives by form or email. The system pulls the price, fills the template, makes the PDF and sends it. You look only at the unusual ones.</p></div></li>
+        <li class="pstep"><span class="pn" aria-hidden="true">02</span><span class="pw mono" data-i18n="ex2.w">Weeks 1–2</span><div><h3 data-i18n="ex2.h">Build: request in, quote out</h3><p data-i18n="ex2.p">The request arrives by form or email. The system pulls the price, fills the template and makes the PDF. You check and approve; the system sends it.</p></div></li>
         <li class="pstep"><span class="pn" aria-hidden="true">03</span><span class="pw mono" data-i18n="ex3.w">From week 3</span><div><h3 data-i18n="ex3.h">Gain: 2 minutes instead of 25. 12 hours a week back.</h3><p data-i18n="ex3.p">About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.</p></div></li>
         <li class="pstep"><span class="pn" aria-hidden="true">04</span><span class="pw mono" data-i18n="ex4.w">Ongoing</span><div><h3 data-i18n="ex4.h">Scale: three times the quotes, same team</h3><p data-i18n="ex4.p">When the work grows, the hours don't. The time you get back goes into finding customers.</p></div></li>
       </ol><div class="pline" id="pline" aria-hidden="true"></div></div>
@@ -425,29 +617,104 @@
 <!-- ── 02 PROFORMA FATURA OTOMASYONU ── -->
 <section id="proforma" class="chapter svc">
   <div class="wrap">
-    <div class="ch-head"><span class="mono" data-i18n="pf.num">02 — Proforma invoice automation</span><span class="ch-line"></span><span class="mono" data-i18n="pf.tag">Order → proforma → payment</span></div>
+    <div class="ch-head"><span class="mono" data-i18n="pf.num">02 — Proforma invoice automation</span><span class="ch-line"></span><span class="mono" data-i18n="pf.tag">Order → proforma → approval → sent</span></div>
     <div class="svc-top">
-      <h2 class="h2 split" data-i18n="pf.h2">The proforma is ready before you open Excel.</h2>
+      <h2 class="h2 split" data-i18n="pf.h2">The order comes in, the proforma gets ready, you press approve.</h2>
       <div class="svc-intro rv">
-        <p data-i18n="pf.p">For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. The system prepares it from the quote or the order, sends it, follows the payment and logs it in accounting. You approve.</p>
+        <p data-i18n="pf.p">For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.</p>
       </div>
     </div>
-    <div class="pipe rv" style="margin-top:0">
-      <div class="pipe-head">
+    <div class="pfx-wrap">
+      <div class="pipe-head rv">
         <div>
-          <span class="mono" data-i18n="pf.k">The flow · From order to payment</span>
+          <span class="mono" data-i18n="pf.k">The flow · From order to sent</span>
           <h3 data-i18n="pf.h">What happens when an order comes in?</h3>
         </div>
-        <p data-i18n-html="pf.pp">Whichever channel the customer writes on, the path is the same: order, proforma, approval, payment and accounting are one chain. <b>You're only the approval link.</b></p>
+        <p data-i18n-html="pf.pp">Whether the customer writes an email or sends a spreadsheet, the path is the same: proforma, packing list, approval, sent. <b>You're only the approval link.</b></p>
       </div>
-      <div class="pipe-rail" id="pipeProforma">
-        <i class="pipe-fill" aria-hidden="true"></i><i class="pipe-pk" aria-hidden="true"></i>
-        <ol class="pipe-list">
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act c" data-i18n="pf.a1">Customer</span><h4 data-i18n="pf.t1">Asks for a quote or places an order.</h4><p data-i18n="pf.n1">Email, WhatsApp, form or B2B portal</p></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pf.a2">System</span><h4 data-i18n="pf.t2">Prepares the proforma.</h4><p data-i18n="pf.n2">Product codes, quantity, price, currency, terms, incoterm</p><span class="mono pipe-seg" data-i18n="pf.s2">within minutes</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act u" data-i18n="pf.a3">You</span><h4 data-i18n="pf.t3">Approve with one click.</h4><p data-i18n="pf.n3">Standard ones can go out on their own</p><span class="mono pipe-seg" data-i18n="pf.s3">same day</span></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pf.a4">System</span><h4 data-i18n="pf.t4">Sends it and follows up.</h4><p data-i18n="pf.n4">PDF to the customer, reminder, payment notice</p></li>
-          <li class="pipe-node"><i class="pipe-dot" aria-hidden="true"></i><span class="mono pipe-act s" data-i18n="pf.a5">System</span><h4 data-i18n="pf.t5">Logs it in accounting and stock.</h4><p data-i18n="pf.n5">ERP, spreadsheet or your accounting software</p></li>
+      <div class="pfx" id="pfx">
+        <div class="pfx-stage" aria-hidden="true">
+          <div class="pfx-canvas p1 p2 p3 p4 p5 at5">
+            <div class="pfx-card pfx-mail">
+              <div class="mail-top"><span class="mail-av">E</span><span class="mail-from" data-i18n="dm.from">Elif, Sample Building Supply</span><span class="mono mail-new" data-i18n="dm.new">New</span></div>
+              <p class="mail-subj" data-i18n="dm.subj">Order: shipping by 20 December</p>
+              <div class="mail-body">
+                <p data-i18n="dm.hi">Hi, we need the following by 20 December:</p>
+                <ul class="mail-lines">
+                  <li data-i18n="dm.l1">Wood paint 250 ml: 60 pcs</li>
+                  <li data-i18n="dm.l2">Interior paint 1 L: 240 pcs</li>
+                  <li data-i18n="dm.l3">Primer 2.5 L: 120 pcs</li>
+                </ul>
+                <p data-i18n="dm.end">Could you send a proforma?</p>
+              </div>
+            </div>
+            <div class="pfx-card pfx-xls">
+              <div class="xls-top"><span class="xls-tile">X</span><span data-i18n="dm.file">order.xlsx</span></div>
+              <div class="xls-grid">
+                <div class="xls-row xh"><span></span><span data-i18n="dm.c1">Product code</span><span data-i18n="dm.c2">Quantity</span><span data-i18n="dm.c3">Delivery</span></div>
+                <div class="xls-row"><span>2</span><span class="cd">AB-250</span><span>60</span><span data-i18n="dm.dt">20 Dec</span></div>
+                <div class="xls-row"><span>3</span><span class="cd">IC-1000</span><span>240</span><span data-i18n="dm.dt">20 Dec</span></div>
+                <div class="xls-row"><span>4</span><span class="cd">AS-2500</span><span>120</span><span data-i18n="dm.dt">20 Dec</span></div>
+              </div>
+              <div class="xls-bar"><i></i></div>
+              <p class="xls-done" data-i18n="dm.up">Uploaded: 3 lines. Excel or CSV, either works.</p>
+            </div>
+            <div class="pfx-desk">
+              <div class="pfx-chips"><span data-i18n="dm.ch1">Order read</span><span data-i18n="dm.ch2">Stock checked</span><span data-i18n="dm.ch3">Price pulled</span></div>
+              <div class="pfx-papers">
+                <div class="paper pfx-doc">
+                  <div class="doc-top"><span class="doc-title" data-i18n="dm.doc">Proforma invoice</span><span class="doc-no">PI-0142</span></div>
+                  <div class="doc-parties">
+                    <div><b data-i18n="dm.seller">Seller</b><span data-i18n="dm.sellerv">Sample Paints Ltd</span></div>
+                    <div><b data-i18n="dm.buyer">Buyer</b><span data-i18n="dm.buyerv">Sample Building Supply</span></div>
+                    <div><b data-i18n="dm.term">Delivery</b><span data-i18n="dm.termv">20 December</span></div>
+                  </div>
+                  <div class="doc-row doc-head"><span data-i18n="dm.hc">Code</span><span class="doc-prod" data-i18n="dm.hp">Product</span><span class="n" data-i18n="dm.hq">Qty</span><span class="n" data-i18n="dm.hu">Unit</span><span class="n" data-i18n="dm.ha">Amount</span></div>
+                  <div class="doc-row dr dr1"><span class="doc-code">AB-250</span><span class="doc-prod" data-i18n="dm.p1">Wood paint 250 ml</span><span class="n">72</span><span class="n" data-i18n="dm.u1">2.40</span><span class="n" data-i18n="dm.m1">172.80</span></div>
+                  <div class="doc-row dr dr2"><span class="doc-code">IC-1000</span><span class="doc-prod" data-i18n="dm.p2">Interior paint 1 L</span><span class="n">240</span><span class="n" data-i18n="dm.u2">5.85</span><span class="n" data-i18n="dm.m2">1,404.00</span></div>
+                  <div class="doc-row dr dr3"><span class="doc-code">AS-2500</span><span class="doc-prod" data-i18n="dm.p3">Primer 2.5 L</span><span class="n">120</span><span class="n flip"><span class="old" data-i18n="dm.u3">9.60</span><span class="new" data-i18n="dm.u3b">9.12</span></span><span class="n flip"><span class="old" data-i18n="dm.m3">1,152.00</span><span class="new" data-i18n="dm.m3b">1,094.40</span></span></div>
+                  <div class="doc-sum"><span data-i18n="dm.total">Total</span><b class="flip"><span class="old" data-i18n="dm.t1">2,728.80</span><span class="new" data-i18n="dm.t2">2,671.20</span></b><span>USD</span></div>
+                  <p class="doc-foot" data-i18n="dm.foot">That customer's price, excluding tax</p>
+                  <span class="stamp" data-i18n="dm.stamp">APPROVED</span>
+                </div>
+                <div class="paper pfx-pack">
+                  <div class="doc-top"><span class="doc-title">Packing list</span><span class="doc-no">PI-0142</span></div>
+                  <div class="pack-row doc-head"><span data-i18n="dm.hc">Code</span><span class="n" data-i18n="dm.pk1">Per carton</span><span class="n" data-i18n="dm.pk2">Cartons</span><span class="n" data-i18n="dm.pk3">Gross kg</span></div>
+                  <div class="pack-row hl"><span class="doc-code">AB-250</span><span class="n">72</span><span class="n">1</span><span class="n">22</span></div>
+                  <div class="pack-row"><span class="doc-code">IC-1000</span><span class="n">12</span><span class="n">20</span><span class="n">300</span></div>
+                  <div class="pack-row"><span class="doc-code">AS-2500</span><span class="n">6</span><span class="n">20</span><span class="n">384</span></div>
+                  <div class="pack-row pack-sum"><span data-i18n="dm.total">Total</span><span></span><span class="n">41</span><span class="n">706</span></div>
+                  <p class="pack-note" data-i18n="dm.n2">AB-250: 60 ordered, the carton holds 72. I rounded up to 72 for your approval.</p>
+                </div>
+              </div>
+              <div class="pfx-ask">
+                <div class="ask-v ask-a">
+                  <p class="ask-t" data-i18n="dm.a1">An email came in from Sample Building Supply. They want 3 items, here is the proforma: 2,728.80 USD. Do you approve?</p>
+                  <div class="ask-btns"><span class="fakebtn fb-ok" data-i18n="dm.ok">Approve</span><span class="fakebtn fb-ed" data-i18n="dm.edit">Edit</span></div>
+                </div>
+                <div class="ask-v ask-b">
+                  <p class="bub-u"><span class="typed" data-i18n="dm.u">Give them 5% off the primer.</span></p>
+                  <p class="ask-t later" data-i18n="dm.a2">Prepared again: 2,671.20 USD. Shall I send it?</p>
+                  <div class="ask-btns later"><span class="fakebtn fb-ok" data-i18n="dm.ok">Approve</span><span class="fakebtn fb-ed" data-i18n="dm.edit">Edit</span></div>
+                </div>
+                <div class="ask-v ask-c">
+                  <p class="ask-sent"><i>✓</i><span data-i18n="dm.sent">Sent</span></p>
+                  <p class="ask-to" data-i18n="dm.to">To: elif@samplebuilding.example</p>
+                  <div class="ask-files"><span>Proforma.pdf</span><span>Packing-list.pdf</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pfx-meta mono"><span id="pfxNum">5 / 7</span><span class="bar"><i id="pfxBar"></i></span><span class="pfx-note" data-i18n="dm.note">Sample order. Companies and prices are examples.</span></div>
+        </div>
+        <ol class="pfx-steps">
+          <li class="pfx-step"><span class="mono pipe-act c" data-i18n="ps1.a">1 · Customer</span><h3 data-i18n="ps1.h">The order arrives by email.</h3><p data-i18n="ps1.p">Your customer writes the way they always do: what, how many, by when. No new form to fill in.</p></li>
+          <li class="pfx-step"><span class="mono pipe-act c" data-i18n="ps2.a">2 · Customer</span><h3 data-i18n="ps2.h">Or in a spreadsheet.</h3><p data-i18n="ps2.p">Product code, quantity, requested delivery date. Excel or CSV, the format doesn't matter. Hundreds of lines, and nobody types them in again.</p></li>
+          <li class="pfx-step"><span class="mono pipe-act s" data-i18n="ps3.a">3 · AI</span><h3 data-i18n="ps3.h">It reads and prepares the proforma.</h3><p data-i18n="ps3.p">It works out what was ordered, then checks your stock system and price list: that customer's price, with or without tax, by country. Then it fills in the proforma.</p></li>
+          <li class="pfx-step"><span class="mono pipe-act s" data-i18n="ps4.a">4 · AI</span><h3 data-i18n="ps4.h">It prepares the packing list too.</h3><p data-i18n="ps4.p">Ready alongside the proforma: cartons and weight. It knows your carton sizes too. You don't sell 60 from a carton of 72; it spots that and tells you.</p></li>
+          <li class="pfx-step"><span class="mono pipe-act u" data-i18n="ps5.a">5 · You</span><h3 data-i18n="ps5.h">It asks: do you approve?</h3><p data-i18n="ps5.p">“This email came in, this is what they want, here's the invoice.” You look it over and, if it's right, press approve. That's it.</p></li>
+          <li class="pfx-step"><span class="mono pipe-act u" data-i18n="ps6.a">6 · You</span><h3 data-i18n="ps6.h">If something's off, you say so.</h3><p data-i18n="ps6.p">Press edit and write what should change in a normal sentence. It prepares the proforma again and asks once more: shall I send it?</p></li>
+          <li class="pfx-step"><span class="mono pipe-act s" data-i18n="ps7.a">7 · AI</span><h3 data-i18n="ps7.h">After you approve, it sends.</h3><p data-i18n="ps7.p">The proforma and packing list go to the customer's inbox. Nothing goes out until you approve it.</p></li>
         </ol>
       </div>
     </div>
@@ -461,13 +728,13 @@
       <ul class="rows">
         <li><span class="ri">01</span><span class="rt"><span data-i18n="pf.g1">Proforma ready in minutes, not an afternoon</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b1">Before: 20 minutes per document, Excel and Word side by side</span></li>
         <li><span class="ri">02</span><span class="rt"><span data-i18n="pf.g2">Price, currency, terms and product codes without typos</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b2">Before: copy-paste errors the customer found</span></li>
-        <li><span class="ri">03</span><span class="rt"><span data-i18n="pf.g3">Payment followed on its own</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b3">Before: the “did you receive the proforma?” email</span></li>
-        <li><span class="ri">04</span><span class="rt"><span data-i18n="pf.g4">Accounting and stock updated once</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b4">Before: the same data typed in three places</span></li>
+        <li><span class="ri">03</span><span class="rt"><span data-i18n="pf.g3">Packing list ready alongside the proforma</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b3">Before: carton math in a separate file</span></li>
+        <li><span class="ri">04</span><span class="rt"><span data-i18n="pf.g4">Payment follow-up, accounting and stock entries can be added</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b4">Before: the same data typed in three places</span></li>
         <li><span class="ri">05</span><span class="rt"><span data-i18n="pf.g5">Multi-language, multi-currency</span><span class="arr">→</span></span><span class="rn mono" data-i18n="pf.b5">EN · DE · FR · USD · EUR · TRY</span></li>
       </ul>
     </div>
     <div class="svc-foot rv">
-      <p class="svc-you"><i aria-hidden="true">✓</i><span data-i18n="pf.you">Every proforma waits for your approval until you say otherwise.</span></p>
+      <p class="svc-you"><i aria-hidden="true">✓</i><span data-i18n="pf.you">No proforma goes out until you approve it.</span></p>
       <a class="btn btn-primary" href="/#isinden-bahset"><span data-i18n="pf.cta">Talk about your proforma flow</span><span class="arr">→</span></a>
     </div>
   </div>
@@ -490,10 +757,8 @@
 <!-- ── Kapanış ── -->
 <section class="cta-end" aria-label="Contact">
   <div class="wrap">
-    <span class="mono rv" data-i18n="cta.k">Which one eats your day?</span>
-    <h2 class="rv" data-i18n="cta.h">Tell us about your business and we'll say where to start.</h2>
+    <h2 class="rv" data-i18n="cta.k">Which one eats your day?</h2>
     <a class="btn btn-primary rv" href="/#isinden-bahset"><span data-i18n="cta.btn">Tell us about your business</span><span class="arr">→</span></a>
-    <p class="note rv" data-i18n="cta.note">The first consultation is free. No commitment.</p>
   </div>
 </section>
 </main>
@@ -541,12 +806,16 @@ const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 /* ── i18n ── */
 const I18N={
   tr:{
-    "meta.title":"Hizmetler · Rutin ve proforma otomasyonu | astra-meta",
-    "meta.desc":"Müşteri bulma sisteminin yanında üç hizmet: evrak, teklif ve takip için rutin otomasyonu; siparişten ödemeye proforma fatura otomasyonu; Amazon ve Shopify mağaza otomasyonu. Bir kez kurulur, her gün çalışır.",
+    "meta.title":"Hizmetler · Şirkete özel otomasyon ve proforma | astra-meta",
+    "meta.desc":"Şirketine özel sistem kurarız: ne istediğini anlatırsın, görüşürüz, sistemi senin işine göre kurarız. Örnekler: rutin otomasyonu, siparişi okuyup onayınla gönderen proforma otomasyonu, Amazon ve Shopify mağaza otomasyonu.",
     "nav.model":"Model","nav.product":"Ürün","nav.services":"Hizmetler","nav.proof":"Fark","nav.process":"Süreç","nav.contact":"İletişim","nav.ai":"AI Otomasyon","nav.cta":"İletişime geç",
-    "sv.num":"Hizmetler","sv.tag":"Ana ürünün yanında",
-    "sv.h":"Bir kez kur, her gün çalışsın.",
-    "sv.p":"Ana ürünümüz <a href=\"/#musteri-bulma\">müşteri bulma sistemi</a>. Aşağıdaki üç hizmet onun yanına ya da tek başına kurulur: <b>her biri bugün elle yaptığın bir işi alır, her gün senin yerine yapar.</b> Hangisinin gerekli olduğunu analizden sonra birlikte seçeriz.",
+    "sv.num":"Hizmetler","sv.tag":"Şirketine özel",
+    "sv.h":"Şirketine özel sistem kurarız.",
+    "sv.p":"Ne istediğini bize anlatırsın, görüşme yaparız, sistemi senin şirketine göre kurarız. <b>Bir kez kurulur, her gün çalışır.</b>",
+    "how.t1":"Anlatırsın.","how.p1":"Neyin vaktini aldığını, ne istediğini söylersin.",
+    "how.t2":"Görüşürüz.","how.p2":"İşini birlikte inceleriz, neyin sisteme geçeceğine karar veririz.",
+    "how.t3":"Sana özel kurarız.","how.p3":"Kendi araçlarına, kendi kurallarına göre. Önemli her adım senin onayına gelir.",
+    "sv.ex":"Aşağıda üç örnek var. <a href=\"/#musteri-bulma\">Müşteri bulma sisteminin</a> yanına ya da tek başına kurulur. Seninki bunlardan biri de olabilir, bambaşka bir şey de.",
     "sv.i1":"Rutin otomasyonu","sv.i2":"Proforma fatura otomasyonu","sv.i3":"Mağaza otomasyonu · Amazon ve Shopify",
     "r.num":"01 — Rutin otomasyonu","r.tag":"Evrak · teklif · takip",
     "r.h2":"Son bir kez elle yap. Sonra bir daha hiç.",
@@ -565,40 +834,60 @@ const I18N={
     "ex.k":"Adım adım · Teklif rutini örneği","ex.h":"Bir rutin sisteme nasıl geçer?",
     "ex.p":"Sayılar örnektir; seninkiler analizde çıkar. Mantık her rutinde aynı: ölç, kur, kazan, ölçekle.",
     "ex1.w":"1. gün","ex1.h":"Analiz: günde 6 teklif, her biri 25 dakika","ex1.p":"Her biri eski bir Excel'den elle yazılıyor: fiyat listesi, kur, termin. Haftada 12 saat, üstüne yazım hataları.",
-    "ex2.w":"1–2. hafta","ex2.h":"Kurulum: talep girer, teklif çıkar","ex2.p":"Talep form ya da mailden gelir. Sistem fiyatı çeker, şablonu doldurur, PDF'i hazırlar ve gönderir. Sen yalnızca sıra dışı olana bakarsın.",
+    "ex2.w":"1–2. hafta","ex2.h":"Kurulum: talep girer, teklif çıkar","ex2.p":"Talep form ya da mailden gelir. Sistem fiyatı çeker, şablonu doldurur, PDF'i hazırlar. Sen bakar, onaylarsın; sistem gönderir.",
     "ex3.w":"3. haftadan itibaren","ex3.h":"Kazanç: 25 dakika yerine 2. Haftada 12 saat geri.","ex3.p":"Ayda yaklaşık 48 saat, bir çalışanın mesaisinin dörtte biri. Kopyala yapıştır hatası sıfır, teklif takibi kendiliğinden.",
     "ex4.w":"Sürekli","ex4.h":"Ölçek: aynı ekiple üç kat teklif","ex4.p":"İş büyüyünce saat büyümez. Geri gelen vakit müşteri bulmaya gider.",
-    "pf.num":"02 — Proforma fatura otomasyonu","pf.tag":"Sipariş → proforma → ödeme",
-    "pf.h2":"Sen Excel'i açmadan proforma hazır.",
-    "pf.p":"İhracatçı ve toptancıda işi bağlayan belge proformadır: yanlış kur, eksik vade ya da bir günlük gecikme siparişi götürür. Sistem proformayı tekliften ya da siparişten hazırlar, gönderir, ödemeyi takip eder ve muhasebeye işler. Sen onaylarsın.",
-    "pf.k":"Akış · Siparişten ödemeye","pf.h":"Bir sipariş geldiğinde ne olur?",
-    "pf.pp":"Müşteri hangi kanaldan yazarsa yazsın yol aynı: sipariş, proforma, onay, ödeme ve muhasebe tek zincirdir. <b>Sen yalnızca onay halkasısın.</b>",
-    "pf.a1":"Müşteri","pf.t1":"Teklif ister ya da sipariş verir.","pf.n1":"Mail, WhatsApp, form ya da B2B portal",
-    "pf.a2":"Sistem","pf.t2":"Proformayı hazırlar.","pf.n2":"Ürün kodu, adet, fiyat, kur, vade, teslim şekli","pf.s2":"dakikalar içinde",
-    "pf.a3":"Sen","pf.t3":"Tek tıkla onaylarsın.","pf.n3":"Standart olanlar istersen kendiliğinden gider","pf.s3":"aynı gün",
-    "pf.a4":"Sistem","pf.t4":"Gönderir, takip eder.","pf.n4":"PDF müşteriye, hatırlatma, ödeme bildirimi",
-    "pf.a5":"Sistem","pf.t5":"Muhasebeye ve stoğa işler.","pf.n5":"ERP, Excel ya da muhasebe programın",
+    "pf.num":"02 — Proforma fatura otomasyonu","pf.tag":"Sipariş → proforma → onay → gönderim",
+    "pf.h2":"Sipariş gelir, proforma hazır olur, sen onaya basarsın.",
+    "pf.p":"İhracatçı ve toptancıda işi bağlayan belge proformadır: yanlış kur, eksik vade ya da bir günlük gecikme siparişi götürür. Yapay zekâ siparişi okur, stoğa ve fiyat listene bakar, proformayı ve packing list'i hazırlar. Sen bakarsın, onaylarsın, kendisi gönderir.",
+    "pf.k":"Akış · Siparişten gönderime","pf.h":"Bir sipariş geldiğinde ne olur?",
+    "pf.pp":"Müşteri mail yazsın ya da Excel göndersin, yol aynı: proforma, packing list, onay, gönderim. <b>Sen yalnızca onay halkasısın.</b>",
+    "ps1.a":"1 · Müşteri","ps1.h":"Sipariş mailden gelir.","ps1.p":"Müşterin her zamanki gibi yazar: ne istediğini, kaç adet, ne zamana. Yeni bir form doldurmaz.",
+    "ps2.a":"2 · Müşteri","ps2.h":"Ya da Excel'le gelir.","ps2.p":"Ürün kodu, adet, istenen termin. Excel ya da CSV, format fark etmez. Yüzlerce kalem olsa da kimse tek tek elle girmez.",
+    "ps3.a":"3 · Yapay zekâ","ps3.h":"Okur, proformayı hazırlar.","ps3.p":"Neyin istendiğini anlar, stok sistemine ve fiyat listene bakar: o müşterinin fiyatı, vergili ya da vergisiz, ülkesine göre. Proformayı doldurur.",
+    "ps4.a":"4 · Yapay zekâ","ps4.h":"Packing list'i de çıkarır.","ps4.p":"Proformayla birlikte hazır olur: koli adedi, ağırlık. Koli bilgisini de bilir. 72'lik koliden 60 adet satılmaz; bunu görür, sana söyler.",
+    "ps5.a":"5 · Sen","ps5.h":"Sana sorar: onaylıyor musun?","ps5.p":"“Şöyle bir mail geldi, bunu istediler, faturası bu.” Bakarsın, doğruysa onaya basarsın. O kadar.",
+    "ps6.a":"6 · Sen","ps6.h":"Düzeltmek istersen yazarsın.","ps6.p":"Düzenle'ye basıp ne değişeceğini normal bir cümleyle yazarsın. Proformayı yeniden hazırlar, tekrar sorar: göndereyim mi?",
+    "ps7.a":"7 · Yapay zekâ","ps7.h":"Onayından sonra gönderir.","ps7.p":"Proforma ve packing list müşterinin mailine gider. Sen onaylamadan hiçbir şey gitmez.",
+    "dm.note":"Örnek sipariş. Firma ve fiyatlar temsilidir.",
+    "dm.from":"Elif, Örnek Yapı Market","dm.new":"Yeni","dm.subj":"Sipariş: 20 Aralık sevkiyatı","dm.hi":"Merhaba, 20 Aralık'a kadar şunlar lazım:",
+    "dm.l1":"Ahşap boyası 250 ml: 60 adet","dm.l2":"İç cephe boyası 1 L: 240 adet","dm.l3":"Astar 2,5 L: 120 adet","dm.end":"Proforma gönderebilir misiniz?",
+    "dm.file":"siparis.xlsx","dm.c1":"Ürün kodu","dm.c2":"Adet","dm.c3":"Termin","dm.dt":"20 Ara","dm.up":"Yüklendi: 3 kalem. Excel ya da CSV, fark etmez.",
+    "dm.ch1":"Sipariş okundu","dm.ch2":"Stok bakıldı","dm.ch3":"Fiyat çekildi",
+    "dm.doc":"Proforma fatura","dm.seller":"Satıcı","dm.sellerv":"Örnek Boya A.Ş.","dm.buyer":"Alıcı","dm.buyerv":"Örnek Yapı Market","dm.term":"Termin","dm.termv":"20 Aralık",
+    "dm.hc":"Kod","dm.hp":"Ürün","dm.hq":"Adet","dm.hu":"Birim","dm.ha":"Tutar",
+    "dm.p1":"Ahşap boyası 250 ml","dm.p2":"İç cephe boyası 1 L","dm.p3":"Astar 2,5 L",
+    "dm.u1":"2,40","dm.m1":"172,80","dm.u2":"5,85","dm.m2":"1.404,00","dm.u3":"9,60","dm.u3b":"9,12","dm.m3":"1.152,00","dm.m3b":"1.094,40",
+    "dm.total":"Toplam","dm.t1":"2.728,80","dm.t2":"2.671,20","dm.foot":"O müşterinin fiyatı, vergisiz","dm.stamp":"ONAYLANDI",
+    "dm.pk1":"Koli içi","dm.pk2":"Koli","dm.pk3":"Brüt kg","dm.n2":"AB-250: 60 adet istendi, koli 72'lik. 72'ye tamamladım, onayına sunuyorum.",
+    "dm.a1":"Örnek Yapı Market'ten mail geldi. 3 kalem istediler, proforması bu: 2.728,80 USD. Onaylıyor musun?","dm.ok":"Onayla","dm.edit":"Düzenle",
+    "dm.u":"Astarda %5 indirim yap.","dm.a2":"Yeniden hazırladım: 2.671,20 USD. Göndereyim mi?",
+    "dm.sent":"Gönderildi","dm.to":"Kime: elif@ornekyapi.example",
     "pg.k":"Ne değişir","pg.h":"Eskiden ve şimdi, belge belge",
     "pf.g1":"Proforma bir öğleden sonra değil, dakikalar içinde hazır","pf.b1":"Eskiden: belge başı 20 dakika, Excel ve Word yan yana",
     "pf.g2":"Fiyat, kur, vade ve ürün kodu hatasız","pf.b2":"Eskiden: müşterinin bulduğu kopyala yapıştır hatası",
-    "pf.g3":"Ödeme kendiliğinden takip edilir","pf.b3":"Eskiden: “proformayı aldınız mı?” maili",
-    "pf.g4":"Muhasebe ve stok bir kez güncellenir","pf.b4":"Eskiden: aynı veri üç yere elle",
+    "pf.g3":"Packing list proformayla birlikte hazır","pf.b3":"Eskiden: koli hesabı ayrı bir dosyada",
+    "pf.g4":"Ödeme takibi, muhasebe ve stok kaydı da eklenebilir","pf.b4":"Eskiden: aynı veri üç yere elle",
     "pf.g5":"Çok dilli, çok para birimli","pf.b5":"EN · DE · FR · USD · EUR · TRY",
-    "pf.you":"Sen aksini söyleyene kadar her proforma onayını bekler.","pf.cta":"Proforma akışını konuşalım",
+    "pf.you":"Sen onaylamadan hiçbir proforma gitmez.","pf.cta":"Proforma akışını konuşalım",
     "mg.num":"03 — Mağaza otomasyonu","mg.tag":"Amazon ve Shopify",
     "mg.h2":"Ürünü sistem bulur, mağazayı sistem yönetir.",
     "mg.p":"Kendi Amazon ve Shopify mağazalarımızı her gün yöneten sistemi senin mağazana kuruyoruz: ürün bulma, eleme, listeleme, fiyat ve stok takibi, reklam. Para çıkan her adım senin onayınla. Canlı sistemden gerçek sipariş ekranları ayrı sayfada.",
     "mg.cta":"Mağaza sistemini gör",
-    "cta.k":"Hangisi senin gününü alıyor?","cta.h":"Bize işini anlat, nereden başlanacağını söyleyelim.","cta.btn":"İşinden bahset","cta.note":"İlk görüşme ücretsiz, taahhüt yok.",
+    "cta.k":"Hangisi senin gününü alıyor?","cta.btn":"İşinden bahset","cta.note":"İlk görüşme ücretsiz, taahhüt yok.",
     "foot.contact":"İletişim","foot.legal":"Yasal","foot.lang":"Dil","foot.copy":"© 2026 astra-meta LLC · Analiz et. Sistem kur. Ölçekle.","foot.top":"Başa dön"
   },
   en:{
-    "meta.title":"Services · Workflow & proforma automation | astra-meta",
-    "meta.desc":"Three services next to the customer acquisition system: workflow automation for paperwork, quotes and follow-ups; proforma invoice automation from order to payment; Amazon and Shopify store automation. Built once, runs every day.",
+    "meta.title":"Services · Custom automation & proforma invoicing | astra-meta",
+    "meta.desc":"We build the system your company needs: you tell us what you want, we meet, we build it around your business. Examples: workflow automation, proforma automation that reads the order and sends after your approval, Amazon and Shopify store automation.",
     "nav.model":"Model","nav.product":"Product","nav.services":"Services","nav.proof":"Difference","nav.process":"Process","nav.contact":"Contact","nav.ai":"AI Automation","nav.cta":"Let's talk",
-    "sv.num":"Services","sv.tag":"Next to the main product",
-    "sv.h":"Build it once. It runs every day.",
-    "sv.p":"Our main product is the <a href=\"/#musteri-bulma\">customer acquisition system</a>. The three services below sit next to it or stand on their own: <b>each one takes a job you do by hand today and runs it for you every day.</b> After the analysis we pick together which ones you actually need.",
+    "sv.num":"Services","sv.tag":"Built for your company",
+    "sv.h":"We build the system your company needs.",
+    "sv.p":"You tell us what you need, we meet, and we build the system around your company. <b>Built once, it runs every day.</b>",
+    "how.t1":"You tell us.","how.p1":"What eats your time, and what you want instead.",
+    "how.t2":"We meet.","how.p2":"We go through your work together and decide what moves into a system.",
+    "how.t3":"We build it for you.","how.p3":"Around your tools and your rules. Every step that matters comes to you for approval.",
+    "sv.ex":"Three examples below. They sit next to the <a href=\"/#musteri-bulma\">customer acquisition system</a> or stand on their own. Yours may be one of these, or something else entirely.",
     "sv.i1":"Workflow automation","sv.i2":"Proforma invoice automation","sv.i3":"Store automation · Amazon & Shopify",
     "r.num":"01 — Workflow automation","r.tag":"Paperwork · quotes · follow-up",
     "r.h2":"Do it by hand one last time. Then never again.",
@@ -617,31 +906,47 @@ const I18N={
     "ex.k":"Step by step · The quote routine","ex.h":"How one routine moves into the system",
     "ex.p":"The numbers are an example; yours come out of the analysis. The logic is the same for every routine: measure, build, gain, scale.",
     "ex1.w":"Day 1","ex1.h":"Analysis: 6 quotes a day, 25 minutes each","ex1.p":"Each one typed by hand from an old spreadsheet: price list, currency, lead time. 12 hours a week, plus the typos.",
-    "ex2.w":"Weeks 1–2","ex2.h":"Build: request in, quote out","ex2.p":"The request arrives by form or email. The system pulls the price, fills the template, makes the PDF and sends it. You look only at the unusual ones.",
+    "ex2.w":"Weeks 1–2","ex2.h":"Build: request in, quote out","ex2.p":"The request arrives by form or email. The system pulls the price, fills the template and makes the PDF. You check and approve; the system sends it.",
     "ex3.w":"From week 3","ex3.h":"Gain: 2 minutes instead of 25. 12 hours a week back.","ex3.p":"About 48 hours a month, a quarter of one person's time. Zero copy-paste errors; follow-up runs on its own.",
     "ex4.w":"Ongoing","ex4.h":"Scale: three times the quotes, same team","ex4.p":"When the work grows, the hours don't. The time you get back goes into finding customers.",
-    "pf.num":"02 — Proforma invoice automation","pf.tag":"Order → proforma → payment",
-    "pf.h2":"The proforma is ready before you open Excel.",
-    "pf.p":"For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. The system prepares it from the quote or the order, sends it, follows the payment and logs it in accounting. You approve.",
-    "pf.k":"The flow · From order to payment","pf.h":"What happens when an order comes in?",
-    "pf.pp":"Whichever channel the customer writes on, the path is the same: order, proforma, approval, payment and accounting are one chain. <b>You're only the approval link.</b>",
-    "pf.a1":"Customer","pf.t1":"Asks for a quote or places an order.","pf.n1":"Email, WhatsApp, form or B2B portal",
-    "pf.a2":"System","pf.t2":"Prepares the proforma.","pf.n2":"Product codes, quantity, price, currency, terms, incoterm","pf.s2":"within minutes",
-    "pf.a3":"You","pf.t3":"Approve with one click.","pf.n3":"Standard ones can go out on their own","pf.s3":"same day",
-    "pf.a4":"System","pf.t4":"Sends it and follows up.","pf.n4":"PDF to the customer, reminder, payment notice",
-    "pf.a5":"System","pf.t5":"Logs it in accounting and stock.","pf.n5":"ERP, spreadsheet or your accounting software",
+    "pf.num":"02 — Proforma invoice automation","pf.tag":"Order → proforma → approval → sent",
+    "pf.h2":"The order comes in, the proforma gets ready, you press approve.",
+    "pf.p":"For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.",
+    "pf.k":"The flow · From order to sent","pf.h":"What happens when an order comes in?",
+    "pf.pp":"Whether the customer writes an email or sends a spreadsheet, the path is the same: proforma, packing list, approval, sent. <b>You're only the approval link.</b>",
+    "ps1.a":"1 · Customer","ps1.h":"The order arrives by email.","ps1.p":"Your customer writes the way they always do: what, how many, by when. No new form to fill in.",
+    "ps2.a":"2 · Customer","ps2.h":"Or in a spreadsheet.","ps2.p":"Product code, quantity, requested delivery date. Excel or CSV, the format doesn't matter. Hundreds of lines, and nobody types them in again.",
+    "ps3.a":"3 · AI","ps3.h":"It reads and prepares the proforma.","ps3.p":"It works out what was ordered, then checks your stock system and price list: that customer's price, with or without tax, by country. Then it fills in the proforma.",
+    "ps4.a":"4 · AI","ps4.h":"It prepares the packing list too.","ps4.p":"Ready alongside the proforma: cartons and weight. It knows your carton sizes too. You don't sell 60 from a carton of 72; it spots that and tells you.",
+    "ps5.a":"5 · You","ps5.h":"It asks: do you approve?","ps5.p":"“This email came in, this is what they want, here's the invoice.” You look it over and, if it's right, press approve. That's it.",
+    "ps6.a":"6 · You","ps6.h":"If something's off, you say so.","ps6.p":"Press edit and write what should change in a normal sentence. It prepares the proforma again and asks once more: shall I send it?",
+    "ps7.a":"7 · AI","ps7.h":"After you approve, it sends.","ps7.p":"The proforma and packing list go to the customer's inbox. Nothing goes out until you approve it.",
+    "dm.note":"Sample order. Companies and prices are examples.",
+    "dm.from":"Elif, Sample Building Supply","dm.new":"New","dm.subj":"Order: shipping by 20 December","dm.hi":"Hi, we need the following by 20 December:",
+    "dm.l1":"Wood paint 250 ml: 60 pcs","dm.l2":"Interior paint 1 L: 240 pcs","dm.l3":"Primer 2.5 L: 120 pcs","dm.end":"Could you send a proforma?",
+    "dm.file":"order.xlsx","dm.c1":"Product code","dm.c2":"Quantity","dm.c3":"Delivery","dm.dt":"20 Dec","dm.up":"Uploaded: 3 lines. Excel or CSV, either works.",
+    "dm.ch1":"Order read","dm.ch2":"Stock checked","dm.ch3":"Price pulled",
+    "dm.doc":"Proforma invoice","dm.seller":"Seller","dm.sellerv":"Sample Paints Ltd","dm.buyer":"Buyer","dm.buyerv":"Sample Building Supply","dm.term":"Delivery","dm.termv":"20 December",
+    "dm.hc":"Code","dm.hp":"Product","dm.hq":"Qty","dm.hu":"Unit","dm.ha":"Amount",
+    "dm.p1":"Wood paint 250 ml","dm.p2":"Interior paint 1 L","dm.p3":"Primer 2.5 L",
+    "dm.u1":"2.40","dm.m1":"172.80","dm.u2":"5.85","dm.m2":"1,404.00","dm.u3":"9.60","dm.u3b":"9.12","dm.m3":"1,152.00","dm.m3b":"1,094.40",
+    "dm.total":"Total","dm.t1":"2,728.80","dm.t2":"2,671.20","dm.foot":"That customer's price, excluding tax","dm.stamp":"APPROVED",
+    "dm.pk1":"Per carton","dm.pk2":"Cartons","dm.pk3":"Gross kg","dm.n2":"AB-250: 60 ordered, the carton holds 72. I rounded up to 72 for your approval.",
+    "dm.a1":"An email came in from Sample Building Supply. They want 3 items, here is the proforma: 2,728.80 USD. Do you approve?","dm.ok":"Approve","dm.edit":"Edit",
+    "dm.u":"Give them 5% off the primer.","dm.a2":"Prepared again: 2,671.20 USD. Shall I send it?",
+    "dm.sent":"Sent","dm.to":"To: elif@samplebuilding.example",
     "pg.k":"What changes","pg.h":"Before and after, document by document",
     "pf.g1":"Proforma ready in minutes, not an afternoon","pf.b1":"Before: 20 minutes per document, Excel and Word side by side",
     "pf.g2":"Price, currency, terms and product codes without typos","pf.b2":"Before: copy-paste errors the customer found",
-    "pf.g3":"Payment followed on its own","pf.b3":"Before: the “did you receive the proforma?” email",
-    "pf.g4":"Accounting and stock updated once","pf.b4":"Before: the same data typed in three places",
+    "pf.g3":"Packing list ready alongside the proforma","pf.b3":"Before: carton math in a separate file",
+    "pf.g4":"Payment follow-up, accounting and stock entries can be added","pf.b4":"Before: the same data typed in three places",
     "pf.g5":"Multi-language, multi-currency","pf.b5":"EN · DE · FR · USD · EUR · TRY",
-    "pf.you":"Every proforma waits for your approval until you say otherwise.","pf.cta":"Talk about your proforma flow",
+    "pf.you":"No proforma goes out until you approve it.","pf.cta":"Talk about your proforma flow",
     "mg.num":"03 — Store automation","mg.tag":"Amazon & Shopify",
     "mg.h2":"The system finds the product. The system runs the store.",
     "mg.p":"The system that runs our own Amazon and Shopify stores every day, built for yours: product research, risk checks, listings, price and stock, ads. Every step that spends money waits for your approval. Real order screens from the live system are on their own page.",
     "mg.cta":"See the store system",
-    "cta.k":"Which one eats your day?","cta.h":"Tell us about your business and we'll say where to start.","cta.btn":"Tell us about your business","cta.note":"The first consultation is free. No commitment.",
+    "cta.k":"Which one eats your day?","cta.btn":"Tell us about your business","cta.note":"The first consultation is free. No commitment.",
     "foot.contact":"Contact","foot.legal":"Legal","foot.lang":"Language","foot.copy":"© 2026 astra-meta LLC · Analyze. Systemize. Scale.","foot.top":"Back to top"
   }
 };
@@ -733,9 +1038,29 @@ const stages=[];
 function addStage(el,factory,cfg){ if(!el)return; const o={api:factory(el,cfg),visible:false}; stages.push(o);
   new IntersectionObserver(es=>{es.forEach(e=>{o.visible=e.isIntersecting;});},{rootMargin:'12% 0px'}).observe(el); }
 addStage($('#pipeRutin'),makePipe,{});
-addStage($('#pipeProforma'),makePipe,{});
 const t0=performance.now();
 (function loop(now){ const t=RM?0:(now-t0)/1000; stages.forEach(o=>{ if(o.visible)o.api.update(0,t); }); requestAnimationFrame(loop); })(t0);
+
+/* ── Proforma sahnesi: ekrandaki adıma göre tuvale p1..p7 (ulaşıldı) ve at1..at7 (şu an) yazar. ── */
+let pfxUpdate=null;
+(function(){
+  const box=$('#pfx');if(!box)return;
+  const canvas=$('.pfx-canvas',box),stage=$('.pfx-stage',box),items=$$('.pfx-step',box),num=$('#pfxNum'),bar=$('#pfxBar'),N=items.length;
+  let cur=0;
+  box.classList.add('js');
+  function set(n){
+    if(n===cur)return;cur=n;
+    for(let i=1;i<=N;i++){canvas.classList.toggle('p'+i,n>=i);canvas.classList.toggle('at'+i,n===i);}
+    items.forEach((s,i)=>s.classList.toggle('on',i===n-1));
+    num.textContent=n+' / '+N;bar.style.transform='scaleX('+(n/N).toFixed(3)+')';
+  }
+  pfxUpdate=()=>{
+    const stack=innerWidth<=1024,sb=stage.getBoundingClientRect().bottom,line=stack?sb+(innerHeight-sb)*.4:innerHeight*.5;
+    let n=1;
+    items.forEach((s,i)=>{const r=s.getBoundingClientRect();if(r.top+(stack?0:r.height*.2)<=line)n=i+1;});
+    set(n);
+  };
+})();
 
 /* ── Scroll: nav, progress ring, örnek adım çizgisi ── */
 const nav=$('#nav'),ringP=$('#ringP'),plist=$('#plist'),pline=$('#pline');
@@ -750,6 +1075,7 @@ function onScroll(){
     const doc=document.documentElement;
     ringP.style.strokeDashoffset=(50.27*(1-clamp(y/Math.max(1,doc.scrollHeight-innerHeight),0,1))).toFixed(2);
     if(plist&&pline){const r=plist.getBoundingClientRect();pline.style.transform='scaleY('+clamp((innerHeight*.72-r.top)/r.height,0,1).toFixed(3)+')';}
+    if(pfxUpdate)pfxUpdate();
     ticking=false;
   });
 }

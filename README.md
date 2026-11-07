@@ -18,7 +18,7 @@ sistemi: organik web sitesi + Google/Meta reklam + yapay zekâ mail) → 03 Fark
   sonra örnekler (her birinin kendi simgesi ve rengi var, `.pm-*`): 01 proforma fatura
   otomasyonu (kaydırdıkça ilerleyen `#pfx` sahnesi: mail ya da Excel, proforma, packing list, onay, düzeltme, gönderim +
   eskiden/şimdi; sayfanın ilk ekranında, bölümün başında ve sonunda çalışan demoya bağlantı: demo.astra-meta.com; ana sayfada 02 Ürün notunda da var),
-  02 rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini örneği), 03 mağaza otomasyonu (AI Otomasyon sayfasına bağlanır), 04 AI SEO Agent (`#ai-seo`: ChatGPT, Gemini, Claude önersin diye site düzenleme; rakamlar gerçek ölçüm, müşteri adı yazılmaz, garanti verilmez). Nav, footer, dil ve `makePipe` ana sayfadan kopyadır.
+  02 rutin otomasyonu ("bir talep geldiğinde" akışı + adım adım teklif rutini örneği), 03 mağaza otomasyonu (AI Otomasyon sayfasına bağlanır), 04 AI SEO Agent (`#ai-seo`: ChatGPT, Gemini, Claude önersin diye site düzenleme; rakamlar gerçek ölçüm, müşteri adı yazılmaz, garanti verilmez). 05 fatura ve banka kaydı düzenleme (`#kayit`, 2026-11-07: çok şubeli yeme içme; örnek tablo kurgusal veri ve "sample" diye işaretli, indirilebilir Excel `hizmetler/Astra-Meta-Sample-Invoices-and-Bank-2026-11-04.xlsx`; hizmet olarak anlatılır, kurulu ürün iması yok). Nav, footer, dil ve `makePipe` ana sayfadan kopyadır.
 - `ai-automation/index.html` — AI Otomasyon sayfası (Amazon + Shopify şeritleri, 2026-10-13'te ana sayfadan taşındı).
   Nav, footer, dil sistemi ve `makePipe` ana sayfadan kopyadır; ana sayfada değişirse burada da değiştir.
 - `uk/` — eski UK landing page 2026-10-13'te kaldırıldı, `uk/index.html` sadece ana sayfaya yönlendirir

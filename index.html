@@ -165,13 +165,21 @@
   .hero-orbit{position:absolute;top:50%;right:-10vw;width:min(92vw,112vh);aspect-ratio:1;--py:0px;--rot:0deg;
     transform:translateY(calc(-52% + var(--py))) rotate(var(--rot));pointer-events:none;will-change:transform}
   .hero-orbit svg{width:100%;height:100%;overflow:visible}
+  /* Hero arka plan efekti (piksel toz): canvas JS ile eklenir, bkz. betikte "Hero arka plan efekti". */
+  .hero-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.4s var(--ease)}
+  .hero-fx.on{opacity:1}
+  .hero-fx.is-pixel{image-rendering:-moz-crisp-edges;image-rendering:crisp-edges;image-rendering:pixelated}
+  .hero.fx-on .hero-lead,.hero.fx-on .hero-meta,.hero.fx-on .hero-foot{text-shadow:0 0 18px rgba(8,8,12,.95),0 0 3px rgba(8,8,12,.9)}
   .hero-grid{position:relative;z-index:1;width:100%}
   .hero-meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:22px;border-bottom:1px solid var(--line);
     opacity:0;transition:opacity 1s .1s}
   .fonts-in .hero-meta{opacity:1}
   .hero-title{font-size:clamp(62px,11vw,168px);line-height:.9;letter-spacing:-.045em;margin-top:clamp(20px,4vw,48px)}
-  .hero-title .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-  .hero-title .li{display:inline-block;transform:translateY(112%);transition:transform 1.1s var(--ease-out)}
+  /* Ö'nün noktaları ve ç'nin çengeli kırpılmasın: satır kutusu üstten ve alttan geniş, negatif marjla düzen aynı kalır.
+     Başlık flex sütun: satırların marjları birbirine karışmasın (blokta karışıp satırları açıyordu). */
+  .hero-title{display:flex;flex-direction:column}
+  .hero-title .line{display:block;overflow:hidden;padding:.2em 0 .22em;margin:-.2em 0 -.22em}
+  .hero-title .li{display:inline-block;transform:translateY(160%);transition:transform 1.1s var(--ease-out)}
   .hero-title .line:nth-child(2) .li{transition-delay:.1s}
   .hero-title .line:nth-child(3) .li{transition-delay:.2s}
   .hero-title .line:nth-child(3){padding-left:.9em}
@@ -1291,6 +1299,163 @@ addStage($('#pipeRail'),makePipe,{},()=>0);
 
 const t0=performance.now();
 (function loop(now){ const t=RM?0:(now-t0)/1000; orbits.forEach(o=>{ if(!o.visible)return; o.api.update(o.getP(),t); }); requestAnimationFrame(loop); })(t0);
+
+/* ── Hero arka plan efekti "piksel toz" (2026-11-10, patron seçti; omp.sh'den ilham, birebir değil).
+   Sol alt köşedeki pikselli yörünge halkasından toz, yıldız ve küçük robot AI ajanları kopar,
+   çapraz akıp sağdaki yörüngeye doğru gider. Yazıların arkasında kısılır; hareket azaltmada tek kare. ── */
+(function(){
+  const hero=$('#top');if(!hero)return;
+  const cv=document.createElement('canvas');cv.className='hero-fx is-pixel';cv.setAttribute('aria-hidden','true');
+  hero.insertBefore(cv,hero.firstChild);hero.classList.add('fx-on');
+  const ctx=cv.getContext('2d');
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  const sstep=(a,b,x)=>{x=clamp((x-a)/(b-a),0,1);return x*x*(3-2*x);};
+  const nz=(x,y,t)=>Math.sin(x*1.7+t)*Math.cos(y*1.3-t*.7)+.5*Math.sin(x*3.1-y*2.3+t*1.3);
+  const ptr={x:-1e4,y:-1e4};
+  /* Yazıların arkasında efekt kısılır (yumuşak kenarlı maske), okunurluk bozulmasın. */
+  const PROTECT=[['.hero-lead',.82],['.hero-meta span',.7],['.hero-foot>span',.7],['.hero-cta .btn',.6],['.hero-title .li',.4]];
+  function paintMask(m,mw,mh,sc){const c=m.getContext('2d',{willReadFrequently:true});c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,mw,mh);c.setTransform(sc,0,0,sc,0,0);c.fillStyle='#000';
+    const hr=hero.getBoundingClientRect();
+    PROTECT.forEach(function(o){const a=1-Math.pow(1-o[1],1/6);$$(o[0],hero).forEach(function(e){const r=e.getBoundingClientRect();if(!r.width||!r.height)return;
+      const x=r.left-hr.left,y=r.top-hr.top;c.globalAlpha=a;for(let i=0;i<6;i++){const p=30-i*6;c.fillRect(x-p,y-p,r.width+2*p,r.height+2*p);}});});
+    c.globalAlpha=1;return c;}
+
+  const fx=pixelDust();
+  let W=0,H=0;
+  function size(){const w=hero.clientWidth,h=hero.clientHeight;if(!w||!h||(w===W&&h===H))return;W=w;H=h;fx.resize(W,H);
+    if(RM){for(let i=0;i<240;i++)fx.step(1/30,i/30);fx.draw(8);}}
+  size();new ResizeObserver(size).observe(hero);
+  let inView=true;new IntersectionObserver(es=>{inView=es[0].isIntersecting;},{rootMargin:'10% 0px'}).observe(hero);
+  if(FINE){hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();ptr.x=e.clientX-r.left;ptr.y=e.clientY-r.top;},{passive:true});
+    hero.addEventListener('pointerleave',()=>{ptr.x=ptr.y=-1e4;});}
+  requestAnimationFrame(()=>cv.classList.add('on'));
+  if(RM)return;
+  let last=performance.now(),t=0;
+  (function frame(now){requestAnimationFrame(frame);
+    if(!inView||document.hidden){last=now;return;}
+    const dt=Math.min(.05,Math.max(0,(now-last)/1000));last=now;t+=dt;
+    fx.step(dt,t);fx.draw(t);})(last);
+
+  /* Akış yönü: sol alt köşeden sağdaki yörüngenin ortasına doğru. */
+  function flowAngle(w,h){return clamp(Math.atan2(.56*h,.78*w),.36,1.0);}
+
+  /* ── Piksel toz: düşük çözünürlükte çizilir, CSS büyütür (keskin piksel).
+     Köşede titreyen yörünge halkası; toz ve küçük robot ajanlar halkadan kopar. ── */
+  function pixelDust(){
+    let P=3,gw=1,gh=1,img=null,buf=null,th=.5,dX=1,dY=0,maxD=1,cx=0,cy=0,R=1,bw=1,A0=-1,A1=0,ring=new Float32Array(0);
+    let maxP=900,maxA=8,emit=0,nextAgent=.4,nextSpark=.3,mx=-1e4,my=-1e4,mk=new Float32Array(1),mkT=0;
+    const mc=document.createElement('canvas');
+    const parts=[],agents=[],sparks=[];
+    const WH=[243,243,248],PK=[237,58,162],CY=[79,195,222],DK=[8,8,12];
+    const BY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5].map(v=>(v+.5)/16);
+    const ROBOT=['...a...','...#...','.#####.','##o#o##','.#####.','..#.#..'];
+    const mix=(a,b,k)=>[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k];
+    function px(x,y,c,a){x=x|0;y=y|0;if(x<0||y<0||x>=gw||y>=gh||a<=.01)return;const i=y*gw+x,A=Math.min(255,a*mk[i]*255)|0;
+      if((buf[i]>>>24)>=A)return;buf[i]=((A<<24)|((c[2]|0)<<16)|((c[1]|0)<<8)|(c[0]|0))>>>0;}
+    function put(x,y,c,a){x=x|0;y=y|0;if(x<0||y<0||x>=gw||y>=gh)return;const A=Math.min(255,a*Math.max(.5,mk[y*gw+x])*255)|0;
+      buf[y*gw+x]=((A<<24)|((c[2]|0)<<16)|((c[1]|0)<<8)|(c[0]|0))>>>0;}
+    function resize(w,h){
+      P=w<760?2:3;gw=Math.max(1,Math.ceil(w/P));gh=Math.max(1,Math.ceil(h/P));
+      cv.width=gw;cv.height=gh;img=ctx.createImageData(gw,gh);buf=new Uint32Array(img.data.buffer);
+      mc.width=gw;mc.height=gh;mk=new Float32Array(gw*gh).fill(1);mkT=0;
+      th=flowAngle(w,h);dX=Math.cos(th);dY=-Math.sin(th);
+      maxD=Math.hypot(gw*.8,gh*.62);
+      R=clamp(Math.min(gw,gh)*.55,60,340);bw=Math.max(2.2,R*.036);
+      cx=-R*.3;cy=gh+R*.25;
+      A0=-Math.acos(clamp(-cx/R,-1,1));A1=Math.asin(clamp((gh-cy)/R,-1,1));
+      maxP=Math.round(clamp(gw*gh/115,350,2200));maxA=Math.round(clamp(gw*gh/11000,7,18));
+      const L=[],pad=bw*7,x1=Math.min(gw-1,Math.ceil(cx+R+pad)),y0=Math.max(0,Math.floor(cy-R-pad));
+      for(let y=y0;y<gh;y++)for(let x=0;x<=x1;x++){
+        const d=Math.hypot(x-cx,y-cy),e=(d-R)/bw;
+        let I=Math.exp(-e*e*.8);
+        I=e>0?Math.max(I,.5*Math.exp(-e*.5)):Math.max(I,.07*Math.exp(e*.08));
+        if(I<.035)continue;
+        const k=clamp((Math.atan2(y-cy,x-cx)-A0)/(A1-A0),0,1);
+        const c=mix(mix(PK,CY,k),WH,Math.abs(e)<.45?.45:0);
+        L.push(x,y,I,c[0],c[1],c[2],Math.random()*6.283);
+      }
+      ring=Float32Array.from(L);
+      /* boyut değişince eski parçacıklar yeni ölçüye taşınmaz, temizlenir */
+      parts.length=0;agents.length=0;sparks.length=0;
+    }
+    function arcPoint(spread,off){const f=clamp(-th+spread,A0+.04,A1-.04),r=R+off;return {f,x:cx+Math.cos(f)*r,y:cy+Math.sin(f)*r};}
+    function spawnP(x,y,f,kick){
+      const fast=Math.random()<.1,s=fast?rnd(48,80):rnd(12,44);
+      const r=Math.random(),c=r<.72?WH:(r<.86?PK:CY);
+      parts.push({x,y,x0:x,y0:y,nx:Math.cos(f),ny:Math.sin(f),vx:Math.cos(f)*kick,vy:Math.sin(f)*kick,s,age:0,
+        life:clamp(maxD/s*rnd(.55,1.05),3,16),c,a:c===WH?rnd(.45,1):rnd(.65,1),big:Math.random()<.06,sp:rnd(-.2,.2),ph:rnd(0,6.28)});
+    }
+    function spawnAgent(){
+      const p=arcPoint(rnd(-.62,.62),bw*.3),body=Math.random()<.5?CY:PK;
+      agents.push({bx:p.x,by:p.y,x:p.x,y:p.y,f:p.f,age:0,hold:rnd(.55,1.1),sp:rnd(24,58),amp:rnd(2,5),w:rnd(1.2,2.2),ph:rnd(0,6.28),
+        body,ant:body===CY?PK:CY,trail:[],blinkAt:rnd(.8,2.5),gone:false,out:0,burst:false});
+    }
+    function upMask(){const d=paintMask(mc,gw,gh,1/P).getImageData(0,0,gw,gh).data;for(let i=0,j=3;i<mk.length;i++,j+=4)mk[i]=1-d[j]/255;}
+    function step(dt,t){
+      mkT-=dt;if(mkT<=0){mkT=1.5;upMask();}
+      mx=ptr.x/P;my=ptr.y/P;
+      const life0=10,rate=maxP/life0*(t<2.5?2.4:1);
+      emit+=rate*dt;
+      while(emit>=1){emit-=1;if(parts.length>=maxP)break;const p=arcPoint(rnd(-.55,.55)*(Math.random()<.5?1:.5),bw*rnd(-.4,2.6));spawnP(p.x,p.y,p.f,rnd(6,16));}
+      for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.age+=dt;
+        if(p.age>p.life||p.x>gw+4||p.y<-4){parts[i]=parts[parts.length-1];parts.pop();continue;}
+        const ramp=sstep(0,1.1,p.age),a=th+p.sp+.32*nz(p.x/gw*3,p.y/gh*3,t*.15);
+        const tx=Math.cos(a)*p.s*(.2+.8*ramp)+p.nx*p.s*.35*(1-ramp),ty=-Math.sin(a)*p.s*(.2+.8*ramp)+p.ny*p.s*.35*(1-ramp);
+        const k=Math.min(1,dt*1.8);p.vx+=(tx-p.vx)*k;p.vy+=(ty-p.vy)*k;
+        const ddx=p.x-mx,ddy=p.y-my,d2=ddx*ddx+ddy*ddy;
+        if(d2<900&&d2>.01){const d=Math.sqrt(d2),f=(1-d/30)*260*dt;p.vx+=ddx/d*f;p.vy+=ddy/d*f;}
+        p.x+=p.vx*dt;p.y+=p.vy*dt;}
+      nextSpark-=dt;
+      if(nextSpark<=0&&sparks.length<(gw<300?6:12)){nextSpark=rnd(.15,.45);
+        const u=rnd(.12,.85),o=rnd(-1,1)*(.05+.2*u)*maxD,m=arcPoint(0,0);
+        sparks.push({x:m.x+dX*u*maxD-dY*o,y:m.y+dY*u*maxD+dX*o,age:0,life:rnd(1.2,2.2),c:Math.random()<.6?WH:(Math.random()<.5?PK:CY),u});}
+      for(let i=sparks.length-1;i>=0;i--){const s=sparks[i];s.age+=dt;s.x+=dX*8*dt;s.y+=dY*8*dt;if(s.age>s.life)sparks.splice(i,1);}
+      nextAgent-=dt;
+      if(nextAgent<=0&&agents.length<maxA){nextAgent=rnd(.35,.9);spawnAgent();if(Math.random()<.3&&agents.length<maxA)spawnAgent();}
+      for(let i=agents.length-1;i>=0;i--){const g=agents[i];g.age+=dt;
+        if(g.age>g.hold){
+          if(!g.burst){g.burst=true;for(let j=0;j<14;j++){const f=g.f+rnd(-.9,.9);spawnP(g.bx+rnd(-2,2),g.by+rnd(-2,2),f,rnd(14,34));}}
+          const v=g.sp*sstep(g.hold,g.hold+1.1,g.age);g.bx+=dX*v*dt;g.by+=dY*v*dt;}
+        const wv=g.age>g.hold?Math.sin((g.age-g.hold)*g.w+g.ph)*g.amp:0;
+        g.x=g.bx-dY*wv;g.y=g.by+dX*wv;
+        const lt=g.trail[g.trail.length-1];
+        if(!lt||Math.abs(lt[0]-Math.round(g.x))+Math.abs(lt[1]-Math.round(g.y))>=1){g.trail.push([Math.round(g.x),Math.round(g.y)]);if(g.trail.length>26)g.trail.shift();}
+        const trav=Math.hypot(g.bx-cx,g.by-cy)-R;
+        g.out=sstep(maxD*.62,maxD*.8,trav);
+        if(g.out>=1||g.x>gw+10||g.y<-10)agents.splice(i,1);}
+    }
+    function draw(t){
+      const intro=sstep(.1,1.6,t);
+      buf.fill(0);
+      for(let j=0;j<ring.length;j+=7){const x=ring[j],y=ring[j+1];
+        const fl=.8+.2*Math.sin(t*1.7+ring[j+6])+.16*Math.sin(t*.55+x*.07-y*.05);
+        const v=ring[j+2]*fl*intro;
+        if(v<BY[(x&3)+((y&3)<<2)])continue;
+        const i=y*gw+x,A=Math.min(.85,.26+v*.7)*mk[i]*255|0;if((buf[i]>>>24)>=A)continue;
+        buf[i]=((A<<24)|((ring[j+5]|0)<<16)|((ring[j+4]|0)<<8)|(ring[j+3]|0))>>>0;}
+      for(let i=0;i<sparks.length;i++){const s=sparks[i],e=Math.sin(Math.PI*s.age/s.life),L=Math.round(e*(s.u>.4?3:2)),a=e*.95*intro;
+        const x=Math.round(s.x),y=Math.round(s.y);px(x,y,WH,a);
+        for(let k=1;k<=L;k++){const ak=a*(1-k/(L+1));px(x+k,y,s.c,ak);px(x-k,y,s.c,ak);px(x,y+k,s.c,ak);px(x,y-k,s.c,ak);}}
+      for(let i=0;i<parts.length;i++){const p=parts[i];
+        const trav=Math.hypot(p.x-p.x0,p.y-p.y0)/maxD;
+        const a=p.a*intro*sstep(0,.5,p.age)*(1-sstep(p.life*.7,p.life,p.age))*(1-sstep(.5,1,trav))*(.72+.28*Math.sin(t*3+p.ph));
+        px(p.x,p.y,p.c,a);if(p.big){px(p.x+1,p.y,p.c,a);px(p.x,p.y+1,p.c,a);px(p.x+1,p.y+1,p.c,a);}}
+      for(let i=0;i<agents.length;i++){const g=agents[i],fade=(1-g.out)*intro;
+        if(g.age>g.hold){const n=g.trail.length;for(let k=0;k<n-4;k++){const tr=g.trail[k];px(tr[0],tr[1],g.body,(k/n)*.6*fade);}}
+        const mat=sstep(0,g.hold,g.age),blink=((g.age+g.blinkAt)%3.2)<.14;
+        const jx=g.age<g.hold?Math.round(rnd(-.6,.6)):0;
+        const ox=Math.round(g.x)-3+jx,oy=Math.round(g.y)-3;
+        for(let r=0;r<ROBOT.length;r++){const row=ROBOT[r];for(let c=0;c<row.length;c++){const ch=row[c];if(ch==='.')continue;
+          const hsh=((r*7+c)*7919%97)/97;if(hsh>mat)continue;
+          if(ch==='#')put(ox+c,oy+r,g.body,.95*fade);
+          else if(ch==='o')put(ox+c,oy+r,blink?g.body:DK,fade);
+          else put(ox+c,oy+r,g.ant,(.6+.4*Math.sin(t*6+g.ph))*fade);}}}
+      ctx.putImageData(img,0,0);
+    }
+    return {resize,step,draw};
+  }
+
+})();
 
 /* ── Step activation (viewport-centre) ── */
 const steps=$$('.step');

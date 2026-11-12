@@ -297,6 +297,31 @@
   .pipe-node p{font-size:14px;line-height:1.5;color:var(--muted);max-width:24ch}
   .pipe-seg{position:absolute;left:calc(50% + 14px);top:-58px;transform:translateX(-50%);white-space:nowrap;font-size:10px;color:var(--dim)}
 
+
+  /* Proforma: üç aşama (siteden teklif, bayinin siparişi 2a ve 2b, ERP). Çizgi bölüm görününce soldan dolar. */
+  .pf-stages{margin-bottom:clamp(56px,8vw,120px)}
+  .stg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,3vw,44px);border-top:1px solid var(--line)}
+  .stg>li{position:relative;min-width:0;display:flex;flex-direction:column;align-items:flex-start;padding-top:28px}
+  .stg>li::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:linear-gradient(90deg,var(--pa),var(--pb));transform:scaleX(0);transform-origin:left;transition:transform 1.2s var(--ease-out)}
+  .pf-stages.in .stg>li::before{transform:scaleX(1)}
+  .pf-stages.in .stg>li:nth-child(2)::before{transition-delay:.3s}
+  .pf-stages.in .stg>li:nth-child(3)::before{transition-delay:.6s}
+  .stg-n{font-family:var(--fd);font-weight:700;font-size:clamp(44px,4.6vw,68px);line-height:.85;letter-spacing:-.04em;background:linear-gradient(140deg,var(--pa),var(--pb));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px}
+  .stg h4{font-family:var(--fd);font-weight:500;font-size:clamp(20px,1.8vw,26px);letter-spacing:-.02em;line-height:1.15;margin-bottom:12px}
+  .stg p{color:var(--muted);font-size:15.5px;line-height:1.55}
+  .stg p.stg-note{margin-top:12px;color:var(--text);font-size:14.5px}
+  .stg>li>.stg-go{margin-top:18px;border-bottom:0}
+  .stg>li>.stg-go span:first-child{border-bottom:1px solid var(--line-3);transition:border-color .25s}
+  .stg>li>.stg-go:hover span:first-child{border-color:var(--pa)}
+  .stg-sub{display:grid;grid-template-columns:30px minmax(0,1fr);gap:0 12px;width:100%;padding:16px 0;border-top:1px solid var(--line)}
+  .stg-sub:first-of-type{border-top:0;padding-top:0}
+  .stg-sub b{font-size:12px;color:var(--pa);padding-top:4px}
+  .stg-sub p,.stg-sub .stg-go{grid-column:2}
+  .stg-go{display:inline-flex;align-items:baseline;gap:8px;margin-top:12px;padding-bottom:2px;font-size:14.5px;font-weight:500;color:var(--text);border-bottom:1px solid var(--line-3);transition:color .25s,border-color .25s}
+  .stg-sub .stg-go{justify-self:start}
+  .stg-go .arr{color:var(--pa)}
+  .stg-go:hover{color:var(--pa);border-color:var(--pa)}
+
   /* ── Adım adım örnek (ana sayfadaki süreç listesiyle aynı dil) ── */
   .ex{margin-top:clamp(56px,8vw,120px);padding-top:clamp(40px,5vw,72px);border-top:1px solid var(--line)}
   .plist{position:relative;border-top:1px solid var(--line)}
@@ -510,6 +535,9 @@
     .pf-acts{width:100%}
     .pf-try .btn{width:100%}
     .how{grid-template-columns:1fr;gap:0}
+    .stg{grid-template-columns:1fr}
+    .stg>li{padding:24px 0 30px}
+    .stg h4{max-width:none}
     .how li{padding:22px 0;border-bottom:1px solid var(--line)}
     .how p{max-width:none}
     .svc-lead .btn{width:100%}
@@ -534,12 +562,12 @@
     html{scroll-behavior:auto}
     .rv,.split .wi,.ch-head .ch-line,.menu-links a,.ai-fill{transition:none!important;opacity:1!important;transform:none!important}
     .pipe-node.hit .pipe-dot{animation:none!important}
-    .pipe-rail::before,.pline{transform:none!important}
+    .pipe-rail::before,.pline,.stg>li::before{transform:none!important;transition:none!important}
     .nav{transition:none}
     .pfx-canvas *,.pfx-step{transition:none!important;animation:none!important}
   }
 </style>
-<noscript><style>.rv{opacity:1;transform:none}.ch-head .ch-line{transform:none}.pline{transform:none}.ai-fill{transform:none}</style></noscript>
+<noscript><style>.rv{opacity:1;transform:none}.ch-head .ch-line{transform:none}.pline{transform:none}.ai-fill{transform:none}.stg>li::before{transform:none}</style></noscript>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -654,6 +682,36 @@
           <span class="pf-try-note" data-i18n="pf.demoNote">Runs on sample data. No sign up. Three demos inside: website quotes, a dealer portal connected to a real ERP, and the proforma desk.</span>
         </div>
       </div>
+    </div>
+    <div class="pf-stages rv">
+      <div class="pipe-head">
+        <div>
+          <span class="mono" data-i18n="st.k">Three stages · Built one at a time</span>
+          <h3 data-i18n="st.h">From the first quote to your ERP</h3>
+        </div>
+        <p data-i18n-html="st.p">Each stage works on its own. You start where you are today and add the next one when you need it. <b>No order moves on until someone approves it.</b></p>
+      </div>
+      <ol class="stg">
+        <li>
+          <span class="stg-n" aria-hidden="true">1</span>
+          <h4 data-i18n="st.t1">Quotes from your website</h4>
+          <p data-i18n="st.p1">Your customer picks products on your site, leaves a name and phone number, and sees the priced quote right away, on screen and as a PDF. The quote reaches you with their details.</p>
+          <a class="stg-go" data-demo="" href="https://demo.astra-meta.com/" target="_blank" rel="noopener"><span data-i18n="st.g1">Try it in the demo</span><span class="arr">→</span></a>
+        </li>
+        <li>
+          <span class="stg-n" aria-hidden="true">2</span>
+          <h4 data-i18n="st.t2">The dealer's order reaches you</h4>
+          <div class="stg-sub"><b class="mono">2a</b><p data-i18n="st.p2a">The dealer logs in to their own screen and uploads the order in Excel: product code or barcode, quantity, requested date. Prices come from their own list. If the date doesn't fit production, they see the earliest date that does. They check it, approve it, and the order passes to you.</p><a class="stg-go" data-demo="bayi" href="https://demo.astra-meta.com/#bayi" target="_blank" rel="noopener"><span data-i18n="st.g2a">Try the dealer portal</span><span class="arr">→</span></a></div>
+          <div class="stg-sub"><b class="mono">2b</b><p data-i18n="st.p2b">The order arrives by email or as a spreadsheet. AI reads it and prepares the proforma and packing list; you approve. Step by step below.</p><a class="stg-go" data-demo="masa" href="https://demo.astra-meta.com/#masa" target="_blank" rel="noopener"><span data-i18n="st.g2b">Try the proforma desk</span><span class="arr">→</span></a></div>
+        </li>
+        <li>
+          <span class="stg-n" aria-hidden="true">3</span>
+          <h4 data-i18n="st.t3">The order lands in your ERP</h4>
+          <p data-i18n="st.p3">The approved order becomes a sales order in your ERP. Shipping, production and purchasing follow your ERP's own steps; nobody types the order in again. Every company works its own way, so this stage is built around yours.</p>
+          <p class="stg-note" data-i18n="st.n3">The dealer portal in the demo is connected to a real ERP (Odoo).</p>
+          <a class="stg-go" data-demo="bayi" href="https://demo.astra-meta.com/#bayi" target="_blank" rel="noopener"><span data-i18n="st.g3">See what the ERP does</span><span class="arr">→</span></a>
+        </li>
+      </ol>
     </div>
     <div class="pfx-wrap">
       <div class="pipe-head rv">
@@ -1017,6 +1075,7 @@ const I18N={
     "pf.num":"01 — Proforma fatura otomasyonu","pf.tag":"Sipariş → proforma → onay → gönderim",
     "pf.h2":"Sipariş gelir, proforma hazır olur, sen onaya basarsın.",
     "pf.p":"İhracatçı ve toptancıda işi bağlayan belge proformadır: yanlış kur, eksik vade ya da bir günlük gecikme siparişi götürür. Yapay zekâ siparişi okur, stoğa ve fiyat listene bakar, proformayı ve packing list'i hazırlar. Sen bakarsın, onaylarsın, kendisi gönderir.",
+    "st.k":"Üç aşama · Birer birer kurulur","st.h":"İlk tekliften ERP'ye kadar","st.p":"Her aşama tek başına çalışır. Bugün neredeysen oradan başlarsın, gerekince sonrakini eklersin. <b>Biri onaylamadan hiçbir sipariş ilerlemez.</b>","st.t1":"Siteden teklif","st.p1":"Müşterin sitende ürünleri seçer, adını ve telefonunu bırakır, fiyatlı teklifi hemen ekranda ve PDF olarak görür. Teklif, müşterinin bilgileriyle sana gelir.","st.g1":"Demoda dene","st.t2":"Bayinin siparişi sana geçer","st.p2a":"Bayi kendi ekranına girer, siparişini Excel ile yükler: ürün kodu ya da barkod, adet, istediği tarih. Fiyat ona özel listeden gelir. Tarih üretime yetmiyorsa en erken tarihi görür. Kontrol edip onaylar, sipariş sana geçer.","st.g2a":"Bayi portalını dene","st.p2b":"Sipariş mailden ya da Excel ile gelir. Yapay zekâ okur, proformayı ve packing list'i hazırlar, sen onaylarsın. Aşağıda adım adım.","st.g2b":"Proforma masasını dene","st.t3":"Sipariş ERP'ne düşer","st.p3":"Onaylanan sipariş ERP'nde satış siparişi olur. Sevk, üretim ve satın alma ERP'nin kendi adımlarıyla açılır; kimse siparişi yeniden yazmaz. Her firmanın işleyişi farklıdır, bu aşama senin ERP'ne göre kurulur.","st.n3":"Demodaki bayi portalı gerçek bir ERP'ye (Odoo) bağlı.","st.g3":"ERP'de ne olduğunu gör",
     "pf.k":"Akış · Siparişten gönderime","pf.h":"Bir sipariş geldiğinde ne olur?",
     "pf.pp":"Müşteri mail yazsın ya da Excel göndersin, yol aynı: proforma, packing list, onay, gönderim. <b>Sen yalnızca onay halkasısın.</b>",
     "ps1.a":"1 · Müşteri","ps1.h":"Sipariş mailden gelir.","ps1.p":"Müşterin her zamanki gibi yazar: ne istediğini, kaç adet, ne zamana. Yeni bir form doldurmaz.",
@@ -1160,6 +1219,7 @@ const I18N={
     "pf.num":"01 — Proforma invoice automation","pf.tag":"Order → proforma → approval → sent",
     "pf.h2":"The order comes in, the proforma gets ready, you press approve.",
     "pf.p":"For exporters and wholesalers the proforma is the document that closes the deal: a wrong currency, a missing payment term or a day's delay costs the order. AI reads the order, checks your stock and price list, and prepares the proforma and packing list. You look it over and approve; it sends.",
+    "st.k":"Three stages · Built one at a time","st.h":"From the first quote to your ERP","st.p":"Each stage works on its own. You start where you are today and add the next one when you need it. <b>No order moves on until someone approves it.</b>","st.t1":"Quotes from your website","st.p1":"Your customer picks products on your site, leaves a name and phone number, and sees the priced quote right away, on screen and as a PDF. The quote reaches you with their details.","st.g1":"Try it in the demo","st.t2":"The dealer's order reaches you","st.p2a":"The dealer logs in to their own screen and uploads the order in Excel: product code or barcode, quantity, requested date. Prices come from their own list. If the date doesn't fit production, they see the earliest date that does. They check it, approve it, and the order passes to you.","st.g2a":"Try the dealer portal","st.p2b":"The order arrives by email or as a spreadsheet. AI reads it and prepares the proforma and packing list; you approve. Step by step below.","st.g2b":"Try the proforma desk","st.t3":"The order lands in your ERP","st.p3":"The approved order becomes a sales order in your ERP. Shipping, production and purchasing follow your ERP's own steps; nobody types the order in again. Every company works its own way, so this stage is built around yours.","st.n3":"The dealer portal in the demo is connected to a real ERP (Odoo).","st.g3":"See what the ERP does",
     "pf.k":"The flow · From order to sent","pf.h":"What happens when an order comes in?",
     "pf.pp":"Whether the customer writes an email or sends a spreadsheet, the path is the same: proforma, packing list, approval, sent. <b>You're only the approval link.</b>",
     "ps1.a":"1 · Customer","ps1.h":"The order arrives by email.","ps1.p":"Your customer writes the way they always do: what, how many, by when. No new form to fill in.",
@@ -1290,7 +1350,7 @@ function applyLang(lang,persist){
   const md=$('meta[name="description"]');if(md&&d["meta.desc"])md.content=d["meta.desc"];
   $$('.lang-wrap').forEach(w=>{w.dataset.cur=lang;const c=w.querySelector('.lang-code');if(c)c.textContent=lang.toUpperCase();w.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-selected',b.dataset.lang===lang?'true':'false'));});
   $$('.lang-text').forEach(b=>b.style.color=b.dataset.lang===lang?'var(--text)':'');
-  $$('[data-demo]').forEach(a=>{a.href='https://demo.astra-meta.com/?lang='+lang;});
+  $$('[data-demo]').forEach(a=>{a.href='https://demo.astra-meta.com/?lang='+lang+(a.dataset.demo?'#'+a.dataset.demo:'');});
   if(persist){try{localStorage.setItem('astra_lang',lang);}catch(e){}}
   splitAll(); observeAll();
 }
